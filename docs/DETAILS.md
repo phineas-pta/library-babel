@@ -32,12 +32,16 @@ the number of (unique) books in the library is now <code>320<sup>1 312 000</sup>
 
 the above value would require `1 312 000 × log(320) / log(10) ≈ 3 286 726` digits in base-10
 
-convention: space character is the zero of base-1377, i don’t care about base-320
+3 millions digits is 3× bigger than original concept, but modern computers can easily crunching billions of digits
+
+e.g. the General Multi-Precision (GMP) arithmetic program can theoretically process 1.29 billion digits on 32-bit system, and up to 41.37 billion decimal digits on 64-bit system given enough RAM and time
 
 ## coding
 
 accelerate base conversion for very big number, see: https://zwyx.dev/blog/base-conversions-with-big-numbers-in-javascript
 
 *bonus*: multi-thread base conversion: https://github.com/taylordotfish/fastconv
+
+convention: space character is the zero of base-1377, i don’t care about base-320
 
 i don’t reverse book index order like in @zwyx ’s original code
