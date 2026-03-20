@@ -1,0 +1,25 @@
+[project]
+name = "library-babel"
+authors = [{name = "PTA"}]
+version = "0.0.1"
+description = "a customized Python CLI version of @zwyx ’s Library of Babel"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+classifiers = [
+	"Operating System :: OS Independent",
+	"Environment :: Console",
+	"License :: OSI Approved :: MIT License",
+	"Intended Audience :: Science/Research",
+	"Programming Language :: Python :: 3 :: Only",
+	"Topic :: Religion",
+	"Topic :: Scientific/Engineering :: Mathematics",
+]
+requires-python = ">= 3.8"
+dependencies = [
+	"gmpy2",
+	"pyicu",
+]
+
+[project.urls]
+Repository = "https://github.com/phineas-pta/library-babel"
