@@ -2,6 +2,8 @@
 
 a customized Python CLI version of @zwyx ’s Library of Babel
 
+for personal fun and also coding challenge
+
 see [ABOUT](docs/ABOUT.md) for more details about my discovery journey
 
 see [DETAILS](docs/DETAILS.md) for technical details about this implementation
@@ -15,7 +17,7 @@ see [DETAILS](docs/DETAILS.md) for technical details about this implementation
 
 **usage**:
 ```bash
-python main --help
+python main.py --help
 ```
 
 **TODO** (not in any order):

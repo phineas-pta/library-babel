@@ -4,7 +4,7 @@
 list of all characters to be used in book index,
 basically windows alt codes except control characters
 """
-BOOK_INDEX_CHARACTERS = [
+BOOK_INDEX_CHARACTERS = (
 	"!",
 	'"',
 	"#",
@@ -325,7 +325,7 @@ BOOK_INDEX_CHARACTERS = [
 	"♦︎",
 	"♪",
 	"♫",
-]
+)
 
 assert len(BOOK_INDEX_CHARACTERS) == 320, "BOOK_INDEX_CHARACTERS should contain exactly 320 characters"
 
@@ -358,14 +358,15 @@ _UNICODE_LATIN_RANGE = [
 list of all characters to be used in book content,
 basically Unicode Latin script except punctuation, symbol and control characters
 """
-BOOK_CONTENT_CHARACTERS = [chr(32)] # space character as 1st character because it is removed in the loop below
+_tmp = [chr(32)] # space character as 1st character because it is removed in the loop below
 for code_point in _UNICODE_LATIN_RANGE:
 	char = chr(code_point)
 	if char.isprintable() and char.isalnum():
-		BOOK_CONTENT_CHARACTERS.append(char)
+		_tmp.append(char)
+BOOK_CONTENT_CHARACTERS = tuple(_tmp)
 
 # with open("book_content_characters.txt", "w", encoding="utf-8") as f:
 # 	for char in BOOK_CONTENT_CHARACTERS:
 # 		f.write(char + "\n")
 
-assert len(BOOK_CONTENT_CHARACTERS) == 1377, "BOOK_CONTENT_CHARACTERS should contain exactly 1439 characters"
+assert len(BOOK_CONTENT_CHARACTERS) == 1377, "BOOK_CONTENT_CHARACTERS should contain exactly 1377 characters"

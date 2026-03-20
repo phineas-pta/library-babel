@@ -33,3 +33,11 @@ the number of (unique) books in the library is now <code>320<sup>1 312 000</sup>
 the above value would require `1 312 000 × log(320) / log(10) ≈ 3 286 726` digits in base-10
 
 convention: space character is the zero of base-1377, i don’t care about base-320
+
+## coding
+
+accelerate base conversion for very big number, see: https://zwyx.dev/blog/base-conversions-with-big-numbers-in-javascript
+
+*bonus*: multi-thread base conversion: https://github.com/taylordotfish/fastconv
+
+i don’t reverse book index order like in @zwyx ’s original code
