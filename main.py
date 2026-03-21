@@ -3,7 +3,9 @@
 
 import argparse
 
-from my_babel_py import BOOK_INDEX_CHARACTERS, BOOK_CONTENT_CHARACTERS, str2int, int2str, transliterate
+from my_babel_py.core.char import BOOK_INDEX_CHARACTERS, BOOK_CONTENT_CHARACTERS
+from my_babel_py.core.base import str2int, int2str
+from my_babel_py.core.translit import transliterate
 
 print("Hello world!")
-print(transliterate("Café Αλφτάλογος ,,,..:+=- 165 𐄇 $$ 師利言:\n以而有此瑞,神通相。  ɐɑɒɓɔɕɖɗ ᴀᴁᴂᴃᴄᴅᴆᴇᴈᴉ   ᶀᶁᶂᶃᶄ   ₀₁₂₃₄₅₆ ⅀⅁⅂⅃⅄ⅅ ⅠⅡⅢⅣⅤⅥ  ﬀﬁﬂﬃﬄ ＠ＡＢＣＤＥ"))
+print(transliterate("Café Αλφτ	άλογος ,,,..:+=- 165 <a>fee</a> 𐄇 $$ 師利言:\n以而瑞,神通相。  ɐɑɒɓɖɗ ᴀᴁᴂᴆᴇᴈᴉ  सेनगुप्त  ᶀᶁᶂᶃᶄ   ₀₁₂₅₆ ⅀⅁⅂⅃⅄ⅅ ⅠⅡⅣⅤⅥ  ﬀﬁﬃﬄ ＠ＡＤＥ"))

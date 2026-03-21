@@ -13,6 +13,7 @@ see [DETAILS](docs/2-DETAILS.md) for technical details about this implementation
 this program is STILL INTENDED FOR PYTHON DEVELOPPERS: dependencies installation isn’t trivial
 
 ## credits
+
 - this program is built upon https://github.com/zwyx/library-of-babel
 - also partially inspired from https://github.com/tdjsnelling/babel
 - don’t forget the original work of https://github.com/librarianofbabel/libraryofbabel.info-algo
@@ -41,9 +42,11 @@ u may want to replace `gmpy2` with python native `int`
 
 ## TODO
 
-(not in any order)
+(not in any particular order)
 
-- [ ] better user interface: text / graphical / web
+- [ ] find better way to deal with punctuation & symbol: i can keep them in transliteration but don’t how to properly retrieve all unicode characters
 - [ ] TXT / PDF output
+- [ ] input support for computer language: programming, markup, data, etc.
+- [ ] better user interface: text / graphical / web
 - [ ] research how to leverage GPU to crunch much bigger number and batch processing
 - [ ] Julia verion ?

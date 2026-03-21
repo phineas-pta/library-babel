@@ -2,7 +2,7 @@
 
 ## 1.1. Origin
 
-“The Library of Babel” (Spanish: *La biblioteca de Babel*) is a short story by Argentine author and librarian Jorge Luis Borges (1899–1986), see wikipedia: https://en.wikipedia.org/wiki/The_Library_of_Babel
+“The Library of Babel” (Spanish: *La biblioteca de Babel*) is a short story by Argentine author and librarian Jorge Luis Borges (1899–1986), see: https://en.wikipedia.org/wiki/The_Library_of_Babel
 
 An infinite library contains books containing every possible ordering of every character / glyph / grapheme
 

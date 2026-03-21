@@ -18,6 +18,11 @@ after many trial-and-error, i decided the simplest way is just **remove punctuat
 
 it isn’t perfect as some symbols have meanings but i would need to deep dive into Unicode docs to figure out how to do it better
 
+i find it the middle way
+
+**i also won’t deal with emoji, it got too much bloated in my opinion**<br />
+kaomoji is much better, but i need to figure out a better way to deal with punctuation
+
 so my version of Library of Babel would be books containing 1377 Latin characters, see https://en.wikipedia.org/wiki/Latin_script_in_Unicode but remove all punctuation characters
 
 book index is a character string containing 320 Latin characters, which is the number of characters i can type using U.S. keyboard layout on Windows, see https://en.wikipedia.org/wiki/Alt_code but only CP850 + CP1252
