@@ -1,12 +1,33 @@
 # -*- coding: utf-8 -*-
 
-"""
-base conversion functions
-based on https://zwyx.dev/blog/base-conversions-with-big-numbers-in-javascript
-"""
+import icu
+from gmpy2 import mpz
+from .cste import BOOK_CONTENT_CHARACTERS, CHARS_PER_BOOK, ZERO_CHAR
 
-from gmpy2 import mpz # more efficient computation of large integers
+###############################################################################
+# romanization = transliteration to latin alphabet
+# references:
+# - https://unicode-org.github.io/icu/userguide/transforms/general/
+# - https://unicode-org.github.io/icu/userguide/strings/unicodeset.html
+# - https://www.unicode.org/reports/tr44/#General_Category_Values
+# - https://www.unicode.org/charts/
 
+_TRANSLITERATOR = icu.Transliterator.createFromRules("random-label", " ".join([
+	":: Latin;", # romanization, must use `::` see icu syntax
+	":: NFKC;", # combine diacritics and remove ligatures
+	# romatization cannot transform all non-latin characters, so we need to manually deal with the leftover:
+	"[[:^Latin:]&[:^Decimal_Number:]] > ' ';", # replace with blankspace instead of remove to avoid concatenating words together
+	":: Null;", # splits the rules into 2 “passes”: 1st pass applies above rules, 2nd pass applies below rules
+	"' ' {' '} > ;", # collapse multiple spaces into one space
+]))
+# DRAFT: to keep all punctations: "[[:^Latin:]&[:^Decimal_Number:]&[:^Symbol:]&[:^Punctuation:]]"
+# difficulty is to retrieve all unicode characters in that range in python
+
+transliterate = _TRANSLITERATOR.transliterate
+
+###############################################################################
+# base conversion functions
+# based on https://zwyx.dev/blog/base-conversions-with-big-numbers-in-javascript
 
 def str2int(text: str, alphabet: list[str]) -> mpz:
 	"""converts a sequence of base-b digits to an integer in base-10, where b is the length of the alphabet"""

@@ -29,8 +29,10 @@ this program is STILL INTENDED FOR PYTHON DEVELOPPERS: dependencies installation
 ## usage
 
 ```bash
-python main.py --help
+python main.py --input-txt docs/3-EXTRA.md --save-book-txt-path draft/output.txt
 ```
+
+**recommendation**: use a modern monospace file to properly render all characters, like `JuliaMono`, `Fira Code`, `Iosevka`, *etc.*
 
 ## licensing
 

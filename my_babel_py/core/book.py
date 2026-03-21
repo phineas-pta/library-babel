@@ -4,9 +4,10 @@
 book and properties
 """
 
-from gmp2 import mpz
-from core.cste import BOOK_INDEX_CHARACTERS, BOOK_CONTENT_CHARACTERS, SHELVES_PER_WALL, BOOKS_PER_SHELF, BOOKS_PER_ROOM
-from core.base import str2int, int2str
+from gmpy2 import mpz # for typing only
+from .cste import BOOK_INDEX_CHARACTERS, BOOK_CONTENT_CHARACTERS, SHELVES_PER_WALL, BOOKS_PER_SHELF, BOOKS_PER_ROOM
+from .utils import str2int, int2str
+
 
 class Book:
 
@@ -19,7 +20,7 @@ class Book:
 			self._raw_int = str2int(content, BOOK_CONTENT_CHARACTERS)
 		else:
 			raise ValueError("provide exactly one of raw_int, index or content")
-		# index and content generated lazily when requested
+		# index and content generated lazily when requested, because they are strings so take more memory than the raw integer
 
 		# find the room and position of the book in the room
 		self._room_id, _remainder       = divmod(self._raw_int, BOOKS_PER_ROOM) # remainder is always less than BOOKS_PER_ROOM
@@ -39,6 +40,17 @@ class Book:
 	def content(self) -> str:
 		"""return book content = integer in base-1377"""
 		return int2str(self._raw_int, BOOK_CONTENT_CHARACTERS)
+
+	def __str__(self) -> str:
+		return "\n\t".join([
+			"Book(",
+			f"index='{self.index[:80]}',",
+			f"content='{self.content[:80]}',",
+			f"room_id={self.room_id % 10**80},", # last 80 digits of room_id
+			f"wall_id={self.wall_id},",
+			f"shelf_id={self.shelf_id},",
+			f"book_in_shelf={self.book_in_shelf}",
+		]) + "\n)\n"
 
 	@property
 	def room_id(self) -> mpz:
