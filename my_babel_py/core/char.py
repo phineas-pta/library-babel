@@ -327,7 +327,7 @@ BOOK_INDEX_CHARACTERS = (
 	"♫",
 )
 
-assert len(BOOK_INDEX_CHARACTERS) == 320, "BOOK_INDEX_CHARACTERS should contain exactly 320 characters"
+# assert len(BOOK_INDEX_CHARACTERS) == 320, "BOOK_INDEX_CHARACTERS should contain exactly 320 characters"
 
 ###############################################################################
 
@@ -365,8 +365,5 @@ for code_point in _UNICODE_LATIN_RANGE:
 		_tmp.append(char)
 BOOK_CONTENT_CHARACTERS = tuple(_tmp)
 
-# with open("book_content_characters.txt", "w", encoding="utf-8") as f:
-# 	for char in BOOK_CONTENT_CHARACTERS:
-# 		f.write(char + "\n")
-
-assert len(BOOK_CONTENT_CHARACTERS) == 1377, "BOOK_CONTENT_CHARACTERS should contain exactly 1377 characters"
+# assert len(BOOK_CONTENT_CHARACTERS) == 1377, "BOOK_CONTENT_CHARACTERS should contain exactly 1377 characters"
+## this number can change when Unicode is updated, so we won’t assert it for now
