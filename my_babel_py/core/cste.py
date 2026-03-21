@@ -1,6 +1,27 @@
 # -*- coding: utf-8 -*-
 
 """
+some constants used in the project
+"""
+
+# values fixed by Borges
+WALLS_PER_ROOM   = 4
+SHELVES_PER_WALL = 5
+BOOKS_PER_SHELF  = 32
+PAGES_PER_BOOK   = 410
+LINES_PER_PAGE   = 40
+CHARS_PER_LINE   = 80
+
+# inferred values
+CHARS_PER_PAGE = LINES_PER_PAGE * CHARS_PER_LINE # 3200
+CHARS_PER_BOOK = CHARS_PER_PAGE * PAGES_PER_BOOK # 1 312 000
+BOOKS_PER_ROOM = WALLS_PER_ROOM * SHELVES_PER_WALL * BOOKS_PER_SHELF # 640
+
+ZERO_CHAR = chr(32) # the character representing 0 in base-1377, which is the space character
+
+###############################################################################
+
+"""
 list of all characters to be used in book index,
 basically windows alt codes except control characters
 """
@@ -358,7 +379,7 @@ _UNICODE_LATIN_RANGE = [
 list of all characters to be used in book content,
 basically Unicode Latin script except punctuation, symbol and control characters
 """
-_tmp = [chr(32)] # space character as 1st character because it is removed in the loop below
+_tmp = [ZERO_CHAR] # space character as 1st character because it is removed in the loop below
 for code_point in _UNICODE_LATIN_RANGE:
 	char = chr(code_point)
 	if char.isprintable() and char.isalnum():

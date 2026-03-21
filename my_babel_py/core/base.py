@@ -5,12 +5,11 @@ base conversion functions
 based on https://zwyx.dev/blog/base-conversions-with-big-numbers-in-javascript
 """
 
-from gmpy2 import get_context, mpz # more efficient computation of large integers
-_ctx = get_context()
+from gmpy2 import mpz # more efficient computation of large integers
 
 
 def str2int(text: str, alphabet: list[str]) -> mpz:
-	"""converts a sequence of base-b digits to an integer, where b is the length of the alphabet"""
+	"""converts a sequence of base-b digits to an integer in base-10, where b is the length of the alphabet"""
 	assert len(set(alphabet)) == len(alphabet), "alphabet must not contain duplicate characters"
 
 	base = len(alphabet)
@@ -44,7 +43,7 @@ def str2int(text: str, alphabet: list[str]) -> mpz:
 
 
 def int2str(value: mpz, alphabet: list[str]) -> str:
-	"""converts an integer to a sequence of base-b digits, where b is the length of the alphabet"""
+	"""converts an integer in base-10 to a sequence of base-b digits, where b is the length of the alphabet"""
 	assert len(set(alphabet)) == len(alphabet), "alphabet must not contain duplicate characters"
 
 	if value == 0:
@@ -63,7 +62,7 @@ def int2str(value: mpz, alphabet: list[str]) -> str:
 
 	def divide(dividend: mpz, divisor_index: mpz) -> None:
 		divisor = divisors[divisor_index]
-		new_dividend, remainder = _ctx.divmod(dividend, divisor)
+		new_dividend, remainder = divmod(dividend, divisor)
 
 		# Note: To build left-to-right efficiently in Python, we process the quotient first, then the remainder, and append to the list
 		if divisor_index > 0:

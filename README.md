@@ -44,9 +44,9 @@ u may want to replace `gmpy2` with python native `int`
 
 (not in any particular order)
 
-- [ ] find better way to deal with punctuation & symbol: i can keep them in transliteration but don’t how to properly retrieve all unicode characters
+- [ ] find better way to deal with punctuation & symbols: i can keep them in transliteration but don’t how to properly retrieve all unicode characters
 - [ ] TXT / PDF output
-- [ ] input support for computer language: programming, markup, data, etc.
+- [ ] input support for computer language: programming, markup, data, *etc.*
 - [ ] better user interface: text / graphical / web
 - [ ] research how to leverage GPU to crunch much bigger number and batch processing
 - [ ] Julia verion ?
