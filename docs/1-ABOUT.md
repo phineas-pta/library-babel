@@ -28,17 +28,17 @@ I got introduced to that work by in 2021 a friend who was a Portuguese psychiatr
 
 ![drawing of the library of Babel’s hexagon pattern by R-Chan](https://libraryofbabel.info/img/hexes2.jpg)
 
-there’re $410 \times 40 \times 80 = 1\ 312\ 000$ characters per book, and the number of (unique) books in the library is therefore $29^{1\ 312\ 000}$
+there’re $410\times40\times80 = 1\ 312\ 000$ characters per book, and the number of (unique) books in the library is therefore $29^{1\ 312\ 000}$
 
-the above value would require $\log_{10}(29^{1\ 312\ 000}) = 1\ 312\ 000 \times \log_{10}(29) \approx 1\ 918\ 667$ so almost 2 millions digits in base-10
+the above value would require $\log_{10}\left(29^{1\ 312\ 000}\right) = 1\ 312\ 000\times\log_{10}(29) \approx 1\ 918\ 667$ so almost 2 millions digits in base-10
 
 with the current human capabilities, **it is not possible to generate or store all books physically or digitally**
 
-besides, there’re $4 × 5 × 32 = 640$ books per room, therefore the number of (unique) rooms in the library is $29^{1\ 312\ 000} \div 640 \approx 2.32 \times 10^{1\ 918\ 663}$, only 0.01% less than the number of (unique) books
+besides, there’re $4\times5\times32 = 640$ books per room, therefore the number of (unique) rooms in the library is $29^{1\ 312\ 000} \div 640 \approx 2.32 \times 10^{1\ 918\ 663}$, only 0.01% less than the number of (unique) books
 
-there’re also $40 × 80 = 3200$ characters per page, and the number of (unique) pages in the library is $29^{3\ 200}$, therefore there’s at LEAST one duplicate for every page, and if my math is correct: in an ideal case each page is duplicated $29^{1\ 312 \ 000} \div 29^{3\ 200} = 29^{1\ 308\ 800}$ times
+there’re also $40\times80 = 3200$ characters per page, and the number of (unique) pages in the library is $29^{3\ 200}$, therefore there’s at LEAST one duplicate for every page, and if my math is correct: in an ideal case each page is duplicated $29^{1\ 312 \ 000} \div 29^{3\ 200} = 29^{1\ 308\ 800}$ times
 
-the value of number of (unique) pages would require $\log_{10}(29^{3\ 200}) = 3\ 200 \times \log_{10}(29) \approx 4\ 680$ digits in base-10
+the value of number of (unique) pages would require $\log_{10}\left(29^{3\ 200}\right) = 3\ 200 \times \log_{10}(29) \approx 4\ 680$ digits in base-10
 
 ![](https://github.com/tdjsnelling/babel/blob/master/src/public/image/mucha-2.png)
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import icu
+from icu import Transliterator
 from gmpy2 import mpz
 
 ###############################################################################
@@ -11,7 +11,7 @@ from gmpy2 import mpz
 # - https://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt
 # - https://www.unicode.org/charts/
 
-_TRANSLITERATOR = icu.Transliterator.createFromRules("random-label", " ".join([
+_TRANSLITERATOR = Transliterator.createFromRules("random-label", " ".join([
 	":: Latin;", # romanization, must use `::` see icu syntax
 	":: NFKC;", # combine diacritics and remove ligatures
 	# romanization cannot transform all non-latin characters, so we need to manually deal with the leftover:
@@ -28,7 +28,6 @@ transliterate = _TRANSLITERATOR.transliterate
 
 def str2int(text: str, alphabet: list[str]) -> mpz:
 	"""converts a sequence of base-b digits to an integer in base-10, where b is the length of the alphabet"""
-	assert len(set(alphabet)) == len(alphabet), "alphabet must not contain duplicate characters"
 
 	base = len(alphabet)
 	parts = [
@@ -62,7 +61,6 @@ def str2int(text: str, alphabet: list[str]) -> mpz:
 
 def int2str(value: mpz, alphabet: list[str]) -> str:
 	"""converts an integer in base-10 to a sequence of base-b digits, where b is the length of the alphabet"""
-	assert len(set(alphabet)) == len(alphabet), "alphabet must not contain duplicate characters"
 
 	if value == 0:
 		return alphabet[0]

@@ -5,7 +5,7 @@ book and properties
 """
 
 from gmpy2 import mpz # for typing only
-from .cste import BOOK_INDEX_CHARACTERS, BOOK_CONTENT_CHARACTERS, SHELVES_PER_WALL, BOOKS_PER_SHELF, BOOKS_PER_ROOM
+from .cste import BOOK_INDEX_CHARACTERS, BOOK_CONTENT_CHARACTERS, BYTE_HEX, SHELVES_PER_WALL, BOOKS_PER_SHELF, BOOKS_PER_ROOM
 from .utils import str2int, int2str
 
 
@@ -34,28 +34,30 @@ class Book:
 
 	@property
 	def index(self) -> str:
-		"""return book index = integer in base-320"""
+		"""return book index = integer in base-149625"""
 		return int2str(self._raw_int, BOOK_INDEX_CHARACTERS)
 
 	@property
 	def content(self) -> str:
-		"""return book content = integer in base-1377"""
+		"""return book content = integer in base-8131"""
 		return int2str(self._raw_int, BOOK_CONTENT_CHARACTERS)
 
 	def __str__(self) -> str:
+		"""for debugging only"""
 		return "\n\t".join([
 			"Book(",
-			f"index='{self.index[:80]}',",
-			f"content='{self.content[:80]}',",
-			f"room_id={self.room_id % 10**80},", # last 80 digits of room_id
+			f"index='{self.index[:5]}',",
+			f"content='{self.content[:5]}',",
+			f"room_id={self.room_id[:5]},",
 			f"wall_id={self.wall_id},",
 			f"shelf_id={self.shelf_id},",
 			f"book_in_shelf={self.book_in_shelf}",
 		]) + "\n)\n"
 
 	@property
-	def room_id(self) -> mpz:
-		return self._room_id
+	def room_id(self) -> str:
+		"""room id will be also encoded to base-149625 like book id"""
+		return int2str(self._room_id, BOOK_INDEX_CHARACTERS)
 
 	@property
 	def wall_id(self) -> mpz:
@@ -68,3 +70,16 @@ class Book:
 	@property
 	def book_in_shelf(self) -> mpz:
 		return self._book_in_shelf
+
+	@property
+	def img_array(self) -> list[list[int, int, int, int]]:
+		"""return the content of the book as a list of RGBA colors, each color is a tuple of 4 integers in range(256)"""
+		tmp = int2str(self._room_id, BYTE_HEX)
+		img_array = []
+		for i in range(0, len(tmp), 8): # 4 colors × 2 hex characters per color = 8 characters
+			pixel_color = []
+			for j in range(0, 8, 2): # 2 hex characters per color
+				color = int(tmp[(i+j):(i+j+2)], base=16) # convert hex to int
+				pixel_color.append(color)
+			img_array.append(pixel_color)
+		return img_array

@@ -39,7 +39,7 @@ Unicode provides a library to deal with characters, including better translitera
 but the output is not satisfying: some language-specific punctuation / number characters get through and not transliterated to ASCII punctuation / number<br />
 also let’s not forget about emoji
 
-after many trial-and-error, i decided the simplest way is: keep punctuation & symbols in all languages but remove all emoji<br />
+after many trial-and-error, i decided the simplest way is: keep punctuation & symbols in latin and remove all emoji<br />
 *N.B.*: i think emoji is too over-bloated, kaomoji is much better `(/≧▽≦)/`
 
 so my version of Library of Babel would be books containing combinations of 8131 Latin characters
@@ -54,7 +54,7 @@ book content is an integer in base-8131, book index is the same integer but in b
 
 the number of (unique) books in the library is now $8\ 131^{1\ 312\ 000}$
 
-the above value would require $\log_{10}(8\ 131^{1\ 312\ 000}) = 1\ 312\ 000 \times \log_{10}(8\ 131) \approx 5\ 130\ 109$ digits in base-10
+the above value would require $\log_{10}\left(8\ 131^{1\ 312\ 000}\right) = 1\ 312\ 000\times\log_{10}(8\ 131) \approx 5\ 130\ 109$ digits in base-10
 
 5 millions digits is much bigger than original concept (3.2 millions order of magnitude bigger), but modern computers can easily crunching billions of digits
 
@@ -66,13 +66,15 @@ book content can also be converted to image, each digit is now a pixel, using RG
 
 example: 1 pixel can have value `00 00 00 ff` meaning red=0, green=0, blue=0, alpha=255
 
-so the book content would require $1\ 312\ 000 \times \log_{4\ 294\ 967\ 296}(8\ 131) \approx 532\ 558$ pixels (*i.e.* digits in base-256⁴)
+so the book content would require $1\ 312\ 000\times\log_{4\ 294\ 967\ 296}(8\ 131) \approx 532\ 558$ pixels (*i.e.* digits in base-256⁴)
 
-an image with resolution 730×730 px would be enough to hold a book content (342px too many)
+an image with resolution 730×730 px would be enough to hold a book content (so extra 342px)
 
 there’re 640 books per room, so if we can take the integer value of book content in base-10 divide by 640, the quotient will be room id, the remainder can be map to the position of the book in that room, *e.g.*:
 - `remainder = 0`: 1st wall, 1st shelf, 1st book in shelf
 - `remainder = 639`: 4th wall, 5th shelf, 32nd book in shelf
+
+room id will be also encoded to base-149625 like book id
 
 ![permutations of the possible hexagrams from the I Ching](https://libraryofbabel.info/img/hexagrams.jpg)
 

@@ -30,18 +30,21 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
   - windows wheels can be downloaded from: https://github.com/cgohlke/pyicu-build/releases
   - linux need `libicu-dev` or the like
   - mac need `icu4c`
+- `pillow` to process image
 
 ![the Tower of Babel by Pieter Bruegel the Elder](https://libraryofbabel.info/img/tower.jpg)
 
 ## usage
 
 ```bash
-python main.py --input-txt docs/3-EXTRA.md --save-book-txt-path draft/output.txt
+python main.py --input-txt docs/3-EXTRA.md --save-book-content-to-txt draft/book-1.txt --save-book-content-to-img draft/book-1.png
 ```
 
-computing 1 book would take ~5s on my computer
+on my computer, process a book take ~5s, then save to `.png` take ~2s
 
 RECOMMENDATION: use a modern monospace file to properly render all characters, like `JuliaMono`, `Fira Code`, `Iosevka`, *etc.*
+
+**extra**: u want to generate books in your language without latin characters ? edit `BOOK_CONTENT_CHARACTERS` in file [`cste.py`](my_babel_py/core/cste.py) to your liking
 
 ## licensing
 
@@ -55,8 +58,8 @@ i use `gmpy2` because i expect to process numbers with millions of digits, but n
 
 (not in any particular order)
 
-- [ ] TXT / PDF output
-- [ ] input support for computer language: programming, markup, data, *etc.*
+- [ ] TXT / PNG / PDF input / output
+- [ ] verify the number of characters filtered: 8131 in book content, 149625 in book id
 - [ ] better user interface: text / graphical / web
 - [ ] research how to leverage GPU to crunch much bigger number and batch processing
 - [ ] Julia version ?

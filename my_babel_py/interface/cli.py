@@ -10,6 +10,13 @@ import argparse
 
 def cli():
 	parser = argparse.ArgumentParser(description="My Babel CLI")
-	parser.add_argument("--input-txt")
-	parser.add_argument("--save-book-txt-path")
+
+	txt_grp = parser.add_argument_group("text file arguments")
+	txt_grp.add_argument("--input-txt")
+	txt_grp.add_argument("--save-book-content-to-txt")
+	txt_grp.add_argument("--save-book-position-to-txt")
+
+	img_grp = parser.add_argument_group("image file arguments")
+	img_grp.add_argument("--save-book-content-to-img")
+
 	return parser.parse_args()
