@@ -8,7 +8,7 @@ from ..core.book import Book # for typing only
 from ..core.cste import CHARS_PER_LINE, CHARS_PER_PAGE
 
 
-def save_txt(book: Book, filename: str) -> None:
+def save_book_content(book: Book, filename: str) -> None:
 	"""save the content of the book to a txt file"""
 	with open(filename, "w", encoding="utf-8") as f:
 		tmp = book.content # save the content to a temporary variable to avoid repeatedly re-computing it

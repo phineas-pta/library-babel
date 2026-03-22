@@ -10,7 +10,7 @@ An infinite library contains books containing every possible ordering of every c
 
 Though the vast majority of the books in this universe are pure gibberish, the laws of probability dictate that the library also must contain, somewhere, every coherent book ever written, or that might ever be written, and every possible permutation or slightly erroneous version of every one of those books.
 
-I got introduced to that work by in 2021 a friend who was a Portuguese psychiatric nurse. This concept is both beautiful and overwhelming, **in constrast to the incomprehensibility and helplessness in Howard Phillips Lovecraft’s cosmic horror**. Now in 2026 i got better math & coding skills to be able to make my own program (slightly LLM-assisted but not vibe coding by any mean)
+I got introduced to that work by in 2021 a friend who was a Portuguese psychiatric nurse. This concept is both beautiful and overwhelming, **in contrast to the incomprehensibility and helplessness in Howard Phillips Lovecraft’s cosmic horror**. Now in 2026 i got better math & coding skills to be able to make my own program (slightly LLM-assisted but not vibe coding by any mean)
 
 *bonus*: from a math point-of-view, the precursor to this story is “The Universal Library” (German: “Die Universalbibliothek”) a short story by German science-fiction writer Kurd Laßwitz, it has approximately same order of magnitude
 
@@ -28,23 +28,35 @@ I got introduced to that work by in 2021 a friend who was a Portuguese psychiatr
 
 ![drawing of the library of Babel’s hexagon pattern by R-Chan](https://libraryofbabel.info/img/hexes2.jpg)
 
-there’re `410 × 40 × 80 = 1 312 000` characters per book, and the number of (unique) books in the library is therefore `29¹³¹²⁰⁰⁰`
+there’re $410 \times 40 \times 80 = 1\ 312\ 000$ characters per book, and the number of (unique) books in the library is therefore $29^{1\ 312\ 000}$
 
-the above value would require `log₁₀(29¹³¹²⁰⁰⁰) = 1 312 000 × log₁₀(29) ≈ 1 918 667` so almost 2 millions digits in base-10
+the above value would require $\log_{10}(29^{1\ 312\ 000}) = 1\ 312\ 000 \times \log_{10}(29) \approx 1\ 918\ 667$ so almost 2 millions digits in base-10
 
 with the current human capabilities, **it is not possible to generate or store all books physically or digitally**
 
-besides, there’re `4 × 5 × 32 = 640` books per room, therefore the number of (unique) rooms in the library is `29¹³¹²⁰⁰⁰ ÷ 640 ≈ 2.32×10¹⁹¹⁸⁶⁶³`, only 0.01% less than the number of (unique) books
+besides, there’re $4 × 5 × 32 = 640$ books per room, therefore the number of (unique) rooms in the library is $29^{1\ 312\ 000} \div 640 \approx 2.32 \times 10^{1\ 918\ 663}$, only 0.01% less than the number of (unique) books
 
-there’re also `40 × 80 = 3200` characters per page, and the number of (unique) pages in the library is `29³²⁰⁰`, therefore there’s at LEAST one duplicate for every page, and if my math is correct: in an ideal case each page is duplicated `29¹³¹²⁰⁰⁰ ÷ 29³²⁰⁰ = 29¹³⁰⁰⁸⁸⁰⁰` times
+there’re also $40 × 80 = 3200$ characters per page, and the number of (unique) pages in the library is $29^{3\ 200}$, therefore there’s at LEAST one duplicate for every page, and if my math is correct: in an ideal case each page is duplicated $29^{1\ 312 \ 000} \div 29^{3\ 200} = 29^{1\ 308\ 800}$ times
 
-the value of number of (unique) pages would require `log₁₀(29³²⁰⁰) = 3200 × log₁₀(29) ≈ 4680` digits in base-10
+the value of number of (unique) pages would require $\log_{10}(29^{3\ 200}) = 3\ 200 \times \log_{10}(29) \approx 4\ 680$ digits in base-10
 
 ![](https://github.com/tdjsnelling/babel/blob/master/src/public/image/mucha-2.png)
 
 ## 1.2. Digital recreations
 
-### 1.2.1. using (pseudo) ramdom number generator
+as stated above, generate and save all books to be retrieved is impossible
+
+since it’s a library, there must be some sort of library classification system, *e.g.* Dewey decimal system
+
+so the clever idea is come up with an identification system / algorithm that can accept any text as input and give the book index as output
+
+the algorithm must also be invertible, *i.e.* given a book index, return the book content that match the text we want
+
+from a math standpoint, that algorithm must be therefore bijective: book content and book index must be 1-to-1 match
+
+so now the book content / index can be generated on-the-fly on-demand
+
+### 1.2.1. using (pseudo) random number generator
 
 the most popular is the website by Jonathan Basile: https://libraryofbabel.info/ there you can also find the technical details and various of Basile’s writings, which are also worth reading
 
@@ -57,37 +69,37 @@ various Python implementations exist:
 - https://github.com/cakenggt/Library-Of-Pybel/blob/master/library_of_babel.py
 - https://github.com/louis-e/LibraryOfBabel-Python/blob/main/main.py
 
-there’re also implementations in many programming languges: Go, Rust, *etc.*
+there’re also implementations in many programming languages: Go, Rust, *etc.*
 
 technical read: https://www.reddit.com/r/BabelForum/comments/vph7p3/a_long_dive_into_the_algorithm_some_math_stupid/
 
-![an illustration of the Library of Babel by Erik Desmazieres: veritiginous shelves surround a central chasm, while librarians carry each other piggy-back across wooden planks](https://libraryofbabel.info/img/desmazierescolor.jpg)
+![an illustration of the Library of Babel by Erik Desmazieres: vertiginous shelves surround a central chasm, while librarians carry each other piggy-back across wooden planks](https://libraryofbabel.info/img/desmazierescolor.jpg)
 
 #### 1.2.1.1. technical details
 
-as stated above, generate and save all books to be retrieved is impossible
-
-the clever trick is:
-- book content is randomly generated on-the-fly based on a book index
-- text search is a reverse random-generator to find the book index from text
-
-the algorithm is usually LCG (linear congruential generator) because it’s invertible (therefore bijectivity)
+the algorithm is usually a LCG (linear congruential generator) because it’s invertible (therefore bijectivity)
 
 the search text is padded to 3200 characters (*i.e.* 1 page) using spaces or random characters
 
-that string is now a number in base-29, keep this for later
+that string is now a number in base-29
 
-book index is usually in the form `ROOM.WALL.SHELF.BOOK.PAGE` where: `WALL` is an integer 1-4, `SHELF` is an integer 1-5, `BOOK` is an integer 01-32, `PAGE` is an integer 001-410, while `ROOM` can be alphanumeric with nearly unlimited length to represent a base-32 or base-36 integer
+page search seem to be easier, because book search involves crunching an enormous number, *cf.* the math above: page search involve computing 5000-digit numbers meanwhile book search is computing 2million-digit numbers
 
-the book index is converted to base-10 integer then put through a random-generator to get a very big number (1 918 667 digits in base-10) that can be converted to 1 312 000 digits in base-29
+the program take that number in base-29, convert to base-10 (so ~5000 digits), the algorithm take that number and randomly generate another number in the same order of magnitude, the result is the page index
 
-the random-generator must be reversible, *i.e.* we put the search text (base-29 integer) and get bok index
+page index is converted to the form `ROOM.WALL.SHELF.BOOK.PAGE` where: `WALL` is an integer 1-4, `SHELF` is an integer 1-5, `BOOK` is an integer 01-32, `PAGE` is an integer 001-410, while `ROOM` can be alphanumeric with nearly unlimited length using a base-32 or base-36 integer
+
+from page index we can basically get book index
+
+the reverse process is obvious: the algorithm takes page index and return the page containing the text we want
 
 **i got lost with advanced math at this point**, just know that it works!
 
-as a non-native english speaker, i’ve always wanted Unicode-based solutions for multi-language support, but the math complexity is a significant barrier for me
+the shortcomings if of course text query length: 3200 characters max or 1 page ; librarians search books not pages! also the pages got duplicated a lot (*cf.* the math above)
 
-![Archimboldi’s Librarian, a trompe-l’œil painting of a human form composed of books](https://libraryofbabel.info/img/bookman2.jpg)
+on another hand, as a non-native english speaker, i’ve always wanted Unicode-based solutions for multi-language support, but the math complexity is a significant barrier for me
+
+![from Erik Desmazieres’s illustrations of the library of babel: librarians comb through endlessly receding shelves of books beneath a hexagonal skylight](https://libraryofbabel.info/img/desmazieres5.jpg)
 
 ### 1.2.2. no random at all
 
@@ -105,20 +117,21 @@ it’s a completely different approach without any randomness: every book every 
 
 i cannot explain it better, just see the details on https://babel.zwyx.dev/?about
 
-the book content is a base-29 integer with 1 312 000 digits, and the book index is simply the same integer converted to base-94 (94 because of 95 printable characters in the 1t ASCII code page excluding the space)
+the author can actually do a full book search instead of page search
+
+the book content is a base-29 integer with 1 312 000 digits, and the book index is simply the same integer converted to base-94 (94 because of 95 printable characters in the first ASCII code page excluding the space)
+
+the advantage of base-94 is the book index is a string that 49% shorter than the string of that integer in base-10: $1 - \log_{94}(10) \approx 0.49$<br />
+but comparing to the the string of book content in base-29: only 26% shorter $1 - \log_{94}(29) \approx 0.26$
 
 the author goes even further with convert that integer to image, basically base-256⁴: a digit is now a pixel in the RGBA color system
 
-**my wish for multi-language support is now somewhat do-able**
+**the math is so much simpler that i could write my own program and then add multi-language support**
 
-initially, i intended to develop this in Julia, a language i’m currently exploring due to its long-term potential ; however, given the current lack of mature dependencies, i have opted to use Python for this implementation to ensure stability
-
-i also lack design skill to make a beautiful web interface, so i won’t use Javascript
-
-see [DETAILS](2-DETAILS.md) for technical details about this implementation
+see [DETAILS](2-DETAILS.md) for technical details about my program
 
 ### 1.3. go beyond text
 
 i also found some versions of Library of Babel for image and music with the same philosophy behind; very worth exploring in the future if i have time
 
-![from Erik Desmazieres’s illustrations of the library of babel: librarians comb through endlessly receding shelves of books beneath a hexagonal skylight](https://libraryofbabel.info/img/desmazieres5.jpg)
+![Archimboldi’s Librarian, a trompe-l’œil painting of a human form composed of books](https://libraryofbabel.info/img/bookman2.jpg)

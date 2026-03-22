@@ -3,7 +3,7 @@
 
 from my_babel_py.find import find_semi_empty_book
 from my_babel_py.interface.cli import cli
-from my_babel_py.output.txt import save_txt
+from my_babel_py.output.txt import save_book_content
 
 
 if __name__ == "__main__":
@@ -13,4 +13,4 @@ if __name__ == "__main__":
 		txt = f.read()
 	book = find_semi_empty_book(txt)[0]
 	print(book)
-	save_txt(book, args.save_book_txt_path)
+	save_book_content(book, args.save_book_txt_path)

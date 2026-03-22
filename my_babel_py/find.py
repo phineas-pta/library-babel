@@ -4,13 +4,12 @@
 find book given a string
 """
 
-from gmpy2 import mpz # for typing only
 from .core.cste import BOOK_CONTENT_CHARACTERS, CHARS_PER_BOOK, ZERO_CHAR
 from .core.utils import transliterate, str2int
 from .core.book import Book
 
 
-def find_semi_empty_book(query: str) -> tuple[mpz]:
+def find_semi_empty_book(query: str) -> tuple[Book]:
 	"""
 	if the search text is shorter than the number of characters per book,
 	then the beginning of the book will contain the search text, and the rest of the book will be blank (filled with ZERO_CHAR)

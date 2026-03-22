@@ -1,10 +1,13 @@
 # 3. extra stuff
 
+> [!IMPORTANT]
+> this file is used for testing, u may not find anything useful here
+
 ## 3.1. testing romanization
 
 given this string:
 ```
-Café Αλφτ	άλογος ,,,..:+=- 165 <a>fee</a> 𐄇 $$ 師利言:\n以而瑞,神通相。  ɐɑɒɓɖɗ ᴀᴁᴂᴆᴇᴈᴉ  सेनगुप्त  ᶀᶁᶂᶃᶄ   ₀₁₂₅₆ ⅀⅁⅂⅃⅄ⅅ ⅠⅡⅣⅤⅥ  ﬀﬁﬃﬄ ＠ＡＤＥ
+Café Αλφτ	άλογος ,,😘,..🙄:+=- 165 <a>fee</a> 𐄇 $$ 師利言:\n以而瑞,神通相。  ɐɑɒɓɖɗ ᴀᴁᴂᴆᴇᴈᴉ  सेनगुप्त  ᶀᶁᶂᶃᶄ   ₀₁₂₅₆ ⅀⅁⅂⅃⅄ⅅ ⅠⅡⅣⅤⅥ  ﬀﬁﬃﬄ ＠ＡＤＥ
 ```
 
 `unidecode` output:
@@ -14,10 +17,8 @@ Cafe Alphtalogos ,,,..:+=- 165 <a>fee</a> ?? $$ Shi Li Yan :\nYi Er Rui ,Shen To
 
 ICU romanization + NFKC normalization:
 ```
-Café Alpht      álogos ,,,..:+=- 165 <a>fee</a> 𐄇 $$ shī lì yán: yǐ ér ruì, shén tōng xiāng.  ɐɑɒɓɖɗ ᴀᴁᴂᴆᴇᴈᴉ  sēnagupta  ᶀᶁᶂᶃᶄ   01256 ∑⅁⅂⅃⅄D IIIIVVVI  fffiffiffl @ADE
+Café Alpht      álogos ,,😘,..🙄:+=- 165 <a>fee</a> 𐄇 $$ shī lì yán: yǐ ér ruì, shén tōng xiāng.  ɐɑɒɓɖɗ ᴀᴁᴂᴆᴇᴈᴉ  sēnagupta  ᶀᶁᶂᶃᶄ   01256 ∑⅁⅂⅃⅄D IIIIVVVI  fffiffiffl @ADE
 ```
-
-i can keep punctuation & symbols in transliteration but don’t how to properly retrieve all unicode characters, so in the end i just get rid of them entirely
 
 ## 3.2. essays
 

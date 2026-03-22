@@ -12,7 +12,7 @@ see [ABOUT](docs/1-ABOUT.md) for more details about my discovery journey
 
 see [DETAILS](docs/2-DETAILS.md) for technical details about this implementation
 
-this program is STILL INTENDED FOR PYTHON DEVELOPPERS: dependencies installation isn’t trivial
+this program is STILL INTENDED FOR PYTHON DEVELOPERS: dependencies installation isn’t trivial for end users
 
 ## credits
 
@@ -24,7 +24,7 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
 
 ## dependencies
 
-- penultimate Python version recommended (3.13 at the time of writing)
+- penultimate stable version of Python recommended (3.13 at the time of writing)
 - General Multi-Precision (GMP) arithmetic: `gmpy2`: to crunch very big number
 - International Components for Unicode (ICU): `pyicu`: to deal with unicode inputs
   - windows wheels can be downloaded from: https://github.com/cgohlke/pyicu-build/releases
@@ -39,11 +39,13 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
 python main.py --input-txt docs/3-EXTRA.md --save-book-txt-path draft/output.txt
 ```
 
-RECOMMANDATION: use a modern monospace file to properly render all characters, like `JuliaMono`, `Fira Code`, `Iosevka`, *etc.*
+computing 1 book would take ~5s on my computer
+
+RECOMMENDATION: use a modern monospace file to properly render all characters, like `JuliaMono`, `Fira Code`, `Iosevka`, *etc.*
 
 ## licensing
 
-eventhough this program is under MIT, it uses `GMP` which is under GPLv3
+even though this program is under MIT, it uses `GMP` which is under GPLv3
 
 if u want GPL-free, u have to replace `gmpy2` with python native `int`
 
@@ -53,11 +55,10 @@ i use `gmpy2` because i expect to process numbers with millions of digits, but n
 
 (not in any particular order)
 
-- [ ] find better way to deal with punctuation & symbols: i can keep them in transliteration but don’t how to properly retrieve all unicode characters
 - [ ] TXT / PDF output
 - [ ] input support for computer language: programming, markup, data, *etc.*
 - [ ] better user interface: text / graphical / web
 - [ ] research how to leverage GPU to crunch much bigger number and batch processing
-- [ ] Julia verion ?
+- [ ] Julia version ?
 
 ![](https://github.com/tdjsnelling/babel/blob/master/src/public/image/shelves.png)

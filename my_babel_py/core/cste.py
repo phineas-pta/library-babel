@@ -4,6 +4,9 @@
 some constants used in the project
 """
 
+from sys import maxunicode
+from icu import UnicodeSet
+
 # values fixed by Borges
 WALLS_PER_ROOM   = 4
 SHELVES_PER_WALL = 5
@@ -17,374 +20,37 @@ CHARS_PER_PAGE = LINES_PER_PAGE * CHARS_PER_LINE # 3200
 CHARS_PER_BOOK = CHARS_PER_PAGE * PAGES_PER_BOOK # 1 312 000
 BOOKS_PER_ROOM = WALLS_PER_ROOM * SHELVES_PER_WALL * BOOKS_PER_SHELF # 640
 
-ZERO_CHAR = chr(32) # the character representing 0 in base-1377, which is the space character
+ZERO_CHAR = chr(32) # space character representing 0
 
 ###############################################################################
-
-"""
-list of all characters to be used in book index,
-basically windows alt codes except control characters
-"""
-BOOK_INDEX_CHARACTERS = (
-	"!",
-	'"',
-	"#",
-	"$",
-	"%",
-	"&",
-	"'",
-	"(",
-	")",
-	"*",
-	"+",
-	",",
-	"-",
-	".",
-	"/",
-	"0",
-	"1",
-	"2",
-	"3",
-	"4",
-	"5",
-	"6",
-	"7",
-	"8",
-	"9",
-	":",
-	";",
-	"<",
-	"=",
-	">",
-	"?",
-	"@",
-	"[",
-	"\\",
-	"]",
-	"^",
-	"_",
-	"`",
-	"A",
-	"a",
-	"B",
-	"b",
-	"C",
-	"c",
-	"D",
-	"d",
-	"E",
-	"e",
-	"F",
-	"f",
-	"G",
-	"g",
-	"H",
-	"h",
-	"I",
-	"i",
-	"J",
-	"j",
-	"K",
-	"k",
-	"L",
-	"l",
-	"M",
-	"m",
-	"N",
-	"n",
-	"O",
-	"o",
-	"P",
-	"p",
-	"Q",
-	"q",
-	"R",
-	"r",
-	"S",
-	"s",
-	"T",
-	"t",
-	"U",
-	"u",
-	"V",
-	"v",
-	"W",
-	"w",
-	"X",
-	"x",
-	"Y",
-	"y",
-	"Z",
-	"z",
-	"{",
-	"|",
-	"}",
-	"~",
-	"¡",
-	"¢",
-	"£",
-	"¤",
-	"¥",
-	"¦",
-	"§",
-	"¨",
-	"©",
-	"ª",
-	"«",
-	"¬",
-	"®",
-	"¯",
-	"°",
-	"±",
-	"²",
-	"³",
-	"´",
-	"µ",
-	"¶",
-	"·",
-	"¸",
-	"¹",
-	"º",
-	"»",
-	"¼",
-	"½",
-	"¾",
-	"¿",
-	"×",
-	"ß",
-	"à",
-	"À",
-	"á",
-	"Á",
-	"â",
-	"Â",
-	"ã",
-	"Ã",
-	"ä",
-	"Ä",
-	"å",
-	"Å",
-	"æ",
-	"Æ",
-	"Ç",
-	"ç",
-	"è",
-	"È",
-	"é",
-	"É",
-	"ê",
-	"Ê",
-	"ë",
-	"Ë",
-	"ì",
-	"Ì",
-	"í",
-	"Í",
-	"î",
-	"Î",
-	"ï",
-	"Ï",
-	"ð",
-	"Ð",
-	"ñ",
-	"Ñ",
-	"ò",
-	"Ò",
-	"ó",
-	"Ó",
-	"ô",
-	"Ô",
-	"õ",
-	"Õ",
-	"ö",
-	"Ö",
-	"÷",
-	"ø",
-	"Ø",
-	"ù",
-	"Ù",
-	"ú",
-	"Ú",
-	"û",
-	"Û",
-	"ü",
-	"Ü",
-	"ý",
-	"Ý",
-	"þ",
-	"Þ",
-	"ÿ",
-	"Ÿ",
-	"ı",
-	"Œ",
-	"œ",
-	"Š",
-	"š",
-	"Ž",
-	"ž",
-	"ƒ",
-	"ˆ",
-	"˜",
-	"α",
-	"Γ",
-	"δ",
-	"ε",
-	"Θ",
-	"π",
-	"Σ",
-	"σ",
-	"τ",
-	"Φ",
-	"φ",
-	"Ω",
-	"–",
-	"—",
-	"‗",
-	"‘",
-	"’",
-	"‚",
-	"“",
-	"”",
-	"„",
-	"†",
-	"‡",
-	"•",
-	"…",
-	"‰",
-	"‹",
-	"›",
-	"‼︎",
-	"ⁿ",
-	"₧",
-	"€",
-	"™",
-	"←",
-	"↑",
-	"→",
-	"↓",
-	"↔︎",
-	"↕︎",
-	"↨",
-	"∙",
-	"√",
-	"∞",
-	"∟",
-	"∩",
-	"≈",
-	"≡",
-	"≤",
-	"≥",
-	"⌂",
-	"⌐",
-	"⌠",
-	"⌡",
-	"─",
-	"│",
-	"┌",
-	"┐",
-	"└",
-	"┘",
-	"├",
-	"┤",
-	"┬",
-	"┴",
-	"┼",
-	"═",
-	"║",
-	"╒",
-	"╓",
-	"╔",
-	"╕",
-	"╖",
-	"╗",
-	"╘",
-	"╙",
-	"╚",
-	"╛",
-	"╜",
-	"╝",
-	"╞",
-	"╟",
-	"╠",
-	"╡",
-	"╢",
-	"╣",
-	"╤",
-	"╥",
-	"╦",
-	"╧",
-	"╨",
-	"╩",
-	"╪",
-	"╫",
-	"╬",
-	"▀",
-	"▄",
-	"█",
-	"▌",
-	"▐",
-	"░",
-	"▒",
-	"▓",
-	"■",
-	"▬",
-	"▲",
-	"►",
-	"▼",
-	"◄",
-	"○",
-	"◘",
-	"◙",
-	"☺︎",
-	"☻",
-	"☼",
-	"♀︎",
-	"♂︎",
-	"♠︎",
-	"♣︎",
-	"♥︎",
-	"♦︎",
-	"♪",
-	"♫",
-)
-
-# assert len(BOOK_INDEX_CHARACTERS) == 320, "BOOK_INDEX_CHARACTERS should contain exactly 320 characters"
-
-###############################################################################
-
-_UNICODE_LATIN_RANGE = [
-	*range(0x0000 , 0x007F ), # Basic Latin
-	*range(0x0080 , 0x00FF ), # Latin-1 Supplement
-	*range(0x0100 , 0x017F ), # Latin Extended-A
-	*range(0x0180 , 0x024F ), # Latin Extended-B
-	*range(0x0250 , 0x02AF ), # IPA Extensions
-	*range(0x1D00 , 0x1D7F ), # Phonetic Extensions
-	*range(0x1D80 , 0x1DBF ), # Phonetic Extensions Supplement
-	*range(0x1E00 , 0x1EFF ), # Latin Extended Additional
-	*range(0x2C60 , 0x2C7F ), # Latin Extended-C
-	*range(0xA720 , 0xA7FF ), # Latin Extended-D
-	*range(0xAB30 , 0xAB6F ), # Latin Extended-E
-	*range(0x10780, 0x107BF), # Latin Extended-F
-	*range(0x1DF00, 0x1DFFF), # Latin Extended-G
-]
-# exclude:
-# - Spacing Modifier Letters (02B0–02FF)
-# - Superscripts and Subscripts (2070–209F)
-# - Letterlike Symbols (2100–214F)
-# - Number Forms (2150–218F)
-# - Alphabetic Presentation Forms: Latin ligatures (FB00–FB4F)
-# - Halfwidth and Fullwidth Forms (FF00–FFEF)
 
 """
 list of all characters to be used in book content,
-basically Unicode Latin script except punctuation, symbol and control characters
+basically Unicode Latin script except not-printable characters
 """
-_tmp = [ZERO_CHAR] # space character as 1st character because it is removed in the loop below
-for code_point in _UNICODE_LATIN_RANGE:
-	char = chr(code_point)
-	if char.isprintable() and char.isalnum():
-		_tmp.append(char)
-BOOK_CONTENT_CHARACTERS = tuple(_tmp)
+_tmp0 = [ZERO_CHAR] # space character as 1st character because it is removed in the filter below
+_tmp1 = UnicodeSet("[[[:sc=Latin:][:sc=Common:]]&[:Emoji=No:]&[^[:gc=Mark:][:gc=Separator:][:gc=Other:]]]")
+for char in _tmp1:
+	if char.isprintable():
+		_tmp0.append(char)
+BOOK_CONTENT_CHARACTERS = tuple(_tmp0)
 
-# assert len(BOOK_CONTENT_CHARACTERS) == 1377, "BOOK_CONTENT_CHARACTERS should contain exactly 1377 characters"
-## this number can change when Unicode is updated, so we won’t assert it for now
+
+"""
+list of all characters to be used in book index,
+basically any printable characters
+"""
+_tmp2 = []
+for code_point in range(maxunicode + 1):
+	char = chr(code_point)
+	if char.isprintable():
+		_tmp2.append(char)
+BOOK_INDEX_CHARACTERS = tuple(_tmp2)
+
+assert set(BOOK_CONTENT_CHARACTERS) - set(BOOK_INDEX_CHARACTERS) == set(), "BOOK_CONTENT_CHARACTERS should be a subset of BOOK_INDEX_CHARACTERS"
+
+# assert len(BOOK_CONTENT_CHARACTERS) == 8131, "BOOK_CONTENT_CHARACTERS should contain exactly 8131 characters"
+# assert len(BOOK_INDEX_CHARACTERS) == 149625, "BOOK_INDEX_CHARACTERS should contain exactly 149625 characters"
+## these numbers can change when Unicode is updated, so we won’t assert it for now
+
+del _tmp0, _tmp1, _tmp2 # clean up temporary variables

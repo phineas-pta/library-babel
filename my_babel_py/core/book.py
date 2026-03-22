@@ -21,6 +21,7 @@ class Book:
 		else:
 			raise ValueError("provide exactly one of raw_int, index or content")
 		# index and content generated lazily when requested, because they are strings so take more memory than the raw integer
+		# also i could use raw integer to compute various things later if needed
 
 		# find the room and position of the book in the room
 		self._room_id, _remainder       = divmod(self._raw_int, BOOKS_PER_ROOM) # remainder is always less than BOOKS_PER_ROOM
