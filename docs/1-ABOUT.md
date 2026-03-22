@@ -4,11 +4,13 @@
 
 “The Library of Babel” (Spanish: “La biblioteca de Babel”) is a short story by Argentine author and librarian Jorge Luis Borges (1899–1986), see: https://en.wikipedia.org/wiki/The_Library_of_Babel
 
+![photograph of Borges from 1951](https://libraryofbabel.info/img/borges2.jpg)
+
 An infinite library contains books containing every possible ordering of every character / glyph / grapheme
 
 Though the vast majority of the books in this universe are pure gibberish, the laws of probability dictate that the library also must contain, somewhere, every coherent book ever written, or that might ever be written, and every possible permutation or slightly erroneous version of every one of those books.
 
-I got introduced to that work by my Portuguese-nurse friend in 2021. This concept is both beautiful and overwhelming, **in constrast to the incomprehensibility and helplessness in Howard Phillips Lovecraft’s cosmic horror**. Now in 2026 i got better math & coding skills to make my own program (slightly LLM-assisted but not vibe coding by any mean)
+I got introduced to that work by in 2021 a friend who was a Portuguese psychiatric nurse. This concept is both beautiful and overwhelming, **in constrast to the incomprehensibility and helplessness in Howard Phillips Lovecraft’s cosmic horror**. Now in 2026 i got better math & coding skills to be able to make my own program (slightly LLM-assisted but not vibe coding by any mean)
 
 *bonus*: from a math point-of-view, the precursor to this story is “The Universal Library” (German: “Die Universalbibliothek”) a short story by German science-fiction writer Kurd Laßwitz, it has approximately same order of magnitude
 
@@ -16,7 +18,7 @@ I got introduced to that work by my Portuguese-nurse friend in 2021. This concep
 
 - an infinite amount of adjacent hexagonal rooms
 - 4 walls of bookshelves per room
-- 5 shelves per bookshelf
+- 5 shelves per wall
 - 32 books per shelf
 - 410 pages per book
 - 40 lines per page
@@ -24,17 +26,21 @@ I got introduced to that work by my Portuguese-nurse friend in 2021. This concep
 - 29 possible characters: 26 lowercase Latin letters, period (full-stop), comma, and space
   - Borges originally used only 22 letters for a total of 25 characters
 
-there’re `410 × 40 × 80 = 1 312 000` characters per book, and the number of (unique) books in the library is therefore <code>29<sup>1 312 000</sup></code>
+![drawing of the library of Babel’s hexagon pattern by R-Chan](https://libraryofbabel.info/img/hexes2.jpg)
 
-the above value would require `1 312 000 × log(29) / log(10) ≈ 1 918 667` so almost 2 millions digits in base-10
+there’re `410 × 40 × 80 = 1 312 000` characters per book, and the number of (unique) books in the library is therefore `29¹³¹²⁰⁰⁰`
 
-with the current human capabilities, **it is not possible to generate and store all books physically nor digitally**
+the above value would require `log₁₀(29¹³¹²⁰⁰⁰) = 1 312 000 × log₁₀(29) ≈ 1 918 667` so almost 2 millions digits in base-10
 
-besides, there’re also `4 × 5 × 32 = 640` books per room, therefore the number of (unique) rooms in the library is<code>29<sup>1 312 000</sup> ÷ 640 ≈ 2.32×10<sup>1918663</sup></code>, only 0.01% less than the number of (unique) books
+with the current human capabilities, **it is not possible to generate or store all books physically or digitally**
 
-besides, there’re also `40 × 80 = 3200` characters per page, and the number of (unique) pages in the library is <code>29<sup>3200</sup></code>, therefore there’s at LEAST one duplicate for every page
+besides, there’re `4 × 5 × 32 = 640` books per room, therefore the number of (unique) rooms in the library is `29¹³¹²⁰⁰⁰ ÷ 640 ≈ 2.32×10¹⁹¹⁸⁶⁶³`, only 0.01% less than the number of (unique) books
 
-the above value would require `3200 × log(29) / log(10) ≈ 4680` digits in base-10
+there’re also `40 × 80 = 3200` characters per page, and the number of (unique) pages in the library is `29³²⁰⁰`, therefore there’s at LEAST one duplicate for every page, and if my math is correct: in an ideal case each page is duplicated `29¹³¹²⁰⁰⁰ ÷ 29³²⁰⁰ = 29¹³⁰⁰⁸⁸⁰⁰` times
+
+the value of number of (unique) pages would require `log₁₀(29³²⁰⁰) = 3200 × log₁₀(29) ≈ 4680` digits in base-10
+
+![](https://github.com/tdjsnelling/babel/blob/master/src/public/image/mucha-2.png)
 
 ## 1.2. Digital recreations
 
@@ -54,6 +60,8 @@ various Python implementations exist:
 there’re also implementations in many programming languges: Go, Rust, *etc.*
 
 technical read: https://www.reddit.com/r/BabelForum/comments/vph7p3/a_long_dive_into_the_algorithm_some_math_stupid/
+
+![an illustration of the Library of Babel by Erik Desmazieres: veritiginous shelves surround a central chasm, while librarians carry each other piggy-back across wooden planks](https://libraryofbabel.info/img/desmazierescolor.jpg)
 
 #### 1.2.1.1. technical details
 
@@ -79,6 +87,8 @@ the random-generator must be reversible, *i.e.* we put the search text (base-29 
 
 as a non-native english speaker, i’ve always wanted Unicode-based solutions for multi-language support, but the math complexity is a significant barrier for me
 
+![Archimboldi’s Librarian, a trompe-l’œil painting of a human form composed of books](https://libraryofbabel.info/img/bookman2.jpg)
+
 ### 1.2.2. no random at all
 
 while wandering on github, i stumble upon by chance on https://babel.zwyx.dev/ and source code: https://github.com/zwyx/library-of-babel
@@ -97,7 +107,7 @@ i cannot explain it better, just see the details on https://babel.zwyx.dev/?abou
 
 the book content is a base-29 integer with 1 312 000 digits, and the book index is simply the same integer converted to base-94 (94 because of 95 printable characters in the 1t ASCII code page excluding the space)
 
-the author goes even further with convert that integer to image, basically base-256<sup>4</sup>: a digit is now a pixel in the RGBA color system
+the author goes even further with convert that integer to image, basically base-256⁴: a digit is now a pixel in the RGBA color system
 
 **my wish for multi-language support is now somewhat do-able**
 
@@ -110,3 +120,5 @@ see [DETAILS](2-DETAILS.md) for technical details about this implementation
 ### 1.3. go beyond text
 
 i also found some versions of Library of Babel for image and music with the same philosophy behind; very worth exploring in the future if i have time
+
+![from Erik Desmazieres’s illustrations of the library of babel: librarians comb through endlessly receding shelves of books beneath a hexagonal skylight](https://libraryofbabel.info/img/desmazieres5.jpg)

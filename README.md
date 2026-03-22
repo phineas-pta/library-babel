@@ -1,3 +1,5 @@
+![](https://github.com/tdjsnelling/babel/blob/master/src/public/image/study.png)
+
 # Library of Babel
 
 ## about
@@ -15,16 +17,21 @@ this program is STILL INTENDED FOR PYTHON DEVELOPPERS: dependencies installation
 ## credits
 
 - this program is built upon https://github.com/zwyx/library-of-babel
-- also partially inspired from https://github.com/tdjsnelling/babel
-- don’t forget the original work of https://github.com/librarianofbabel/libraryofbabel.info-algo
+- also partially inspired from https://github.com/tdjsnelling/babel by Tom Snelling
+- don’t forget the original work of https://github.com/librarianofbabel/libraryofbabel.info-algo by Jonathan Basile
+
+all illustrations in this repo are just links to the website of Jonathan Basile and Tom Snelling
 
 ## dependencies
 
+- penultimate Python version recommended (3.13 at the time of writing)
 - General Multi-Precision (GMP) arithmetic: `gmpy2`: to crunch very big number
 - International Components for Unicode (ICU): `pyicu`: to deal with unicode inputs
   - windows wheels can be downloaded from: https://github.com/cgohlke/pyicu-build/releases
   - linux need `libicu-dev` or the like
   - mac need `icu4c`
+
+![the Tower of Babel by Pieter Bruegel the Elder](https://libraryofbabel.info/img/tower.jpg)
 
 ## usage
 
@@ -32,15 +39,15 @@ this program is STILL INTENDED FOR PYTHON DEVELOPPERS: dependencies installation
 python main.py --input-txt docs/3-EXTRA.md --save-book-txt-path draft/output.txt
 ```
 
-**recommendation**: use a modern monospace file to properly render all characters, like `JuliaMono`, `Fira Code`, `Iosevka`, *etc.*
+RECOMMANDATION: use a modern monospace file to properly render all characters, like `JuliaMono`, `Fira Code`, `Iosevka`, *etc.*
 
 ## licensing
 
 eventhough this program is under MIT, it uses `GMP` which is under GPLv3
 
-i use `gmpy2` because i expect to process numbers with millions of digits, but normally python native `int` should be able to do it with lesser performance (need benchmark to verify) so i try to use `gmpy2` as little as possible
+if u want GPL-free, u have to replace `gmpy2` with python native `int`
 
-u may want to replace `gmpy2` with python native `int`
+i use `gmpy2` because i expect to process numbers with millions of digits, but normally python native `int` should be able to do it with lesser performance (need benchmark to verify) so i try to use `gmpy2` as little as possible
 
 ## TODO
 
@@ -52,3 +59,5 @@ u may want to replace `gmpy2` with python native `int`
 - [ ] better user interface: text / graphical / web
 - [ ] research how to leverage GPU to crunch much bigger number and batch processing
 - [ ] Julia verion ?
+
+![](https://github.com/tdjsnelling/babel/blob/master/src/public/image/shelves.png)

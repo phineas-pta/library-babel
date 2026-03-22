@@ -28,6 +28,8 @@ prompt: `write an essay contrasting the orderly knowledgeably beauty in Borges�
 
 ### 3.2.1. by Google Gemini
 
+![](https://github.com/tdjsnelling/babel/blob/master/src/public/image/librarian-2.png)
+
 To stand before the infinite is the ultimate human test. In the literary worlds of Jorge Luis Borges and H.P. Lovecraft, infinity isn’t just a mathematical concept; it’s an architectural and existential reality. However, while Borges views the infinite as a <ins>crystalline, structured labyrinth of potential</ins>, Lovecraft sees it as a <ins>jagged, wet, and indifferent void</ins>.
 
 Here is an exploration of how these two masters of the “weird” interpret the vastness of the unknown.
@@ -66,6 +68,8 @@ Lovecraft’s horror is <ins>biological and entropic</ins>. It suggests that the
 One leaves you feeling small but enlightened; the other leaves you feeling small and hunted.
 
 ### 3.2.2. by OpenAI ChatGPT
+
+![](https://github.com/tdjsnelling/babel/blob/master/src/public/image/librarian-3.png)
 
 The contrast between The Library of Babel by Jorge Luis Borges and the comic–cosmic horror of H. P. Lovecraft lies not in whether their universes are intelligible — they are not — but in how that unintelligibility is structured, perceived, and emotionally processed. Borges builds a universe where chaos is framed by an almost sacred order, while Lovecraft presents a universe where any illusion of order collapses into helplessness, absurdity, and often a grim, darkly comic madness.
 
