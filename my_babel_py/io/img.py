@@ -7,13 +7,17 @@ so we need to convert to base-256 then group every 4 colors into a pixel
 """
 
 from pathlib import Path # for typing only
-from PIL import Image
-from PIL.ExifTags import Base
+from warnings import warn
+from PIL import Image, ImageOps
+from PIL.ExifTags import Base # to add comment to image
 from ..core.book import Book, save_multiple_books # decorator to transform "save 1 book" function into "save many books"
 from ..core.cste import BOOK_IMAGE_SIZE, BYTE_HEX
 from ..core.utils import int2str, str2int
 
+# maybe these constants should go to `cste.py`
+_SIZE = (BOOK_IMAGE_SIZE,)*2
 _MODE = "RGBA"
+_ZERO_COLOR = (0,)*4 # black but transparent
 _TAG = Base.UserComment.value # 37510 = 0x9286
 
 
@@ -33,7 +37,7 @@ def img_save_books_content(book: Book, filepath: Path) -> None:
 			pixel_color.append(color)
 		img_array.append(pixel_color)
 
-	img = Image.new(mode=_MODE, size=(BOOK_IMAGE_SIZE, BOOK_IMAGE_SIZE), color=(255,)*4) # white image
+	img = Image.new(mode=_MODE, size=_SIZE, color=_ZERO_COLOR)
 	for i in range(BOOK_IMAGE_SIZE):
 		for j in range(BOOK_IMAGE_SIZE):
 			pixel_index = i * BOOK_IMAGE_SIZE + j
@@ -56,11 +60,18 @@ def img_load(filepath: Path) -> Book:
 	"""load the content of the book from an image file"""
 
 	img = Image.open(filepath)
-	assert img.size == (BOOK_IMAGE_SIZE,)*2, f"the image size must be {BOOK_IMAGE_SIZE}x{BOOK_IMAGE_SIZE}px"
+	if img.size != _SIZE:
+		warn(f"image will be resized to {BOOK_IMAGE_SIZE}×{BOOK_IMAGE_SIZE}px with padding")
+		img = ImageOps.pad(img, size=_SIZE, color=_ZERO_COLOR, centering=(0, 0))
 	if img.mode != _MODE:
+		warn("image will be converted to RGBA mode")
 		img = img.convert(_MODE)
 	exif = img.getexif()
-	stop_pixel = int(exif[_TAG].split("stop pixel = ")[-1])
+	try:
+		stop_pixel = int(exif[_TAG].split("stop pixel = ")[-1])
+	except:
+		warn("image exif doesn’t contain info about stop pixel, setting it to 532 558 (see math details in docs for this number)")
+		stop_pixel = 532558  # TODO: move this value to file `cste.py`
 
 	img_array = []
 	for i in range(BOOK_IMAGE_SIZE):

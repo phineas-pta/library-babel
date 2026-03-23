@@ -5,6 +5,7 @@ book and properties
 """
 
 from pathlib import Path # for typing only
+from warnings import warn
 from gmpy2 import mpz # for typing only
 from .cste import BOOK_INDEX_CHARACTERS, BOOK_CONTENT_CHARACTERS, SHELVES_PER_WALL, BOOKS_PER_SHELF, BOOKS_PER_ROOM
 from .utils import str2int, int2str
@@ -80,14 +81,15 @@ class Book:
 ###############################################################################
 # decorator to transform "save 1 book" function into "save many books"
 
-def save_multiple_books(func):
-	def wrapper(books: list[Book], filepath: Path) -> None: # "save 1 book" function
+def save_multiple_books(save1book_func):
+	def wrapper(books: list[Book], filepath: Path) -> None:
 		if len(books) == 1:
-			func(books[0], filepath)
+			save1book_func(books[0], filepath)
 		else:
+			warn("multiple books found, files name will be auto-incremented")
 			filename = filepath.stem
 			for i, book in enumerate(books):
 				new_name = filepath.with_stem(f"{filename}-{i}")
-				func(book, new_name)
+				save1book_func(book, new_name)
 	return wrapper
 # this function cannot be in file `utils.py` to avoid circular import

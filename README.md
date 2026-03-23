@@ -8,7 +8,7 @@ a Python transpilation of @zwyx ’s Library of Babel: mainly a CLI with limited
 
 for personal fun and also coding challenge
 
-see [ABOUT](docs/1-ABOUT.md) for more details about my discovery journey
+see [ABOUT](docs/1-ABOUT.md) for more details about my exploration journey
 
 see [DETAILS](docs/2-DETAILS.md) for technical details about this implementation
 
@@ -35,6 +35,8 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
 ![](https://libraryofbabel.info/img/tower.jpg "the Tower of Babel by Pieter Bruegel the Elder")
 
 ## usage
+
+i include a [text file](docs/3-EXTRA.md) that u can use to test the program
 
 ```bash
 python main.py search --input-txt-file docs/3-EXTRA.md --save-book-content-to-txt draft/book-1.txt --save-book-content-to-img draft/book-1.png

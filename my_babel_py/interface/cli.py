@@ -2,8 +2,6 @@
 
 """
 command line interface
-
-not yet implemented, just a placeholder for now
 """
 
 import argparse
