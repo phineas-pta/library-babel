@@ -4,6 +4,7 @@
 book and properties
 """
 
+from pathlib import Path # for typing only
 from gmpy2 import mpz # for typing only
 from .cste import BOOK_INDEX_CHARACTERS, BOOK_CONTENT_CHARACTERS, SHELVES_PER_WALL, BOOKS_PER_SHELF, BOOKS_PER_ROOM
 from .utils import str2int, int2str
@@ -42,7 +43,7 @@ class Book:
 		"""return book content = integer in base-8131"""
 		return int2str(self._raw_int, BOOK_CONTENT_CHARACTERS)
 
-	def __str__(self) -> str:
+	def __repr__(self) -> str:
 		"""for debugging only"""
 		return "\n\t".join([
 			"Book(",
@@ -52,7 +53,11 @@ class Book:
 			f"wall_id={self.wall_id},",
 			f"shelf_id={self.shelf_id},",
 			f"book_in_shelf={self.book_in_shelf}",
-		]) + "\n)\n"
+		]) + "\n)"
+
+	def __str__(self) -> str:
+		# TODO: need better info
+		return f"save book to text file to read more, last 5 digits of book id: {self._raw_int % 10**5}"
 
 	@property
 	def room_id(self) -> str:
@@ -70,3 +75,19 @@ class Book:
 	@property
 	def book_in_shelf(self) -> mpz:
 		return self._book_in_shelf
+
+
+###############################################################################
+# decorator to transform "save 1 book" function into "save many books"
+
+def save_multiple_books(func):
+	def wrapper(books: list[Book], filepath: Path) -> None: # "save 1 book" function
+		if len(books) == 1:
+			func(books[0], filepath)
+		else:
+			filename = filepath.stem
+			for i, book in enumerate(books):
+				new_name = filepath.with_stem(f"{filename}-{i}")
+				func(book, new_name)
+	return wrapper
+# this function cannot be in file `utils.py` to avoid circular import

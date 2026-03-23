@@ -14,11 +14,12 @@ from gmpy2 import mpz
 _TRANSLITERATOR = Transliterator.createFromRules("random-label", " ".join([
 	":: Latin;", # romanization, must use `::` see icu syntax
 	":: NFKC;", # combine diacritics and remove ligatures
-	# romanization cannot transform all non-latin characters, so we need to manually deal with the leftover:
-	"[[:Emoji=Yes:][^[:sc=Latin:][:gc=Decimal_Number:][:gc=Symbol:][:gc=Punctuation:]]] > ' ';", # replace with space instead of remove to avoid concatenating words together
-	":: Null;", # splits the rules into 2 “passes”: 1st pass applies above rules, 2nd pass applies below rules
-	"' ' {' '} > ;", # collapse multiple spaces into one space
+	":: [[:Emoji=Yes:][^[:sc=Latin:][:gc=Decimal_Number:][:gc=Symbol:][:gc=Punctuation:][:gc=Separator:]]] Remove;", # leftover
+	"[:gc=Separator:] > ' '", # replace tab, line feed, etc. with normal white space
 ]))
+# keep duplicated spaces for case of ASCII art
+# to collapse multiple spaces into one space: append ":: Null; ' ' {' '} > ;"
+# Null splits the rules into 2 “passes”: 1st pass applies above rules, 2nd pass applies below rules
 
 transliterate = _TRANSLITERATOR.transliterate
 

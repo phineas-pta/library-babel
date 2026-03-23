@@ -9,7 +9,7 @@ so we need to convert to base-256 then group every 4 colors into a pixel
 from pathlib import Path # for typing only
 from PIL import Image
 from PIL.ExifTags import Base
-from ..core.book import Book
+from ..core.book import Book, save_multiple_books # decorator to transform "save 1 book" function into "save many books"
 from ..core.cste import BOOK_IMAGE_SIZE, BYTE_HEX
 from ..core.utils import int2str, str2int
 
@@ -17,7 +17,8 @@ _MODE = "RGBA"
 _TAG = Base.UserComment.value # 37510 = 0x9286
 
 
-def img_save_book_content(book: Book, filepath: str | Path) -> None:
+@save_multiple_books
+def img_save_books_content(book: Book, filepath: Path) -> None:
 	"""save the content of the book to an image file"""
 
 	tmp = int2str(book._raw_int, BYTE_HEX) # convert to base 256
@@ -51,7 +52,7 @@ def img_save_book_content(book: Book, filepath: str | Path) -> None:
 	img.close()
 
 
-def img_load(filepath: str | Path) -> Book:
+def img_load(filepath: Path) -> Book:
 	"""load the content of the book from an image file"""
 
 	img = Image.open(filepath)

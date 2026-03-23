@@ -40,7 +40,7 @@ there’re also $40\times80 = 3200$ characters per page, and the number of (uniq
 
 the value of number of (unique) pages would require $\log_{10}\left(29^{3\ 200}\right) = 3\ 200 \times \log_{10}(29) \approx 4\ 680$ digits in base-10
 
-![](https://github.com/tdjsnelling/babel/blob/master/src/public/image/mucha-2.png)
+![](https://libraryofbabel.info/img/bookman2.jpg "Archimboldi’s Librarian, a trompe-l’œil painting of a human form composed of books")
 
 ## 1.2. Digital recreations
 
@@ -134,4 +134,4 @@ see [DETAILS](2-DETAILS.md) for technical details about my program
 
 i also found some versions of Library of Babel for image and music with the same philosophy behind; very worth exploring in the future if i have time
 
-![](https://libraryofbabel.info/img/bookman2.jpg "Archimboldi’s Librarian, a trompe-l’œil painting of a human form composed of books")
+![](https://libraryofbabel.info/img/amazingtechnicolordreamgoat.jpg "the amazing technicolor dream goat")

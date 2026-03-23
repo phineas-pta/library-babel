@@ -9,7 +9,7 @@ from .core.utils import transliterate, str2int
 from .core.book import Book
 
 
-def find_semi_empty_book(query: str) -> tuple[Book]:
+def find_semi_empty_book(query: str) -> list[Book]:
 	"""
 	if the search text is shorter than the number of characters per book,
 	then the beginning of the book will contain the search text, and the rest of the book will be blank (filled with ZERO_CHAR)
@@ -25,4 +25,4 @@ def find_semi_empty_book(query: str) -> tuple[Book]:
 	else:
 		tmp = [txt[i:i+CHARS_PER_BOOK] for i in range(0, len(txt), CHARS_PER_BOOK)]
 	tmp[-1] = tmp[-1].ljust(CHARS_PER_BOOK, ZERO_CHAR) # pad with ZERO_CHAR to reach the required length for a book
-	return tuple(Book(raw_int=str2int(part, BOOK_CONTENT_CHARACTERS)) for part in tmp)
+	return [Book(raw_int=str2int(part, BOOK_CONTENT_CHARACTERS)) for part in tmp]

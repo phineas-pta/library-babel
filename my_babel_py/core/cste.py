@@ -25,6 +25,7 @@ BOOKS_PER_ROOM = WALLS_PER_ROOM * SHELVES_PER_WALL * BOOKS_PER_SHELF # 640
 ZERO_CHAR = chr(32) # space character representing 0
 
 ###############################################################################
+# find all required characters
 
 """
 list of all characters to be used in book content,
@@ -62,6 +63,7 @@ _tmp4 = len(BOOK_INDEX_CHARACTERS)
 ## these numbers can change when Unicode is updated, so we won’t assert it for now
 
 ###############################################################################
+# for image processing
 
 BYTE = 2**8 # color = 1 byte = 256 values in each channel R, G, B, A
 BYTE_HEX = tuple("".join(i) for i in product("0123456789abcdef" , repeat=2)) # hex code
