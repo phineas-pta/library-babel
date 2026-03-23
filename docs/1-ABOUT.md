@@ -4,7 +4,7 @@
 
 “The Library of Babel” (Spanish: “La biblioteca de Babel”) is a short story by Argentine author and librarian Jorge Luis Borges (1899–1986), see: https://en.wikipedia.org/wiki/The_Library_of_Babel
 
-![photograph of Borges from 1951](https://libraryofbabel.info/img/borges2.jpg)
+![](https://libraryofbabel.info/img/borges2.jpg "photograph of Borges from 1951")
 
 An infinite library contains books containing every possible ordering of every character / glyph / grapheme
 
@@ -26,7 +26,7 @@ I got introduced to that work by in 2021 a friend who was a Portuguese psychiatr
 - 29 possible characters: 26 lowercase Latin letters, period (full-stop), comma, and space
   - Borges originally used only 22 letters for a total of 25 characters
 
-![drawing of the library of Babel’s hexagon pattern by R-Chan](https://libraryofbabel.info/img/hexes2.jpg)
+![](https://libraryofbabel.info/img/hexes2.jpg "drawing of the library of Babel’s hexagon pattern by R-Chan")
 
 there’re $410\times40\times80 = 1\ 312\ 000$ characters per book, and the number of (unique) books in the library is therefore $29^{1\ 312\ 000}$
 
@@ -73,7 +73,7 @@ there’re also implementations in many programming languages: Go, Rust, *etc.*
 
 technical read: https://www.reddit.com/r/BabelForum/comments/vph7p3/a_long_dive_into_the_algorithm_some_math_stupid/
 
-![an illustration of the Library of Babel by Erik Desmazieres: vertiginous shelves surround a central chasm, while librarians carry each other piggy-back across wooden planks](https://libraryofbabel.info/img/desmazierescolor.jpg)
+![](https://libraryofbabel.info/img/desmazierescolor.jpg "an illustration of the Library of Babel by Erik Desmazieres: vertiginous shelves surround a central chasm, while librarians carry each other piggy-back across wooden planks")
 
 #### 1.2.1.1. technical details
 
@@ -99,7 +99,7 @@ the shortcomings if of course text query length: 3200 characters max or 1 page ;
 
 on another hand, as a non-native english speaker, i’ve always wanted Unicode-based solutions for multi-language support, but the math complexity is a significant barrier for me
 
-![from Erik Desmazieres’s illustrations of the library of babel: librarians comb through endlessly receding shelves of books beneath a hexagonal skylight](https://libraryofbabel.info/img/desmazieres5.jpg)
+![](https://libraryofbabel.info/img/desmazieres5.jpg "from Erik Desmazieres’s illustrations of the library of babel: librarians comb through endlessly receding shelves of books beneath a hexagonal skylight")
 
 ### 1.2.2. no random at all
 
@@ -134,4 +134,4 @@ see [DETAILS](2-DETAILS.md) for technical details about my program
 
 i also found some versions of Library of Babel for image and music with the same philosophy behind; very worth exploring in the future if i have time
 
-![Archimboldi’s Librarian, a trompe-l’œil painting of a human form composed of books](https://libraryofbabel.info/img/bookman2.jpg)
+![](https://libraryofbabel.info/img/bookman2.jpg "Archimboldi’s Librarian, a trompe-l’œil painting of a human form composed of books")

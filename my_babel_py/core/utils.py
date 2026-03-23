@@ -26,7 +26,7 @@ transliterate = _TRANSLITERATOR.transliterate
 # base conversion functions
 # based on https://zwyx.dev/blog/base-conversions-with-big-numbers-in-javascript
 
-def str2int(text: str, alphabet: list[str]) -> mpz:
+def str2int(text: str | list[str], alphabet: list[str]) -> mpz:
 	"""converts a sequence of base-b digits to an integer in base-10, where b is the length of the alphabet"""
 
 	base = len(alphabet)

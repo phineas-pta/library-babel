@@ -46,7 +46,7 @@ so my version of Library of Babel would be books containing combinations of 8131
 
 book index is a character string as combinations of any printable Unicode characters: 149 625 characters
 
-![an 1551 engraving “Historia de la composicion del cuerpo humano” by Juan de Amusco Valverde: a human figure has flayed itself to display its musculature](https://libraryofbabel.info/img/anatomiadelcuerpo.jpg)
+![](https://libraryofbabel.info/img/anatomiadelcuerpo.jpg "an 1551 engraving “Historia de la composicion del cuerpo humano” by Juan de Amusco Valverde: a human figure has flayed itself to display its musculature")
 
 ## 2.3. some math
 
@@ -68,7 +68,8 @@ example: 1 pixel can have value `00 00 00 ff` meaning red=0, green=0, blue=0, al
 
 so the book content would require $1\ 312\ 000\times\log_{4\ 294\ 967\ 296}(8\ 131) \approx 532\ 558$ pixels (*i.e.* digits in base-256⁴)
 
-an image with resolution 730×730 px would be enough to hold a book content (so extra 342px)
+given $\left\lceil{\sqrt{532\ 558}}\right\rceil = 730$ an image with resolution 730×730 px would be enough to hold a book content<br />
+there would be at much $730^2-532\ 558=342$ px too many (less than 0.06%)
 
 there’re 640 books per room, so if we can take the integer value of book content in base-10 divide by 640, the quotient will be room id, the remainder can be map to the position of the book in that room, *e.g.*:
 - `remainder = 0`: 1st wall, 1st shelf, 1st book in shelf
@@ -76,7 +77,7 @@ there’re 640 books per room, so if we can take the integer value of book conte
 
 room id will be also encoded to base-149625 like book id
 
-![permutations of the possible hexagrams from the I Ching](https://libraryofbabel.info/img/hexagrams.jpg)
+![](https://libraryofbabel.info/img/hexagrams.jpg "permutations of the possible hexagrams from the I Ching")
 
 ## 2.3. coding
 

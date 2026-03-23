@@ -32,15 +32,15 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
   - mac need `icu4c`
 - `pillow` to process image
 
-![the Tower of Babel by Pieter Bruegel the Elder](https://libraryofbabel.info/img/tower.jpg)
+![](https://libraryofbabel.info/img/tower.jpg "the Tower of Babel by Pieter Bruegel the Elder")
 
 ## usage
 
 ```bash
-python main.py --input-txt docs/3-EXTRA.md --save-book-content-to-txt draft/book-1.txt --save-book-content-to-img draft/book-1.png
+python main.py search --input-txt-file docs/3-EXTRA.md --save-book-content-to-txt draft/book-1.txt --save-book-content-to-img draft/book-1.png
 ```
 
-on my computer, process a book take ~5s, then save to `.png` take ~2s
+on my computer, process a book take ~5s, then save to `.png` take ~2s, RAM usage < 200 MiB
 
 RECOMMENDATION: use a modern monospace file to properly render all characters, like `JuliaMono`, `Fira Code`, `Iosevka`, *etc.*
 

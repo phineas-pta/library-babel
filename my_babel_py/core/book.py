@@ -5,7 +5,7 @@ book and properties
 """
 
 from gmpy2 import mpz # for typing only
-from .cste import BOOK_INDEX_CHARACTERS, BOOK_CONTENT_CHARACTERS, BYTE_HEX, SHELVES_PER_WALL, BOOKS_PER_SHELF, BOOKS_PER_ROOM
+from .cste import BOOK_INDEX_CHARACTERS, BOOK_CONTENT_CHARACTERS, SHELVES_PER_WALL, BOOKS_PER_SHELF, BOOKS_PER_ROOM
 from .utils import str2int, int2str
 
 
@@ -70,16 +70,3 @@ class Book:
 	@property
 	def book_in_shelf(self) -> mpz:
 		return self._book_in_shelf
-
-	@property
-	def img_array(self) -> list[list[int, int, int, int]]:
-		"""return the content of the book as a list of RGBA colors, each color is a tuple of 4 integers in range(256)"""
-		tmp = int2str(self._room_id, BYTE_HEX)
-		img_array = []
-		for i in range(0, len(tmp), 8): # 4 colors × 2 hex characters per color = 8 characters
-			pixel_color = []
-			for j in range(0, 8, 2): # 2 hex characters per color
-				color = int(tmp[(i+j):(i+j+2)], base=16) # convert hex to int
-				pixel_color.append(color)
-			img_array.append(pixel_color)
-		return img_array
