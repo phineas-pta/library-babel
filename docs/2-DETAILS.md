@@ -38,6 +38,8 @@ as the time of writing, i use Python v3.13 (penultimate stable version) of which
 
 keep external dependencies to a minimum
 
+![](https://libraryofbabel.info/img/hex802.png "Nested Hexagons")
+
 ## 2.2. Unicode
 
 the initial goal was to support all Unicode characters (≈154 998 in Unicode v16), however this leads to impractical constraints:
@@ -68,7 +70,7 @@ book content is an integer in base-8175, book index is the same integer but in b
 
 the number of (unique) books in the library is now $8\ 175^{1\ 312\ 000}$
 
-the above value would require $\log_{10}\left(8\ 175^{1\ 312\ 000}\right) = 1\ 312\ 000 \times \log_{10}(8\ 175) \approx 5\ 133\ 184$ digits in base-10
+the above value would require $\log_{10}\left(8\ 175^{1\ 312\ 000}\right) = 1\ 312\ 000 \times \log_{10}(8175) \approx 5\ 133\ 184$ digits in base-10
 
 5 millions digits is significantly bigger than original concept (3.2 millions order of magnitude bigger), but modern computers can easily crunching billions of digits
 
@@ -80,7 +82,7 @@ book content can also be converted to image, each digit is now a pixel, using RG
 
 example: 1 pixel can have value `00 00 00 ff` meaning red=0, green=0, blue=0, alpha=255
 
-so the book content would require $1\ 312\ 000 \times \log_{4\ 294\ 967\ 296}(8\ 131) \approx 532\ 878$ pixels (*i.e.* digits in base-256⁴)
+so the book content would require $1\ 312\ 000 \times \log_{4\ 294\ 967\ 296}(8175) \approx 532\ 878$ pixels (*i.e.* digits in base-256⁴)
 
 given $\left\lceil{\sqrt{532\ 878}}\right\rceil = 730$ an image with resolution 730×730 px would be enough to hold a book content<br />
 there would be at much $730^2 - 538\ 878 = 22$ excess pixels (less than 0.004%)

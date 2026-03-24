@@ -19,6 +19,10 @@ def cli():
 	###########################################################################
 
 	searcher = subparsers.add_parser(name="search", description="search for a book", usage="")
+	searcher.add_argument(
+		"--fill-option", metavar="OPTION", choices=["empty", "random"], default="empty", 
+		help="select what characters to fill in case the search text length is less than a book: with whitespace (much faster) or with random characters"
+	)
 
 	input_grp = searcher.add_argument_group(title="input").add_mutually_exclusive_group(required=True)
 	input_grp.add_argument("--input-query", metavar="QUERY", help="text to search")
