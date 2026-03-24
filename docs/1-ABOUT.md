@@ -26,17 +26,17 @@ I was introduced to this concept in 2021 by a friend — a Portuguese psychiatri
 
 ![](https://libraryofbabel.info/img/hexes2.jpg "drawing of the library of Babel’s hexagon pattern by R-Chan")
 
-there’re $410 \times 40 \times 80 = 1\,312\,000$ characters per book, and the number of (unique) books in the library is therefore $29^{1\,312\,000}$
+there’re $410 \times 40 \times 80 = 1\ 312\ 000$ characters per book, and the number of (unique) books in the library is therefore $29^{1\ 312\ 000}$
 
-the above value would require $\log_{10}\left(29^{1\,312\,000}\right) = 1\,312\,000 \times \log_{10}(29) \approx 1\,918\,667$ so almost 2 millions digits in base-10
+the above value would require $\log_{10}\left(29^{1\ 312\ 000}\right) = 1\ 312\ 000 \times \log_{10}(29) \approx 1\ 918\ 667$ so almost 2 millions digits in base-10
 
 with the current human capabilities, **it is not possible to generate or store all books physically or digitally**
 
-each room contains $4 \times 5 \times 32=640$ books, so the number of (unique) rooms in the library is $29^{1\,312\,000} \div 640 \approx 2.32 \times 10^{1\,918\,663}$, only 0.01% less than the number of (unique) books
+each room contains $4 \times 5 \times 32 = 640$ books, so the number of (unique) rooms in the library is $29^{1\ 312\ 000} \div 640 \approx 2.32 \times 10^{1\ 918\ 663}$, only 0.01% less than the number of (unique) books
 
-each page contains $40 \times 80=3200$ characters, and the number of (unique) pages in the library is $29^{3\,200}$, that means there’s at least one duplicate for every page, and, in an ideal case, each page would be duplicated $29^{1\,312\,000} \div 29^{3\,200} = 29^{1\,308\,800}$ times
+each page contains $40 \times 80 = 3200$ characters, and the number of (unique) pages in the library is $29^{3\ 200}$, that means there’s at least one duplicate for every page, and, in an ideal case, each page would be duplicated $29^{1\ 312\ 000} \div 29^{3\ 200} = 29^{1\ 308\ 800}$ times
 
-the value of number of (unique) pages would require $\log_{10}\left(29^{3\,200}\right) = 3\,200 \times \log_{10}(29) \approx 4\,680$ digits in base-10
+the value of number of (unique) pages would require $\log_{10}\left(29^{3\ 200}\right) = 3\ 200 \times \log_{10}(29) \approx 4\ 680$ digits in base-10
 
 ![](https://libraryofbabel.info/img/bookman2.jpg "Archimboldi’s Librarian, a trompe-l’œil painting of a human form composed of books")
 
@@ -84,27 +84,27 @@ technical read:
 
 the algorithm is usually based on a linear congruential generator (LCG) because it is invertible, which makes the mapping bijective
 
-the search text is padded to 3,200 characters, which corresponds to one page, using spaces or random characters
+the search text is padded to 3200 characters, which corresponds to one page, using spaces or random characters
 
-that string (page content) is then interpreted as a base-29 number, keep this for later, the aim is to find page index from this number
+that string (page content) is then interpreted as a base-29 number (keep this for later), the aim is to find page index from this number
 
 page search is easier than book search because book search requires handling enormous numbers, *cf.* section `1.1.1.` above: page search involves numbers of around 5000 digits, whereas book search deals with numbers of around 2 million digits
 
-let’s call `N` the number of all possible pages, *i.e.* $N = 29^{3\,200}$, now find a random number `C` co-prime with `N` then find `I` the modular multiplicative inverse to `C`
+let’s call `N` the number of all possible pages, *i.e.* $N = 29^{3\ 200}$, now find a random number `C` co-prime with `N` then find `I` the modular multiplicative inverse to `C`
 
-now the page index is given by: $\mathit{page\,index} = (I \times \mathit{page\,content}) \mod N$
+now the page index is given by: ${\text{page} \atop \text{index}} = (I \times {\text{page} \atop \text{content}}) \mod N$ (convert page content to base-10 beforehand)
 
 page index is converted to the form `ROOM.WALL.SHELF.BOOK.PAGE` where: `WALL` is an integer 1-4, `SHELF` is an integer 1-5, `BOOK` is an integer 01-32, `PAGE` is an integer 001-410, while `ROOM` can be alphanumeric with any length using a base-32 or base-36 integer
 
-the reverse process is straightforward: the algorithm takes the page index and returns the page containing the desired text: $\mathit{page\,content} = (C \times \mathit{page\,index}) \mod N$
+the reverse process is straightforward: the algorithm takes the page index and returns the page containing the desired text: ${\text{page} \atop \text{content}} = (C \times {\text{page} \atop \text{index}}) \mod N$
 
-one of the advantage of this approach is that when we change only 1 character in page content, the page index is nothing alike, pretty similar to cryptographic algorithms
+one of the advantage of this approach is that when we change only 1 character in page content, the page index is nothing alike, pretty similar to cryptographic algorithms (lightweight obfuscation but not as secure)
 
 **i got lost with the advanced math at this point**, but the important part is that it works!
 
 the shortcomings if of course text query length: 3200 characters max or 1 page ; librarians search books not pages! also the pages got duplicated a lot (*cf.* section `1.1.1.` above)
 
-on another hand, as a non-native english speaker, i’ve always wanted Unicode-based solutions for multi-language support, but the math complexity is a serious obstacle for me (from what i understand, those operations are trivial to implement in any programming language)
+on another hand, as a non-native english speaker, i’ve always wanted Unicode-based solutions for multi-language support, but the math complexity is a serious obstacle for me (however, those operations are trivial to implement in any programming language)
 
 ![](https://libraryofbabel.info/img/desmazieres5.jpg "from Erik Desmazieres’s illustrations of the library of babel: librarians comb through endlessly receding shelves of books beneath a hexagonal skylight")
 
@@ -114,7 +114,7 @@ while wandering on github, i stumble upon by chance on https://babel.zwyx.dev/ a
 
 it’s a completely different approach without any randomness: every book every page are sequentially ordered, *i.e.*
 - the content of the 1st book in the library (index `0`) is simply 1 312 000 space characters
-- the 2nd book (index `1`) is simply the letter `a` which would be placed on the last page of the book, on the last line, at the end of the line. Every other characters before (1,311,999 of them, all the way to the beginning of the book) would be spaces
+- the 2nd book (index `1`) is simply the letter `a` which would be placed on the last page of the book, on the last line, at the end of the line. Every other characters before (1 311 999 of them, all the way to the beginning of the book) would be spaces
 - book index `2` is the same but wth letter `b`
 - *etc.*
 - book index `28`, 1 311 999 spaces followed by `z`

@@ -6,7 +6,7 @@ some constants used in the project
 
 from sys import maxunicode
 from itertools import product
-import math
+from math import ceil, sqrt, log
 from icu import UnicodeSet
 
 # values fixed by Borges
@@ -37,7 +37,6 @@ for char in _tmp1:
 	if char.isprintable():
 		_tmp0.append(char)
 BOOK_CONTENT_CHARACTERS = tuple(_tmp0)
-assert len(BOOK_CONTENT_CHARACTERS) == len(set(BOOK_CONTENT_CHARACTERS)), "BOOK_CONTENT_CHARACTERS should not contain duplicate characters"
 
 
 """
@@ -50,17 +49,21 @@ for code_point in range(maxunicode + 1):
 	if char.isprintable():
 		_tmp2.append(char)
 BOOK_INDEX_CHARACTERS = tuple(_tmp2)
-assert len(BOOK_INDEX_CHARACTERS) == len(set(BOOK_INDEX_CHARACTERS)), "BOOK_INDEX_CHARACTERS should not contain duplicate characters"
 
-
-assert set(BOOK_CONTENT_CHARACTERS) - set(BOOK_INDEX_CHARACTERS) == set(), "BOOK_CONTENT_CHARACTERS should be a subset of BOOK_INDEX_CHARACTERS"
 
 _tmp3 = len(BOOK_CONTENT_CHARACTERS)
 _tmp4 = len(BOOK_INDEX_CHARACTERS)
 
+_tmp5 = set(BOOK_CONTENT_CHARACTERS)
+_tmp6 = set(BOOK_INDEX_CHARACTERS)
+
 # assert len(_tmp3) == 8131, "BOOK_CONTENT_CHARACTERS should contain exactly 8131 characters"
 # assert len(_tmp4) == 149625, "BOOK_INDEX_CHARACTERS should contain exactly 149625 characters"
 ## these numbers can change when Unicode is updated, so we won’t assert it for now
+
+assert _tmp3 == len(_tmp5), "BOOK_CONTENT_CHARACTERS should not contain duplicate characters"
+assert _tmp4 == len(_tmp6), "BOOK_INDEX_CHARACTERS should not contain duplicate characters"
+assert _tmp5 - _tmp6 == set(), "BOOK_CONTENT_CHARACTERS should be a subset of BOOK_INDEX_CHARACTERS"
 
 ###############################################################################
 # for image processing
@@ -71,7 +74,13 @@ BYTE_HEX = tuple("".join(i) for i in product("0123456789abcdef" , repeat=2)) # h
 assert len(BYTE_HEX) == BYTE, "BYTE_HEX should contain exactly 256 characters"
 assert len(BYTE_HEX) == len(set(BYTE_HEX)), "BYTE_HEX should not contain duplicate characters"
 
-BOOK_IMAGE_SIZE = math.ceil(math.sqrt(CHARS_PER_BOOK * math.log(_tmp3, BYTE**4))) # 730 px
+MAX_PIXEL_COUNT = ceil(CHARS_PER_BOOK * log(_tmp3, BYTE**4)) # 532 558 px
+BOOK_IMAGE_SIZE = ceil(sqrt(MAX_PIXEL_COUNT)) # 730 px
+
+COLOR_MODE = "RGBA"
+ZERO_COLOR = (0,) * len(COLOR_MODE) # black but transparent
+COLOR_LENGTH = 2 # 2 hex characters per color
+PIXEL_LENGTH = len(COLOR_MODE) * COLOR_LENGTH # 4 colors × 2 hex characters per color = 8 characters per pixel
 
 
-del _tmp0, _tmp1, _tmp2, _tmp3, _tmp4 # clean up temporary variables
+del _tmp0, _tmp1, _tmp2, _tmp3, _tmp4, _tmp5, _tmp6 # clean up temporary variables

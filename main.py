@@ -9,7 +9,6 @@ from my_babel_py.io.img import img_load, img_save_books_content
 
 if __name__ == "__main__":
 	args = cli()
-	print("Hello, world!")
 
 	if args.input_query is not None:
 		txt = args.input_query
@@ -20,7 +19,8 @@ if __name__ == "__main__":
 		book = find_semi_empty_book(txt)
 	elif args.input_img_file is not None:
 		book = img_load(args.input_img_file)
-	print(book)
+
+	print(f"load {len(book)} books")
 
 	if args.save_book_content_to_txt is not None:
 		txt_save_books_content(book, args.save_book_content_to_txt)

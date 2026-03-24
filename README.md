@@ -30,7 +30,7 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
   - windows wheels can be downloaded from: https://github.com/cgohlke/pyicu-build/releases
   - linux need `libicu-dev` or the like
   - mac need `icu4c`
-- `pillow` to process image
+- *optional* `pillow` to process image
 
 ![](https://libraryofbabel.info/img/tower.jpg "the Tower of Babel by Pieter Bruegel the Elder")
 
@@ -42,7 +42,7 @@ i include a [text file](docs/3-EXTRA.md) that u can use to test the program
 python main.py search --input-txt-file docs/3-EXTRA.md --save-book-content-to-txt draft/book-1.txt --save-book-content-to-img draft/book-1.png
 ```
 
-on my computer, process a book take ~5s, then save to `.png` take ~2s, RAM usage < 200 MiB
+on my computer, process a book take ~3s, then save to `.png` take ~2s, RAM usage < 200 MiB
 
 RECOMMENDATION: use a modern monospace file to properly render all characters, like `JuliaMono`, `Fira Code`, `Iosevka`, *etc.*
 

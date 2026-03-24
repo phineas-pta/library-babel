@@ -29,10 +29,10 @@ possible future improvements may or may not include: convert book content to ima
 despite the popularity of web interfaces, a local implementation ensures high-performance processing of massive integers without server-side overhead or client-side limitation
 
 initially, i intended to develop this in Julia, a language i’m currently exploring due to its long-term potential ;<br />
-it already has GMP (General Multi-Precision) built-in, but at the time of writing it doesn’t have a robust binding to ICU (International Components for Unicode);<br />
+it already has GMP (General Multi-Precision) built-in, but at the time of writing it lacks a robust binding to ICU (International Components for Unicode);<br />
 Python was ultimately chosen for its stability and ecosystem
 
-i also lack design skill to make a beautiful web interface, so i won’t use Javascript
+i also lack designer skill to make a beautiful web interface, so i won’t use Javascript
 
 as the time of writing, i use Python v3.13 (penultimate stable version) of which supports Unicode v16
 
@@ -40,11 +40,11 @@ keep external dependencies to a minimum
 
 ## 2.2. Unicode
 
-the initial goal was to support all Unicode characters (≈154,998 in Unicode v16), however this leads to impractical constraints:
+the initial goal was to support all Unicode characters (≈154 998 in Unicode v16), however this leads to impractical constraints:
 - book content would be in base-154998.
 - the corresponding index base would need to exceed this, which is not feasible
 
-so the trick is to perform **romanization specifically transliteration** to bring multilingual text into a manageable Latin-based alphabet, *e.g.* `北京` → `běijīng`
+so the trick is to perform **romanization (specifically transliteration)** to bring multilingual text into a manageable Latin-based alphabet, *e.g.* `北京` → `běijīng`
 
 the most straightforward library is https://github.com/avian2/unidecode but it strips a lot of diacritics marks, *e.g.* `北京` → `beijing` (too lossy)
 
@@ -64,11 +64,11 @@ book index is a character string as combinations of a much wider set: 149 625 pr
 
 ## 2.3. some math
 
-book content is an integer in base-8131, book index is the same integer but in base-149625, so $1 - \log_{149\,625}(8131) \approx 0.24$, therefore the index is only 24% shorter than the content, almost similar to @zwyx
+book content is an integer in base-8131, book index is the same integer but in base-149625, so $1 - \log_{149\ 625}(8131) \approx 0.24$, therefore the index is only 24% shorter than the content, almost similar to @zwyx
 
-the number of (unique) books in the library is now $8\,131^{1\,312\,000}$
+the number of (unique) books in the library is now $8\ 131^{1\ 312\ 000}$
 
-the above value would require $\log_{10}\left(8\,131^{1\,312\,000}\right) = 1\,312\,000 \times \log_{10}(8\,131) \approx 5\,130\,109$ digits in base-10
+the above value would require $\log_{10}\left(8\ 131^{1\ 312\ 000}\right) = 1\ 312\ 000 \times \log_{10}(8\ 131) \approx 5\ 130\ 109$ digits in base-10
 
 5 millions digits is significantly bigger than original concept (3.2 millions order of magnitude bigger), but modern computers can easily crunching billions of digits
 
@@ -80,10 +80,10 @@ book content can also be converted to image, each digit is now a pixel, using RG
 
 example: 1 pixel can have value `00 00 00 ff` meaning red=0, green=0, blue=0, alpha=255
 
-so the book content would require $1\,312\,000 \times \log_{4\,294\,967\,296}(8\,131) \approx 532\,558$ pixels (*i.e.* digits in base-256⁴)
+so the book content would require $1\ 312\ 000 \times \log_{4\ 294\ 967\ 296}(8\ 131) \approx 532\ 558$ pixels (*i.e.* digits in base-256⁴)
 
-given $\left\lceil{\sqrt{532\,558}}\right\rceil = 730$ an image with resolution 730×730 px would be enough to hold a book content<br />
-there would be at much $730^2 - 532\,558 = 342$ excess pixels (less than 0.06%)
+given $\left\lceil{\sqrt{532\ 558}}\right\rceil = 730$ an image with resolution 730×730 px would be enough to hold a book content<br />
+there would be at much $730^2 - 532\ 558 = 342$ excess pixels (less than 0.06%)
 
 there’re 640 books per room, so if we can take the integer value of book content in base-10 divide by 640, the quotient will be room id, the remainder can be map to the position of the book in that room, *e.g.*:
 - `remainder = 0`: 1st wall, 1st shelf, 1st book in shelf
@@ -110,5 +110,7 @@ luckily @zwyx also publish the code to accelerate base conversion for very big n
 convention: space character is the zero of base-8131, i don’t care about base-149625
 
 i don’t reverse book index order (unlike @zwyx’s implementation)
+
+although all integers are non negative, no need to specify as unsigned integer
 
 book content can be converted to image on-the-fly, avoid pre-computing all possible pixel values to prevent memory issues
