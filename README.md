@@ -61,7 +61,7 @@ i use `gmpy2` because i expect to process numbers with millions of digits, but n
 (not in any particular order)
 
 - [ ] TXT / PNG / PDF input / output
-- [ ] verify the number of characters filtered: 8131 in book content, 149625 in book id
+- [ ] verify the number of characters filtered: 8175 in book content, 149625 in book id
 - [ ] better user interface: text / graphical / web
 - [ ] research how to leverage GPU to crunch much bigger number and batch processing
 - [ ] Julia version ?

@@ -41,7 +41,7 @@ class Book:
 
 	@property
 	def content(self) -> str:
-		"""return book content = integer in base-8131"""
+		"""return book content = integer in base-8175"""
 		return int2str(self._raw_int, BOOK_CONTENT_CHARACTERS)
 
 	def __repr__(self) -> str:

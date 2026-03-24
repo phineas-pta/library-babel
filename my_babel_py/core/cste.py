@@ -27,22 +27,34 @@ ZERO_CHAR = chr(32) # space character representing 0
 ###############################################################################
 # find all required characters
 
-"""
-list of all characters to be used in book content,
-basically Unicode Latin script except not-printable characters
-"""
-_tmp0 = [ZERO_CHAR] # space character as 1st character because it is removed in the filter below
-_tmp1 = UnicodeSet("[[[:sc=Latin:][:sc=Common:]]&[:Emoji=No:]&[^[:gc=Mark:][:gc=Separator:][:gc=Other:]]]")
-for char in _tmp1:
+# list of all characters to be used in book content, basically Unicode Latin script except not-printable characters
+# see definition of transliterator in file utils.py for more explanation
+_tmp0 = UnicodeSet("""[
+	[
+		[
+			[:Script=Latin:]
+			[:Script=Common:]
+		] &
+		[:Emoji=No:] &
+		[^
+			[:General_Category=Mark:]
+			[:General_Category=Other:]
+			[:General_Category=Separator:]
+		]
+	]
+	[
+		[:Emoji_Component=Yes:] -
+		[:Emoji_Modifier=Yes:]
+	]
+]""") # this string is found after some trial-and-error with set operations
+_tmp1 = [ZERO_CHAR] # space character as 1st character because it is removed in the filter above
+for char in _tmp0:
 	if char.isprintable():
-		_tmp0.append(char)
-BOOK_CONTENT_CHARACTERS = tuple(_tmp0)
+		_tmp1.append(char)
+BOOK_CONTENT_CHARACTERS = tuple(_tmp1)
 
 
-"""
-list of all characters to be used in book index,
-basically any printable characters
-"""
+# list of all characters to be used in book index, basically any printable characters
 _tmp2 = []
 for code_point in range(maxunicode + 1):
 	char = chr(code_point)
@@ -57,7 +69,7 @@ _tmp4 = len(BOOK_INDEX_CHARACTERS)
 _tmp5 = set(BOOK_CONTENT_CHARACTERS)
 _tmp6 = set(BOOK_INDEX_CHARACTERS)
 
-# assert len(_tmp3) == 8131, "BOOK_CONTENT_CHARACTERS should contain exactly 8131 characters"
+# assert len(_tmp3) == 8175, "BOOK_CONTENT_CHARACTERS should contain exactly 8175 characters"
 # assert len(_tmp4) == 149625, "BOOK_INDEX_CHARACTERS should contain exactly 149625 characters"
 ## these numbers can change when Unicode is updated, so we won’t assert it for now
 
@@ -74,7 +86,7 @@ BYTE_HEX = tuple("".join(i) for i in product("0123456789abcdef" , repeat=2)) # h
 assert len(BYTE_HEX) == BYTE, "BYTE_HEX should contain exactly 256 characters"
 assert len(BYTE_HEX) == len(set(BYTE_HEX)), "BYTE_HEX should not contain duplicate characters"
 
-MAX_PIXEL_COUNT = ceil(CHARS_PER_BOOK * log(_tmp3, BYTE**4)) # 532 558 px
+MAX_PIXEL_COUNT = ceil(CHARS_PER_BOOK * log(_tmp3, BYTE**4)) # 532 878 px
 BOOK_IMAGE_SIZE = ceil(sqrt(MAX_PIXEL_COUNT)) # 730 px
 
 COLOR_MODE = "RGBA"

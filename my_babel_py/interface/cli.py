@@ -11,7 +11,7 @@ def cli():
 	parser = argparse.ArgumentParser(
 		description="The extended “Library of Babel” in terminal: search for a book or browse books",
 		usage="",
-		epilog="By this art you may contemplate the variation of the 8131 letters",
+		epilog="By this art you may contemplate the variation of the 8175 letters",
 		allow_abbrev=False
 	)
 	subparsers = parser.add_subparsers()

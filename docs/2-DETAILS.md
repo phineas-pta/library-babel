@@ -56,7 +56,7 @@ also let’s not forget about emoji
 after many trial-and-error, i decided the simplest way is: keep punctuation & symbols in latin and remove all emoji<br />
 *N.B.*: i think emoji is too over-bloated, kaomoji is much better `(/≧▽≦)/`
 
-so my version of Library of Babel would be books containing combinations of 8131 Latin-based characters
+so my version of Library of Babel would be books containing combinations of 8175 Latin-based characters
 
 book index is a character string as combinations of a much wider set: 149 625 printable Unicode characters
 
@@ -64,11 +64,11 @@ book index is a character string as combinations of a much wider set: 149 625 pr
 
 ## 2.3. some math
 
-book content is an integer in base-8131, book index is the same integer but in base-149625, so $1 - \log_{149\ 625}(8131) \approx 0.24$, therefore the index is only 24% shorter than the content, almost similar to @zwyx
+book content is an integer in base-8175, book index is the same integer but in base-149625, so $1 - \log_{149\ 625}(8175) \approx 0.24$, therefore the index is only 24% shorter than the content, almost similar to @zwyx
 
-the number of (unique) books in the library is now $8\ 131^{1\ 312\ 000}$
+the number of (unique) books in the library is now $8\ 175^{1\ 312\ 000}$
 
-the above value would require $\log_{10}\left(8\ 131^{1\ 312\ 000}\right) = 1\ 312\ 000 \times \log_{10}(8\ 131) \approx 5\ 130\ 109$ digits in base-10
+the above value would require $\log_{10}\left(8\ 175^{1\ 312\ 000}\right) = 1\ 312\ 000 \times \log_{10}(8\ 175) \approx 5\ 133\ 184$ digits in base-10
 
 5 millions digits is significantly bigger than original concept (3.2 millions order of magnitude bigger), but modern computers can easily crunching billions of digits
 
@@ -76,14 +76,14 @@ the above value would require $\log_{10}\left(8\ 131^{1\ 312\ 000}\right) = 1\ 3
 
 *e.g.* the General Multi-Precision (GMP) arithmetic program can theoretically process 1.29 billions digits on 32-bit system, and up to 41.37 billions digits on 64-bit system *given enough RAM and time* (finger-cross with my computer)
 
-book content can also be converted to image, each digit is now a pixel, using RGBA color system a pixel can hold 256⁴ values, so we end up with base-256⁴ *i.e.* base 4 294 967 296
+book content can also be converted to image, each digit is now a pixel, using RGBA color system a pixel can hold 256⁴ values, so we end up with base-256⁴ *i.e.* base 4 294 967 296 (= 2³²)
 
 example: 1 pixel can have value `00 00 00 ff` meaning red=0, green=0, blue=0, alpha=255
 
-so the book content would require $1\ 312\ 000 \times \log_{4\ 294\ 967\ 296}(8\ 131) \approx 532\ 558$ pixels (*i.e.* digits in base-256⁴)
+so the book content would require $1\ 312\ 000 \times \log_{4\ 294\ 967\ 296}(8\ 131) \approx 532\ 878$ pixels (*i.e.* digits in base-256⁴)
 
-given $\left\lceil{\sqrt{532\ 558}}\right\rceil = 730$ an image with resolution 730×730 px would be enough to hold a book content<br />
-there would be at much $730^2 - 532\ 558 = 342$ excess pixels (less than 0.06%)
+given $\left\lceil{\sqrt{532\ 878}}\right\rceil = 730$ an image with resolution 730×730 px would be enough to hold a book content<br />
+there would be at much $730^2 - 538\ 878 = 22$ excess pixels (less than 0.004%)
 
 there’re 640 books per room, so if we can take the integer value of book content in base-10 divide by 640, the quotient will be room id, the remainder can be map to the position of the book in that room, *e.g.*:
 - `remainder = 0`: 1st wall, 1st shelf, 1st book in shelf
@@ -107,7 +107,7 @@ luckily @zwyx also publish the code to accelerate base conversion for very big n
 
 *N.B.*: to have the best performance, the base should be a power of 2
 
-convention: space character is the zero of base-8131, i don’t care about base-149625
+convention: space character is the zero of base-8175, i don’t care about base-149625
 
 i don’t reverse book index order (unlike @zwyx’s implementation)
 

@@ -11,11 +11,18 @@ from gmpy2 import mpz
 # - https://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt
 # - https://www.unicode.org/charts/
 
+# romanization doesn’t remove all non latin characters, need a special filter
+_LEFTOVER_FILTER = "[" + "".join([
+	"[^[:Script=Latin:][:Script=Common:]]", # neither latin nor common characters
+	"[:General_Category=Mark:][:General_Category=Other:]", # [:General_Category=Separator:] will be replace with white space
+	"[[:Emoji=Yes:] - [[:Emoji_Component=Yes:] - [:Emoji_Modifier=Yes:]]]" # keep emoji components but not modifiers
+]) + "]" # some characters like # or * are considered emoji components, but emoji components also include emoji modifiers
+
 _TRANSLITERATOR = Transliterator.createFromRules("random-label", " ".join([
 	":: Latin;", # romanization, must use `::` see icu syntax
 	":: NFKC;", # combine diacritics and remove ligatures
-	":: [[:Emoji=Yes:][^[:sc=Latin:][:gc=Decimal_Number:][:gc=Symbol:][:gc=Punctuation:][:gc=Separator:]]] Remove;", # leftover
-	"[:gc=Separator:] > ' '", # replace tab, line feed, etc. with normal white space
+	":: " + _LEFTOVER_FILTER + " Remove;",
+	"[:General_Category=Separator:] > ' '", # replace tab, line feed, etc. with normal white space
 ]))
 # keep duplicated spaces for case of ASCII art
 # to collapse multiple spaces into one space: append ":: Null; ' ' {' '} > ;"
