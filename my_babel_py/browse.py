@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-browse a bok given book index
+browse a book content given its book
 
 not yet implemented, just a placeholder for now
 """

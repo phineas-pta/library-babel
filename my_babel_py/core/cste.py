@@ -7,6 +7,9 @@ some constants used in the project
 from sys import maxunicode
 from itertools import product
 from math import ceil, sqrt, log
+import platform
+from unicodedata import unidata_version
+from importlib.metadata import version
 from icu import UnicodeSet
 
 # values fixed by Borges
@@ -25,7 +28,7 @@ BOOKS_PER_ROOM = WALLS_PER_ROOM * SHELVES_PER_WALL * BOOKS_PER_SHELF # 640
 ZERO_CHAR = chr(32) # space character representing 0
 
 ###############################################################################
-# find all required characters
+#%% find all required characters
 
 # list of all characters to be used in book content, basically Unicode Latin script except not-printable characters
 # see definition of transliterator in file utils.py for more explanation
@@ -78,7 +81,7 @@ assert _tmp4 == len(_tmp6), "BOOK_INDEX_CHARACTERS should not contain duplicate 
 assert _tmp5 - _tmp6 == set(), "BOOK_CONTENT_CHARACTERS should be a subset of BOOK_INDEX_CHARACTERS"
 
 ###############################################################################
-# for image processing
+#%% for image processing
 
 BYTE = 2**8 # color = 1 byte = 256 values in each channel R, G, B, A
 BYTE_HEX = tuple("".join(i) for i in product("0123456789abcdef" , repeat=2)) # hex code
@@ -94,5 +97,30 @@ ZERO_COLOR = (0,) * len(COLOR_MODE) # black but transparent
 COLOR_LENGTH = 2 # 2 hex characters per color
 PIXEL_LENGTH = len(COLOR_MODE) * COLOR_LENGTH # 4 colors × 2 hex characters per color = 8 characters per pixel
 
+###############################################################################
+#%% sys info
+
+SYS_INFO = f"""SYSTEM info:
+- Operating system: {platform.system()} {platform.release()}
+- Architecture: {platform.machine()}
+- Python: {platform.python_implementation()} {platform.python_version()}
+- Unicode: {unidata_version}
+- Packages: gmpy2 {version("gmpy2")} and pyicu {version("pyicu")}
+
+LIBRARY OF BABEL info:
+- {_tmp3:,d} unique characters in book content
+- {_tmp4:,d} unique characters in book index
+- {CHARS_PER_LINE} characters per line
+- {LINES_PER_PAGE} lines per page
+- {PAGES_PER_BOOK} pages per book
+- {BOOKS_PER_SHELF} books per shelf
+- {SHELVES_PER_WALL} bookshelves per wall
+- {WALLS_PER_ROOM} room
+therefore:
+- {CHARS_PER_PAGE:,d} characters per page
+- {CHARS_PER_BOOK:,d} characters per book
+- {BOOKS_PER_ROOM} books per room
+- {BOOK_IMAGE_SIZE}×{BOOK_IMAGE_SIZE}px image size
+- {MAX_PIXEL_COUNT:,d} pixels used to hold book content"""
 
 del _tmp0, _tmp1, _tmp2, _tmp3, _tmp4, _tmp5, _tmp6 # clean up temporary variables

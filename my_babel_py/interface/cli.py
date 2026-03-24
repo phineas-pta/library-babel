@@ -14,7 +14,7 @@ def cli():
 		epilog="By this art you may contemplate the variation of the 8175 letters",
 		allow_abbrev=False
 	)
-	subparsers = parser.add_subparsers()
+	subparsers = parser.add_subparsers(help="available commands", dest="command") # dest is used to know which subcommand is used
 
 	###########################################################################
 
@@ -38,5 +38,9 @@ def cli():
 
 	browser = subparsers.add_parser(name="browse", description="browse books", usage="")
 	browser.add_argument("--nothing", help="not implemented yet")
+
+	###########################################################################
+
+	subparsers.add_parser(name="info", description="print system info", usage="")
 
 	return parser.parse_args()

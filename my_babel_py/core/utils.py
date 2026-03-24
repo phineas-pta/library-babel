@@ -21,7 +21,7 @@ _LEFTOVER_FILTER = "[" + "".join([
 _TRANSLITERATOR = Transliterator.createFromRules("random-label", " ".join([
 	":: Latin;", # romanization, must use `::` see icu syntax
 	":: NFKC;", # combine diacritics and remove ligatures
-	":: " + _LEFTOVER_FILTER + " Remove;",
+	f":: {_LEFTOVER_FILTER} Remove;",
 	"[:General_Category=Separator:] > ' '", # replace tab, line feed, etc. with normal white space
 ]))
 # keep duplicated spaces for case of ASCII art

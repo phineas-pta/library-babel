@@ -1,4 +1,5 @@
 {
+	"files.trimTrailingWhitespace": false,
 	"cSpell.ignorePaths": [
 		"package-lock.json",
 		"node_modules/",
@@ -45,6 +46,7 @@
 		"Sanath",
 		"Snelling",
 		"textit",
+		"unidata",
 		"Universalbibliothek",
 		"Upadhyaya",
 		"Valverde",

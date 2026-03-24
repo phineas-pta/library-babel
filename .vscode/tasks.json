@@ -1,0 +1,49 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run main program: Search",
+			"type": "shell",
+			"presentation": {
+				"reveal": "always",
+				"panel": "new",
+				"focus": true
+			},
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"command": "${command:python.interpreterPath}",
+			"args": [
+				"main.py",
+				"search",
+				"--fill-option",
+				"empty",
+				"--input-txt-file",
+				"docs/3-EXTRA.md",
+				"--save-book-content-to-txt",
+				"draft/book-1.txt",
+				"--save-book-content-to-img",
+				"draft/book-1.png"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "Run main program: Info",
+			"type": "shell",
+			"presentation": {
+				"reveal": "always",
+				"panel": "new",
+				"focus": true
+			},
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"command": "${command:python.interpreterPath}",
+			"args": [
+				"main.py",
+				"info"
+			],
+			"problemMatcher": []
+		}
+	]
+}
