@@ -14,16 +14,13 @@
 			},
 			"command": "${command:python.interpreterPath}",
 			"args": [
-				"main.py",
+				"cli.py",
 				"search",
-				"--fill-option",
-				"empty",
-				"--input-txt-file",
+				"-i",
 				"docs/3-EXTRA.md",
-				"--save-book-content-to-txt",
+				"-o",
 				"draft/book-1.txt",
-				"--save-book-content-to-img",
-				"draft/book-1.png"
+				"-save-img"
 			],
 			"problemMatcher": []
 		},
@@ -40,7 +37,7 @@
 			},
 			"command": "${command:python.interpreterPath}",
 			"args": [
-				"main.py",
+				"cli.py",
 				"info"
 			],
 			"problemMatcher": []

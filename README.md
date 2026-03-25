@@ -32,6 +32,8 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
   - mac need `icu4c`
 - *optional* `pillow` to process image
 
+`uv` is highly recommended to do `pip install`
+
 ![](https://libraryofbabel.info/img/tower.jpg "the Tower of Babel by Pieter Bruegel the Elder")
 
 ## usage
@@ -39,7 +41,7 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
 i include a [text file](docs/3-EXTRA.md) that u can use to test the program
 
 ```bash
-python main.py search --input-txt-file docs/3-EXTRA.md --save-book-content-to-txt draft/book-1.txt --save-book-content-to-img draft/book-1.png
+python cli.py search -i docs/3-EXTRA.md -o draft/book-1.txt -save-img
 ```
 
 on my computer, process a book take ~3s, then save to `.png` take ~2s, RAM usage < 200 MiB
