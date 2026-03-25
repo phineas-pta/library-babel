@@ -41,14 +41,16 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
 i include a [text file](docs/3-EXTRA.md) that u can use to test the program
 
 ```bash
-python cli.py search -i docs/3-EXTRA.md -o draft/book-1.txt -save-img
+python cli.py search -i docs/3-EXTRA.md -o draft/book-1.txt -save-pos -save-img
 ```
 
 on my computer, process a book take ~3s, then save to `.png` take ~2s, RAM usage < 200 MiB
 
 RECOMMENDATION: use a modern monospace file to properly render all characters, like `JuliaMono`, `Fira Code`, `Iosevka`, *etc.*
 
-**extra**: u want to generate books in your language without latin characters ? edit `BOOK_CONTENT_CHARACTERS` in file [`cste.py`](my_babel_py/core/cste.py) to your liking
+**extra**: u want to generate books in your language without latin characters ? edit:
+- `BOOK_CONTENT_CHARACTERS` in file [`cste.py`](my_babel_py/core/cste.py)
+- `_TRANSLITERATOR` in file [`utils.py`](my_babel_py/core/utils.py)
 
 ## licensing
 

@@ -25,15 +25,6 @@ class Book:
 		# index and content generated lazily when requested, because they are strings so take more memory than the raw integer
 		# also i could use raw integer to compute various things later if needed
 
-		# find the room and position of the book in the room
-		self._room_id, _remainder       = divmod(self._raw_int, BOOKS_PER_ROOM) # remainder is always less than BOOKS_PER_ROOM
-		_remainder, self._book_in_shelf = divmod(_remainder, BOOKS_PER_SHELF)
-		self._wall_id, self._shelf_id   = divmod(_remainder, SHELVES_PER_WALL)
-		# example book content / book index in base-10 is 5342526, then:
-		# divmod(5342526, 640) => room_id=8347, remainder=446
-		# divmod(446, 32)      => remainder=13, book_in_shelf=30
-		# divmod(13, 5)        => wall_id=2, shelf_id=3
-
 	@property
 	def index(self) -> str:
 		"""return book index = integer in base-149625"""
@@ -46,36 +37,11 @@ class Book:
 
 	def __repr__(self) -> str:
 		"""for debugging only"""
-		return "\n\t".join([
-			"Book(",
-			f"index='{self.index[:5]}',",
-			f"content='{self.content[:5]}',",
-			f"room_id={self.room_id[:5]},",
-			f"wall_id={self.wall_id},",
-			f"shelf_id={self.shelf_id},",
-			f"book_in_shelf={self.book_in_shelf}",
-		]) + "\n)"
+		return f"save book to text file to read more, last 5 digits of book id: {self._raw_int % 10**5}"
 
 	def __str__(self) -> str:
 		# TODO: need better info
 		return f"save book to text file to read more, last 5 digits of book id: {self._raw_int % 10**5}"
-
-	@property
-	def room_id(self) -> str:
-		"""room id will be also encoded to base-149625 like book id"""
-		return int2str(self._room_id, BOOK_INDEX_CHARACTERS)
-
-	@property
-	def wall_id(self) -> mpz:
-		return self._wall_id
-
-	@property
-	def shelf_id(self) -> mpz:
-		return self._shelf_id
-
-	@property
-	def book_in_shelf(self) -> mpz:
-		return self._book_in_shelf
 
 
 ###############################################################################

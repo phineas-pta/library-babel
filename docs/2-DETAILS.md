@@ -29,7 +29,7 @@ possible future improvements may or may not include: convert book content to ima
 despite the popularity of web interfaces, a local implementation ensures high-performance processing of massive integers without server-side overhead or client-side limitation
 
 initially, i intended to develop this in Julia, a language i’m currently exploring due to its long-term potential ;<br />
-it already has GMP (General Multi-Precision) built-in, but at the time of writing it lacks a robust binding to ICU (International Components for Unicode);<br />
+it already has GMP (see section `2.3` below) built-in, but at the time of writing it lacks a robust binding to ICU (see section `2.3` below);<br />
 Python was ultimately chosen for its stability and ecosystem
 
 i also lack designer skill to make a beautiful web interface, so i won’t use Javascript
@@ -97,9 +97,11 @@ room id will be also encoded to base-149625 like book id
 
 ## 2.3. coding
 
-GMP (General Multi-Precision) via `gmpy2`: to process numbers with millions of digits
+GMP (GNU Multiple Precision Arithmetic Library) via `gmpy2`: to process numbers with millions of digits<br />
+GMP has been developed since 1991 by arithmetic specialists, `gmpy2` is also regularly maintained since 2007
 
-ICU (International Components for Unicode) via `pyicu`: is a bit tricky to install for end users
+ICU (International Components for Unicode) via `pyicu`: is a bit tricky to install for end users<br />
+ICU has been developed since 1999 by internationalization specialists, `pyicu` is impressively maintained since 2007 but poorly documented
 
 `gmpy2` (and also `numpy` or Julia) can only do base conversion up to base-62, i need something else for an arbitrarily value
 

@@ -6,9 +6,10 @@ command line interface
 
 from argparse import ArgumentParser
 from pathlib import Path
+from warnings import warn
 from my_babel_py.core.cste import SYS_INFO
 from my_babel_py.search import search_semi_empty_book, search_semi_random_book
-from my_babel_py.io.txt import txt_save_books_content, txt_save_books_position
+from my_babel_py.io.txt import txt_save_books_content, txt_save_books_position, txt_load_book_position
 from my_babel_py.io.img import img_load, img_save_books_content
 
 ###############################################################################
@@ -39,9 +40,9 @@ searcher.add_argument("-save-img", action="store_true", help="whether to save bo
 
 browser = subparsers.add_parser(name="browse", description="browse books", usage="")
 
-browser.add_argument("-i", "--input", type=Path, required=True, help="path to book content .TXT or .PNG file")
+browser.add_argument("-i", "--input", type=Path, required=True, help="path to book position .TXT file or book image .PNG file")
 browser.add_argument("-o", "--output", type=Path, required=True, metavar="PATH", help="save book content as .TXT file")
-browser.add_argument("-img", action="store_true", help="whether to save book as .PNG image")
+browser.add_argument("-save-img", action="store_true", help="whether to save book as .PNG image")
 
 #====================================================================
 
@@ -55,17 +56,22 @@ ARGS = PARSER.parse_args()
 match ARGS.command:
 
 	case "search":
-		_SEARCH_TYPE = {
-			"empty": search_semi_empty_book,
-			"random": search_semi_random_book,
-		}
-		search_func = _SEARCH_TYPE.get(ARGS.fill_option)
+
+		match ARGS.fill_option:
+			case "empty":
+				search_func = search_semi_empty_book
+			case "random":
+				warn("take longer time than fill with whitespace")
+				search_func = search_semi_random_book
+			case _:
+				raise ValueError("unknown fill option")
 
 		if (tmp_path := Path(ARGS.input)).is_file():
 			with tmp_path.open(mode="r", encoding="utf-8") as f:
 				book = search_func(f.read())
 		else:
 			book = search_func(ARGS.input)
+		print(book)
 
 		txt_save_books_content(book, ARGS.output)
 		print(f"book content saved to {ARGS.output}")
@@ -77,13 +83,16 @@ match ARGS.command:
 			print("image saved in the same folder")
 
 	case "browse":
+
 		match ARGS.input.suffix.lower():
 			case ".png":
-				book = img_load(ARGS.input_img_file)
+				book = img_load(ARGS.input)
 			case ".txt":
-				pass
+				warn("take too much longer time than load from image")
+				book = txt_load_book_position(ARGS.input)
 			case _:
 				raise ValueError("only .TXT or .PNG file supported")
+		print(book)
 
 		txt_save_books_content(book, ARGS.output)
 		print(f"book content saved to {ARGS.output}")
