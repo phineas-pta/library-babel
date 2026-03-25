@@ -7,7 +7,7 @@ readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 classifiers = [
-	"Development Status :: 3 - Alpha",
+	"Development Status :: 4 - Beta",
 	"Operating System :: Microsoft :: Windows :: Windows 11",
 	"Operating System :: POSIX :: Linux",
 	"Operating System :: MacOS :: MacOS X",
@@ -26,8 +26,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+dev = ["nuitka[all]"]
 img = ["pillow"]
 pdf = ["fpdf2"]
+tui = ["textual"]
+wui = ["nicegui"]
 
 [project.urls]
 Repository = "https://github.com/phineas-pta/library-babel"

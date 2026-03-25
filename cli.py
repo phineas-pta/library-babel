@@ -96,13 +96,13 @@ match ARGS.command:
 				img_save_books_content(book, ARGS.output.with_suffix(".png"))
 				print("image saved in the same folder")
 			else:
-				raise ValueError("no image export capability")
+				warn("no image export capability, output aborted")
 		if ARGS.save_pdf:
 			if _pdf_capability:
 				pdf_save_books_content(book, ARGS.output.with_suffix(".pdf"))
 				print("pdf saved in the same folder")
 			else:
-				raise ValueError("no pdf export capability")
+				warn("no pdf export capability, output aborted")
 
 	case "browse":
 
@@ -123,13 +123,13 @@ match ARGS.command:
 				img_save_books_content(book, ARGS.output.with_suffix(".png"))
 				print("image saved in the same folder")
 			else:
-				raise ValueError("no image export capability")
+				warn("no image export capability, output aborted")
 		if ARGS.save_pdf:
 			if _pdf_capability:
 				pdf_save_books_content(book, ARGS.output.with_suffix(".pdf"))
 				print("pdf saved in the same folder")
 			else:
-				raise ValueError("no pdf export capability")
+				warn("no pdf export capability, output aborted")
 
 	case "info":
 		print(SYS_INFO)

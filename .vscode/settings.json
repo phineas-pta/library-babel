@@ -39,6 +39,8 @@
 		"libicu",
 		"mathit",
 		"maxunicode",
+		"nicegui",
+		"nuitka",
 		"numpy",
 		"Pieter",
 		"putpixel",

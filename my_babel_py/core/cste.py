@@ -109,7 +109,12 @@ SYS_INFO = f"""SYSTEM info:
 - Unicode:
   - in Python: {UNIDATA_VERSION}
   - in ICU {ICU_VERSION}: {UNICODE_VERSION}
-- Export capabilities: text=YES, image={"NO" if find_spec("PIL") is None else "YES"}, pdf={"NO" if find_spec("fpdf") is None else "YES"}
+- Export capabilities: text = YES, image = {"NO" if find_spec("PIL") is None else "YES"}, pdf = {"NO" if find_spec("fpdf") is None else "YES"}
+- Interface availabilities: 
+  - command-line interface = YES
+  - terminal user-interface = NO 
+  - graphical user-interface = NO
+  - web-based user-interface = NO
 
 LIBRARY OF BABEL info:
 - {_tmp3:,d} unique characters in book content
