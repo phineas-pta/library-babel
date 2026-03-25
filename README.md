@@ -30,9 +30,13 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
   - windows wheels can be downloaded from: https://github.com/cgohlke/pyicu-build/releases
   - linux need `libicu-dev` or the like
   - mac need `icu4c`
-- *optional* `pillow` to process image
+- *optional* `pillow` to output image
+- *optional* `fpdf2` to output pdf, using `JuliaMono` typeface from https://github.com/cormullion/juliamono
 
-`uv` is highly recommended to do `pip install`
+command example **on my machine**:
+```bash
+pip install pillow gmpy2 fpdf2 https://github.com/cgohlke/pyicu-build/releases/download/v2.16.2/pyicu-2.16.2-cp313-cp313-win_amd64.whl
+```
 
 ![](https://libraryofbabel.info/img/tower.jpg "the Tower of Babel by Pieter Bruegel the Elder")
 
@@ -41,7 +45,7 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
 i include a [text file](docs/3-EXTRA.md) that u can use to test the program
 
 ```bash
-python cli.py search -i docs/3-EXTRA.md -o draft/book-1.txt -save-pos -save-img
+python cli.py search -i docs/3-EXTRA.md -o draft/book-1.txt -save-pos -save-img -save-pdf
 ```
 
 on my computer, process a book take ~3s, then save to `.png` take ~2s, RAM usage < 200 MiB
@@ -64,7 +68,7 @@ i use `gmpy2` because i expect to process numbers with millions of digits, but n
 
 (not in any particular order)
 
-- [ ] TXT / PNG / PDF input / output
+- [x] TXT / PNG / PDF input / output
 - [ ] verify the number of characters filtered: 8175 in book content, 149625 in book id
 - [ ] better user interface: text / graphical / web
 - [ ] research how to leverage GPU to crunch much bigger number and batch processing

@@ -4,13 +4,14 @@
 some constants used in the project
 """
 
-from sys import maxunicode
+from sys import maxunicode as MAXUNICODE
 from itertools import product
 from math import ceil, sqrt, log
 import platform
-from unicodedata import unidata_version
+from unicodedata import unidata_version as UNIDATA_VERSION
 from importlib.metadata import version
-from icu import UnicodeSet
+from importlib.util import find_spec
+from icu import UnicodeSet, ICU_VERSION, UNICODE_VERSION
 
 # values fixed by Borges
 WALLS_PER_ROOM   = 4
@@ -59,7 +60,7 @@ BOOK_CONTENT_CHARACTERS = tuple(_tmp1)
 
 # list of all characters to be used in book index, basically any printable characters
 _tmp2 = []
-for code_point in range(maxunicode + 1):
+for code_point in range(MAXUNICODE + 1):
 	char = chr(code_point)
 	if char.isprintable():
 		_tmp2.append(char)
@@ -104,8 +105,11 @@ SYS_INFO = f"""SYSTEM info:
 - Operating system: {platform.system()} {platform.release()}
 - Architecture: {platform.machine()}
 - Python: {platform.python_implementation()} {platform.python_version()}
-- Unicode: {unidata_version}
 - Packages: gmpy2 {version("gmpy2")} and pyicu {version("pyicu")}
+- Unicode:
+  - in Python: {UNIDATA_VERSION}
+  - in ICU {ICU_VERSION}: {UNICODE_VERSION}
+- Export capabilities: text=YES, image={"NO" if find_spec("PIL") is None else "YES"}, pdf={"NO" if find_spec("fpdf") is None else "YES"}
 
 LIBRARY OF BABEL info:
 - {_tmp3:,d} unique characters in book content

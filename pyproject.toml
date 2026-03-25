@@ -27,6 +27,7 @@ dependencies = [
 
 [project.optional-dependencies]
 img = ["pillow"]
+pdf = ["fpdf2"]
 
 [project.urls]
 Repository = "https://github.com/phineas-pta/library-babel"

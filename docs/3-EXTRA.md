@@ -7,23 +7,23 @@
 
 given this string:
 ```
-Café Αλφτάλογος ,,😘,..🙄:+=- 165 <a>##fee</a> 𐄇 $(/≧▽≦)/$ 師言:\n以瑞,神相。  ɐɑɒɓɖɗ ᴀᴁᴂᴆᴇᴈᴉ  ᶀᶁᶂᶃᶄ   ₀₁₂₅₆ ⅀⅁⅂⅃⅄ⅅ ⅠⅡⅣⅤⅥ  ﬀﬁﬃﬄ ＠ＡＤＥ
+Café Αλφτάλογος ,,😘,..🙄:+=- 165 <a>##fee</a>  $(/≧▽≦)/$ 師言:\n以瑞,神相。  ɐɑɒɓɖɗ ᴀᴁᴂᴆᴇᴈᴉ  ᶀᶁᶂᶃᶄ   ₀₁₂₅₆ ⅀⅁⅂⅃⅄ⅅ ⅠⅡⅣⅤⅥ  ﬀﬁﬃﬄ ＠ＡＤＥ
 ```
 
 `unidecode` output:
 ```
-Cafe Alphtalogos ,,,..:+=- 165 <a>##fee</a> ?? $(/>=V<=)/$ Shi Li Yan :\nYi Er Rui ,Shen Tong Xiang .   aaabdd AAEaeDEei  bdfgk   01256 D IIIIVVVI  fffiffiffl @ADE
+Cafe Alphtalogos ,,,..:+=- 165 <a>##fee</a>  $(/>=V<=)/$ Shi Li Yan :\nYi Er Rui ,Shen Tong Xiang .   aaabdd AAEaeDEei  bdfgk   01256 D IIIIVVVI  fffiffiffl @ADE
 ```
 
 ICU romanization:
 ```
-Café Alphtálogos ,,😘,..🙄:+=- 165 <a>##fee</a> 𐄇 $(/≧▽≦)/$ shī lì yán: yǐ ér ruì, shén tōng xiāng.  ɐɑɒɓɖɗ ᴀᴁᴂᴆᴇᴈᴉ  ᶀᶁᶂᶃᶄ   01256 ∑⅁⅂⅃⅄D IIIIVVVI  fffiffiffl @ADE
+Café Alphtálogos ,,😘,..🙄:+=- 165 <a>##fee</a>  $(/≧▽≦)/$ shī lì yán: yǐ ér ruì, shén tōng xiāng.  ɐɑɒɓɖɗ ᴀᴁᴂᴆᴇᴈᴉ  ᶀᶁᶂᶃᶄ   01256 ∑⅁⅂⅃⅄D IIIIVVVI  fffiffiffl @ADE
 ```
 
 ## 3.2. ASCII art
 
 ```
-                   
+                       
 █████▄ ▄▄ ▄▄   ▄▄▄▄▄▄ ▄▄ ▄▄ ▄▄  ▄▄▄▄    ▄▄▄  ▄▄▄▄  ▄▄▄▄▄▄                       
 ██▄▄██ ▀███▀     ██   ██▄██ ██ ███▄▄   ██▀██ ██▄█▄   ██                         
 ██▄▄█▀   █       ██   ██ ██ ██ ▄▄██▀   ██▀██ ██ ██   ██                         

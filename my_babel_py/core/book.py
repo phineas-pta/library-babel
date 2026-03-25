@@ -48,8 +48,10 @@ class Book:
 # decorator to transform "save 1 book" function into "save many books"
 
 def save_multiple_books(save1book_func):
-	def wrapper(books: list[Book], filepath: Path) -> None:
-		if len(books) == 1:
+	def wrapper(books: Book | list[Book], filepath: Path) -> None:
+		if  isinstance(books, Book):
+			save1book_func(books, filepath)
+		elif len(books) == 1:
 			save1book_func(books[0], filepath)
 		else:
 			warn("multiple books found, files name will be auto-incremented")

@@ -21,7 +21,8 @@
 				"-o",
 				"draft/book-1.txt",
 				"-save-pos",
-				"-save-img"
+				"-save-img",
+				"-save-pdf"
 			],
 			"problemMatcher": []
 		},
@@ -41,10 +42,9 @@
 				"cli.py",
 				"browse",
 				"-i",
-				"draft/book-1_POSITION.txt",
+				"draft/book-1.png",
 				"-o",
-				"draft/book-1-bis.txt",
-				"-save-img"
+				"draft/book-1-bis.txt"
 			],
 			"problemMatcher": []
 		},

@@ -14,7 +14,7 @@ from ..core.utils import str2int, int2str
 def txt_save_books_content(book: Book, filepath: Path) -> None:
 	"""save the content of the book to a txt file"""
 	tmp = book.content # save the content to a temporary variable to avoid repeatedly re-computing it
-	with filepath.open(mode="w", encoding="utf-8") as f: # still use `open` for compatibility
+	with filepath.open(mode="w", encoding="utf-8") as f:
 		for i in range(0, len(tmp), CHARS_PER_LINE):
 			if i > 0 and i % CHARS_PER_PAGE == 0: # add an extra newline after each page
 				f.write("\n")
@@ -35,7 +35,7 @@ def txt_save_books_position(book: Book, filepath: Path) -> None:
 	# divmod(13, 5)        => wall_id=2, shelf_id=3
 
 	tmp = int2str(room_id, BOOK_INDEX_CHARACTERS) # room id will be also encoded to base-149625 like book id
-	with filepath.open(mode="w", encoding="utf-8") as f: # still use `open` for compatibility
+	with filepath.open(mode="w", encoding="utf-8") as f:
 		f.write(f"this is book {1+book_in_shelf} in shelf {1+shelf_id} in wall {1+wall_id} in room:\n")
 		for i in range(0, len(tmp), CHARS_PER_LINE):
 			f.write(tmp[i:i+CHARS_PER_LINE] + "\n")
