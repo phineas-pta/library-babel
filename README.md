@@ -33,9 +33,14 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
 - *optional* `pillow` to output image
 - *optional* `fpdf2` to output pdf, using `JuliaMono` typeface from https://github.com/cormullion/juliamono
 
-command example **on my machine**:
+command example **on my machine** (windows):
 ```bash
 pip install pillow gmpy2 fpdf2 https://github.com/cgohlke/pyicu-build/releases/download/v2.16.2/pyicu-2.16.2-cp313-cp313-win_amd64.whl
+```
+
+command example on Linux or Mac:
+```bash
+pip install pillow gmpy2 fpdf2 pyicu
 ```
 
 ![](https://libraryofbabel.info/img/tower.jpg "the Tower of Babel by Pieter Bruegel the Elder")
@@ -52,9 +57,11 @@ on my computer, process a book take ~3s, then save to `.png` take ~2s, RAM usage
 
 RECOMMENDATION: use a modern monospace file to properly render all characters, like `JuliaMono`, `Fira Code`, `Iosevka`, *etc.*
 
-**extra**: u want to generate books in your language without latin characters ? edit:
+**extra 1**: to generate books in your own language without latin characters: edit:
 - `BOOK_CONTENT_CHARACTERS` in file [`cste.py`](my_babel_py/core/cste.py)
 - `_TRANSLITERATOR` in file [`utils.py`](my_babel_py/core/utils.py)
+
+**extra 2**: to change font in PDF output: edit path to font file in [`pdf.py`](my_babel_py/io/pdf.py)
 
 ## licensing
 

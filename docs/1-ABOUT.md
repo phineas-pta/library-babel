@@ -133,6 +133,8 @@ but compared with the string representation of the book content in base-29, the 
 
 the takeaway is **a book is not stored as text, but as a very large integer**
 
+*N.B.* base conversion seem inevitable in any approach
+
 the author goes even further and converts the integer into an image, effectively using base-256⁴, where each digit becomes a pixel in the RGBA color system
 
 **because the math here is more intuitive, it provides a perfect foundation for my own goal: adding multi-language support**

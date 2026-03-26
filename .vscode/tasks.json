@@ -2,15 +2,12 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Run main program: Search",
+			"label": "Library of Babel: test Search",
 			"type": "shell",
+			"group": "test",
 			"presentation": {
-				"reveal": "always",
-				"panel": "new",
-				"focus": true
-			},
-			"options": {
-				"cwd": "${workspaceFolder}"
+				"focus": true,
+				"clear": true
 			},
 			"command": "${command:python.interpreterPath}",
 			"args": [
@@ -23,48 +20,39 @@
 				"-save-pos",
 				"-save-img",
 				"-save-pdf"
-			],
-			"problemMatcher": []
+			]
 		},
 		{
-			"label": "Run main program: Browse",
+			"label": "Library of Babel: test Browse",
 			"type": "shell",
+			"group": "test",
 			"presentation": {
-				"reveal": "always",
-				"panel": "new",
-				"focus": true
-			},
-			"options": {
-				"cwd": "${workspaceFolder}"
+				"focus": true,
+				"clear": true
 			},
 			"command": "${command:python.interpreterPath}",
 			"args": [
 				"cli.py",
 				"browse",
 				"-i",
-				"draft/book-1.png",
+				"draft/book-1_POSITION.txt",
 				"-o",
 				"draft/book-1-bis.txt"
-			],
-			"problemMatcher": []
+			]
 		},
 		{
-			"label": "Run main program: Info",
+			"label": "Library of Babel: print Info",
 			"type": "shell",
+			"group": "test",
 			"presentation": {
-				"reveal": "always",
-				"panel": "new",
-				"focus": true
-			},
-			"options": {
-				"cwd": "${workspaceFolder}"
+				"focus": true,
+				"clear": true
 			},
 			"command": "${command:python.interpreterPath}",
 			"args": [
 				"cli.py",
 				"info"
-			],
-			"problemMatcher": []
+			]
 		}
 	]
 }

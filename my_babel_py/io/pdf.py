@@ -16,13 +16,16 @@ class myPDF(FPDF):
 		self.cell(text=f"Page {self.page_no()} / {{nb}}", w=0, align="center") # w=0 the cell extends up to the right margin so center-align possible
 
 
+_default_font_path = Path(__file__).parents[2] / "assets" / "JuliaMono-Regular.ttf" # included with this program
+
+
 @save_multiple_books
-def pdf_save_books_content(book: Book, filepath: Path) -> None:
+def pdf_save_books_content(book: Book, filepath: Path, fontpath: Path = _default_font_path) -> None:
 	tmp = book.content # save the content to a temporary variable to avoid repeatedly re-computing it
 	pdf = myPDF(orientation="portrait", format="A4", unit="mm")
 	pdf.set_margin(10)
-	pdf.add_font(family="JuliaMono", fname=Path(__file__).parents[2] / "assets" / "JuliaMono-Regular.ttf")
-	pdf.set_font(family="JuliaMono", size=11)
+	pdf.add_font(family="my_font", fname=fontpath)
+	pdf.set_font(family="my_font", size=11)
 	for i in range(0, len(tmp), CHARS_PER_LINE):
 		if i % CHARS_PER_PAGE == 0:
 			pdf.add_page()

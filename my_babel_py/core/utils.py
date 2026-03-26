@@ -21,8 +21,9 @@ _LEFTOVER_FILTER = "[" + "".join([
 _TRANSLITERATOR = Transliterator.createFromRules("random-label", " ".join([
 	":: Latin;", # romanization, must use `::` see icu syntax
 	":: NFKC;", # combine diacritics and remove ligatures
+	"[[:General_Category=Separator:][:General_Category=Control:]] > ' ';", # replace tab, line feed, etc. with normal white space
+	# ATTENTION: horizontal tabulation / line feed / carriage return are considered control characters not separators
 	f":: {_LEFTOVER_FILTER} Remove;",
-	"[:General_Category=Separator:] > ' '", # replace tab, line feed, etc. with normal white space
 ]))
 # keep duplicated spaces for case of ASCII art
 # to collapse multiple spaces into one space: append ":: Null; ' ' {' '} > ;"
@@ -34,14 +35,16 @@ transliterate = _TRANSLITERATOR.transliterate
 # base conversion functions
 # based on https://zwyx.dev/blog/base-conversions-with-big-numbers-in-javascript
 
-def str2int(text: str | list[str], alphabet: list[str]) -> mpz:
+def str2int(text: str | list[str], alphabet: str | list[str]) -> mpz:
 	"""converts a sequence of base-b digits to an integer in base-10, where b is the length of the alphabet"""
 
 	base = len(alphabet)
-	parts = [
-		{"digit": mpz(alphabet.index(part)), "base": mpz(base)}
-		for part in text
-	]
+	powers = {v: i for i, v in enumerate(alphabet)} 
+	try:
+		parts = [{"digit": mpz(powers.get(part)), "base": mpz(base)} for part in text]
+		# `powers.get(part)` is much more faster than `alphabet.index(part)` when text is very long
+	except (TypeError, ValueError):
+		raise ValueError("text contains characters not found in alphabet")
 
 	if len(parts) == 1:
 		return parts[0]["digit"]
@@ -67,7 +70,7 @@ def str2int(text: str | list[str], alphabet: list[str]) -> mpz:
 	return parts[0]["digit"] * parts[1]["base"] + parts[1]["digit"]
 
 
-def int2str(value: mpz, alphabet: list[str]) -> str:
+def int2str(value: mpz, alphabet: str | list[str]) -> str:
 	"""converts an integer in base-10 to a sequence of base-b digits, where b is the length of the alphabet"""
 
 	if value == 0:

@@ -34,7 +34,7 @@ Python was ultimately chosen for its stability and ecosystem
 
 i also lack designer skill to make a beautiful web interface, so i won’t use Javascript
 
-as the time of writing, i use Python v3.13 (penultimate stable version) of which supports Unicode v16
+as the time of writing, i use Python v3.13 (penultimate stable version) of which supports Unicode v15.1
 
 keep external dependencies to a minimum
 
@@ -42,8 +42,8 @@ keep external dependencies to a minimum
 
 ## 2.2. Unicode
 
-the initial goal was to support all Unicode characters (≈154 998 in Unicode v16), however this leads to impractical constraints:
-- book content would be in base-154998.
+the initial goal was to support all Unicode characters (≈149 813 in Unicode v15.1), however this leads to impractical constraints:
+- book content would be in base-149813.
 - the corresponding index base would need to exceed this, which is not feasible
 
 so the trick is to perform **romanization (specifically transliteration)** to bring multilingual text into a manageable Latin-based alphabet, *e.g.* `北京` → `běijīng`
@@ -102,6 +102,12 @@ GMP has been developed since 1991 by arithmetic specialists, `gmpy2` is also reg
 
 ICU (International Components for Unicode) via `pyicu`: is a bit tricky to install for end users<br />
 ICU has been developed since 1999 by internationalization specialists, `pyicu` is impressively maintained since 2007 but poorly documented
+
+the most performance critical part is base conversion routine, the rest is pretty basic operations covered by many ready-to-use packages
+
+a naive implementation would have quadratic complexity $\mathcal{O}(n^2)$ itself (n = digits count) without accounting for the complexity of big integer multiplication / division algorithm<br />
+faster routine use a divide-and-conquer strategy to bring down to sub-quadratic $\mathcal{O}(\textit{MD}(n) \log n)$ with `MD(n)` the complexity of big integer multiplication / division algorithm<br />
+reference: Richard Brent & Paul Zimmermann (2010). *Modern Computer Arithmetic*, chapter 1 *Integer arithmetic*, section 1.7 *Base conversion*
 
 `gmpy2` (and also `numpy` or Julia) can only do base conversion up to base-62, i need something else for an arbitrarily value
 

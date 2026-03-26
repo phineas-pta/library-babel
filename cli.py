@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -110,7 +111,6 @@ match ARGS.command:
 			case ".png":
 				book = img_load(ARGS.input)
 			case ".txt":
-				warn("take too much longer time than load from image")
 				book = txt_load_book_position(ARGS.input)
 			case _:
 				raise ValueError("only .TXT or .PNG file supported")
