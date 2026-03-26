@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-command line interface
+command-line interface
 """
 
 from argparse import ArgumentParser
@@ -53,7 +53,7 @@ searcher.add_argument("-save-pdf", action="store_true", help="whether to save bo
 
 browser = subparsers.add_parser(name="browse", description="browse books", usage="")
 
-browser.add_argument("-i", "--input", type=Path, required=True, help="path to book position .TXT file or book image .PNG file (much faster)")
+browser.add_argument("-i", "--input", type=Path, required=True, help="path to book position .TXT file or book image .PNG file")
 browser.add_argument("-o", "--output", type=Path, required=True, metavar="PATH", help="save book content as .TXT file")
 browser.add_argument("-save-img", action="store_true", help="whether to save book as .PNG image")
 browser.add_argument("-save-pdf", action="store_true", help="whether to save book as .PDF document")

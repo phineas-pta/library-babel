@@ -108,15 +108,21 @@ class Test_Romanization(TestCase): # TODO: more edge cases
 
 class Test_Base_Conversion(TestCase): # TODO: change hard-coded values
 
-	alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" # base-62
+	alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" # base-62
 	test_int = mpz(67854)**15 - 10
-	test_str = "5ZQ4mMQqTFwsSWo3ZJek3ykwMuAq5DMZN2klWtXLQ"
+	test_str = "5zq4MmqQtfWSswO3zjEK3YKWmUaQ5dmzn2KLwTxnK"
 
-	def integer_to_string(self):
-		self.assertEqual(int2str(self.test_int, self.alphabet), self.test_str, "returned string not matched")
+	def test_integer_to_string(self):
+		self.assertEqual(
+			int2str(self.test_int, self.alphabet), self.test_int.digits(62),
+			"returned string not matched"
+		)
 
-	def string_to_integer(self):
-		self.assertEqual(str2int(self.test_str, self.alphabet), self.test_int, "returned integer not matched")
+	def test_string_to_integer(self):
+		self.assertEqual(
+			str2int(self.test_str, self.alphabet), mpz(self.test_str, 62),
+			"returned integer not matched"
+		)
 
 
 if __name__ == "__main__":

@@ -50,7 +50,7 @@ pip install pillow gmpy2 fpdf2 pyicu
 i include a [text file](docs/3-EXTRA.md) that u can use to test the program
 
 ```bash
-python cli.py search -i docs/3-EXTRA.md -o draft/book-1.txt -save-pos -save-img -save-pdf
+python main-cli.py search -i docs/3-EXTRA.md -o draft/book-1.txt -save-pos -save-img -save-pdf
 ```
 
 on my computer, process a book take ~3s, then save to `.png` take ~2s, RAM usage < 200 MiB

@@ -11,7 +11,7 @@
 			},
 			"command": "${command:python.interpreterPath}",
 			"args": [
-				"cli.py",
+				"main-cli.py",
 				"search",
 				"-i",
 				"docs/3-EXTRA.md",
@@ -32,7 +32,7 @@
 			},
 			"command": "${command:python.interpreterPath}",
 			"args": [
-				"cli.py",
+				"main-cli.py",
 				"browse",
 				"-i",
 				"draft/book-1_POSITION.txt",
@@ -50,7 +50,7 @@
 			},
 			"command": "${command:python.interpreterPath}",
 			"args": [
-				"cli.py",
+				"main-cli.py",
 				"info"
 			]
 		}
