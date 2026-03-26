@@ -42,8 +42,7 @@ def txt_save_books_position(book: Book, filepath: Path) -> None:
 
 
 def txt_load_book_position(filepath: Path) -> Book:
-	with filepath.open(mode="r", encoding="utf-8") as f:
-		txt = f.read().splitlines() # .readlines() keep line break which isn’t in BOOK_INDEX_CHARACTERS
+	txt = filepath.read_text(encoding="utf-8").splitlines() # .readlines() keep line break which isn’t in BOOK_INDEX_CHARACTERS
 	tmp0 = txt[0].split(" ")
 	book_in_shelf, shelf_id, wall_id = int(tmp0[3]), int(tmp0[6]), int(tmp0[9]) # TODO: find better way
 	room_id = str2int("".join(txt[1:]), BOOK_INDEX_CHARACTERS)

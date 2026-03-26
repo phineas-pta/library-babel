@@ -89,12 +89,12 @@ PIXEL_LENGTH = len(COLOR_MODE) * COLOR_LENGTH # 4 colors × 2 hex characters per
 
 SYS_INFO = f"""SYSTEM info:
   - Operating system: {platform.system()} {platform.release()}
-  - Architecture: {platform.machine()}
-  - Python: {platform.python_implementation()} {platform.python_version()}
+  - CPU architecture: {platform.machine()}
+  - Python: {platform.python_version()} ({platform.python_implementation()})
   - Required packages:
     - gmpy2 {gmpy2_version()} binding of {mp_version()}
     - pyicu {PYICU_VERSION} binding of ICU {ICU_VERSION}
-  - Unicode:
+  - Unicode version:
     - in Python: {UNIDATA_VERSION}
     - in ICU: {UNICODE_VERSION}
   - Export capabilities: text = YES, image = {"NO" if find_spec("PIL") is None else "YES"}, pdf = {"NO" if find_spec("fpdf") is None else "YES"}
@@ -112,12 +112,14 @@ LIBRARY OF BABEL info:
   - {PAGES_PER_BOOK} pages per book
   - {BOOKS_PER_SHELF} books per shelf
   - {SHELVES_PER_WALL} bookshelves per wall
-  - {WALLS_PER_ROOM} room
+  - {WALLS_PER_ROOM} walls per room
 therefore:
   - {CHARS_PER_PAGE:,d} characters per page
   - {CHARS_PER_BOOK:,d} characters per book
   - {BOOKS_PER_ROOM} books per room
-  - {BOOK_IMAGE_SIZE}×{BOOK_IMAGE_SIZE}px image size
-  - {MAX_PIXEL_COUNT:,d} pixels used to hold book content"""
+  - {MAX_PIXEL_COUNT:,d} pixels used to hold book content
+  - {BOOK_IMAGE_SIZE}×{BOOK_IMAGE_SIZE}px image size"""
+
+MODIFIED_BOURGES_QUOTE = f"By this art you may contemplate the variation of the {_tmp3} letters"
 
 del _tmp0, _tmp1, _tmp2, _tmp3, _tmp4 # clean up temporary variables

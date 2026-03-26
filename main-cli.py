@@ -8,7 +8,7 @@ command-line interface
 from argparse import ArgumentParser
 from pathlib import Path
 from warnings import warn
-from my_babel_py.core.cste import SYS_INFO
+from my_babel_py.core.cste import SYS_INFO, MODIFIED_BOURGES_QUOTE
 from my_babel_py.search import search_semi_empty_book, search_semi_random_book
 from my_babel_py.io.txt import txt_save_books_content, txt_save_books_position, txt_load_book_position
 
@@ -30,7 +30,7 @@ except ModuleNotFoundError:
 PARSER = ArgumentParser(
 	description="The extended “Library of Babel” in terminal: search for a book or browse books",
 	usage="",
-	epilog="By this art you may contemplate the variation of the 8175 letters",
+	epilog=MODIFIED_BOURGES_QUOTE,
 	allow_abbrev=False
 )
 subparsers = PARSER.add_subparsers(help="available commands", dest="command") # dest is used to know which subcommand is used
@@ -81,8 +81,7 @@ match ARGS.command:
 				raise ValueError("unknown fill option")
 
 		if (tmp_path := Path(ARGS.input)).is_file():
-			with tmp_path.open(mode="r", encoding="utf-8") as f:
-				book = search_func(f.read())
+			book = search_func(tmp_path.read_text(encoding="utf-8"))
 		else:
 			book = search_func(ARGS.input)
 		print(book)
