@@ -1,0 +1,58 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Library of Babel: test Search",
+			"type": "shell",
+			"group": "test",
+			"presentation": {
+				"focus": true,
+				"clear": true
+			},
+			"command": "${command:python.interpreterPath}",
+			"args": [
+				"main-cli.py",
+				"search",
+				"-i",
+				"docs/3-EXTRA.md",
+				"-o",
+				"tmp/book-1.txt",
+				"-save-pos",
+				"-save-img",
+				"-save-pdf"
+			]
+		},
+		{
+			"label": "Library of Babel: test Browse",
+			"type": "shell",
+			"group": "test",
+			"presentation": {
+				"focus": true,
+				"clear": true
+			},
+			"command": "${command:python.interpreterPath}",
+			"args": [
+				"main-cli.py",
+				"browse",
+				"-i",
+				"tmp/book-1_POSITION.txt",
+				"-o",
+				"tmp/book-1-bis.txt"
+			]
+		},
+		{
+			"label": "Library of Babel: print Info",
+			"type": "shell",
+			"group": "test",
+			"presentation": {
+				"focus": true,
+				"clear": true
+			},
+			"command": "${command:python.interpreterPath}",
+			"args": [
+				"main-cli.py",
+				"info"
+			]
+		}
+	]
+}

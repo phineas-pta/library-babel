@@ -1,0 +1,62 @@
+name: Count characters per Unicode version
+
+on:
+  workflow_dispatch:
+
+env:
+  PYTHONUNBUFFERED: 1
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      # fail-fast: false
+      matrix:
+        icu: # somehow versions before v60 crash for no reason
+          - "78.3/icu4c-78.3-sources" # not a typo
+          - "77-1/icu4c-77_1-src"
+          - "76-1/icu4c-76_1-src"
+          - "75-1/icu4c-75_1-src"
+          - "74-2/icu4c-74_2-src"
+          - "73-2/icu4c-73_2-src"
+          - "72-1/icu4c-72_1-src"
+          - "71-1/icu4c-71_1-src"
+          - "70-1/icu4c-70_1-src"
+          - "69-1/icu4c-69_1-src"
+          - "68-2/icu4c-68_2-src"
+          - "67-1/icu4c-67_1-src"
+          - "66-1/icu4c-66_1-src"
+          - "65-1/icu4c-65_1-src"
+          - "64-2/icu4c-64_2-src"
+          - "63-2/icu4c-63_2-src"
+          - "62-2/icu4c-62_2-src"
+          - "61-2/icu4c-61_2-src"
+          - "60-3/icu4c-60_3-src"
+
+    steps:
+
+      - name: Replace system ICU with custom version
+        run: |
+          sudo apt-get purge -y icu-devtools libicu-dev
+          wget -c -q -O icu4c.tgz https://github.com/unicode-org/icu/releases/download/release-${{ matrix.icu }}.tgz
+          tar -xzf icu4c.tgz -C /home/runner/work
+          rm icu4c.tgz
+          cd /home/runner/work/icu/source
+          sudo ./configure --prefix=/usr
+          sudo make -j &> /dev/null
+          sudo make install &> /dev/null
+
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: "pyproject.toml"
+          pip-install: pyicu gmpy2
+
+      - name: Print info
+        run: python main-cli.py info

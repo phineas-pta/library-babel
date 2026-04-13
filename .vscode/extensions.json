@@ -1,0 +1,10 @@
+{
+	"recommendations": [
+		"esbenp.prettier-vscode",
+		"streetsidesoftware.code-spell-checker",
+		"ms-python.debugpy",
+		"hoovercj.vscode-power-mode",
+		"Textualize.textual-syntax-highlighter",
+		"catppuccin.catppuccin-vsc"
+	]
+}

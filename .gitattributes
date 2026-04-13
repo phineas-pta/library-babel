@@ -1,0 +1,7 @@
+*.ttf binary
+docs/* linguist-documentation
+assets/* linguist-vendored
+.vscode/* linguist-vendored
+.idea/* linguist-vendored
+.github/* linguist-vendored
+.gitlab* linguist-vendored

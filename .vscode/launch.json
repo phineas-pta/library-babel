@@ -1,0 +1,15 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Python Debugger: CLI",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "${file}",
+			"cwd": "${fileDirname}",
+			"justMyCode": false,
+			"console": "integratedTerminal",
+			"args": "${command:pickArgs}"
+		}
+	]
+}

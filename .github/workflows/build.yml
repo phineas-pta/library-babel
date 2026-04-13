@@ -1,0 +1,62 @@
+name: Build executable
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    strategy:
+      matrix:
+        include:
+          - { os: windows-latest, shell: 'msys2 {0}' }
+          - { os: ubuntu-latest,  shell: bash  }
+          - { os: macos-latest,   shell: bash  }
+
+    defaults:
+      run:
+        shell: ${{ matrix.shell }}
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+
+      - name: one-click install everything on linux and macos
+        if: runner.os != 'Windows'
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-name: babel
+          create-args: >-
+            gmpy2
+            pyicu
+            pillow
+            fpdf2
+            nuitka
+
+      - name: one-click install everything on windows
+        if: runner.os == 'Windows'
+        uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          msystem: ucrt64
+          pacboy: >-
+            python-gmpy2:p
+            python-icu:p
+            python-pillow:p
+            python-fpdf2:p
+            python-nuitka:p
+
+      - name: run msys2 once
+        if: runner.os == 'Windows'
+        run: |
+          pwd
+          echo $MSYSTEM
+          echo $MSYS2_PATH_TYPE
+          echo $PATH
+
+      - name: Print info
+        run: python main-cli.py info

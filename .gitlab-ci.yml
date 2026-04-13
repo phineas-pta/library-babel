@@ -1,0 +1,89 @@
+stages:
+  - test
+  - build
+
+
+variables:
+  PYTHONUNBUFFERED: 1
+
+
+test:
+  stage: test
+  image: ubuntu:latest
+
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      changes:
+        - my_babel_py/config.py
+        - .gitlab-ci.yml
+
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ["3.12", "3.13", "3.14"]
+        ICU_LINK: ["74-2/icu4c-74_2-src", "75-1/icu4c-75_1-src", "76-1/icu4c-76_1-src", "77-1/icu4c-77_1-src", "78.3/icu4c-78.3-sources"]
+
+  before_script:
+    - apt-get update
+    - apt-get install -y build-essential
+    - wget -c -q -O icu4c.tgz https://github.com/unicode-org/icu/releases/download/release-${ICU_LINK}.tgz
+    - tar -xzf icu4c.tgz -C /tmp
+    - rm icu4c.tgz
+    - cd /tmp/icu/source
+    - ./configure --prefix=/usr
+    - make -j &> /dev/null
+    - make install &> /dev/null
+    - apt-get install -y python${PYTHON_VERSION}-dev
+    - python${PYTHON_VERSION} -m pip install -q setuptools pyicu gmpy2 pillow coverage
+
+  script:
+    - python${PYTHON_VERSION} main-cli.py info
+    - python${PYTHON_VERSION} -m coverage run -m unittest discover
+    - python${PYTHON_VERSION} -m coverage report -m
+
+
+build:linux:
+  stage: build
+  image: condaforge/mambaforge:latest
+  rules:
+    - if: $CI_COMMIT_TAG
+  before_script:
+    - mamba install -y gmpy2 pyicu pillow fpdf2 nuitka
+  script:
+    - python main-cli.py info
+
+
+build:windows:
+  stage: build
+  tags:
+    - saas-windows-medium-amd64
+  rules:
+    - if: $CI_COMMIT_TAG
+
+  before_script:
+    - wget.exe -nv -O msys2.exe https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-base-x86_64-20250221.sfx.exe
+    - ./msys2.exe -y -oC:\
+    - Remove-Item msys2.exe
+    - $env:CHERE_INVOKING = 'yes' # for the shell to stay in the current working directory
+    - $env:MSYSTEM = 'UCRT64'
+    - C:\msys64\usr\bin\bash -lc ' ' # Run for the first time
+    - C:\msys64\usr\bin\bash -lc 'pacman --noconfirm -Syuu' # Core update
+    - C:\msys64\usr\bin\bash -lc 'pacman --noconfirm -Syuu' # Normal update
+    - C:\msys64\usr\bin\bash -lc 'pacman --noconfirm -S pactoys'
+    - C:\msys64\usr\bin\bash -lc 'pacboy --noconfirm -S python-gmpy2:p python-icu:p python-pillow:p python-fpdf2:p python-nuitka:p'
+
+  script:
+    - C:\msys64\usr\bin\bash -lc 'python main-cli.py info'
+
+
+build:macos:
+  stage: build
+  tags:
+    - saas-macos-medium-m1
+  image: macos-26-xcode-26
+  rules:
+    - if: $CI_COMMIT_TAG
+  before_script:
+    - brew install icu4c
+    - pip install -q gmpy2 pyicu pillow fpdf2 nuitka
+  script:
+    - python main-cli.py info

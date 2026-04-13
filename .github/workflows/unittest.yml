@@ -1,0 +1,39 @@
+name: Unit testing with Coverage
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "my_babel_py/*.py"
+      - "tests/*.py"
+      - ".github/workflows/unittest.yml"
+
+env:
+  PYTHONUNBUFFERED: 1
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: "pyproject.toml"
+          cache: "pip"
+          pip-install: coverage pyicu gmpy2 pillow
+
+      - name: Print info
+        run: python main-cli.py info
+
+      - name: Unit test
+        run: python -m coverage run -m unittest discover
+
+      - name: coverage report
+        run: python -m coverage report -m

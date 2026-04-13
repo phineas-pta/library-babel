@@ -1,0 +1,7 @@
+MarkdownTableOfContents {
+	max-width: 15%;
+}
+
+.sidebar {
+	max-width: 15%;
+}
