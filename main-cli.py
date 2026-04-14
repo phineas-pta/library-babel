@@ -8,16 +8,16 @@ command-line interface
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from pathlib import Path
 from warnings import warn
-from my_babel_py.config import SYS_INFO, CAPABILITIES, MODIFIED_BOURGES_QUOTE, SRC_URL
-from my_babel_py.search import search_semi_empty_book, search_semi_random_book
-from my_babel_py.randomize import pick_random_book
-from my_babel_py.txt import txt_save_books_content, txt_save_books_position, txt_load_book_position
+from my_babel_py.core.config import SYS_INFO, CAPABILITIES, MODIFIED_BOURGES_QUOTE, SRC_URL
+from my_babel_py.api.search import search_semi_empty_book, search_semi_random_book
+from my_babel_py.api.randomize import pick_random_book
+from my_babel_py.io.txt import txt_save_books_content, txt_save_books_position, txt_load_book_position
 
 if CAPABILITIES["png"]:
-	from my_babel_py.png import img_load, img_save_books_content
+	from my_babel_py.io.png import img_load, img_save_books_content
 
 if CAPABILITIES["pdf"]:
-	from my_babel_py.pdf import pdf_save_books_content
+	from my_babel_py.io.pdf import pdf_save_books_content
 
 ###############################################################################
 #%% parser

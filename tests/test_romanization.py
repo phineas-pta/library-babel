@@ -3,7 +3,7 @@
 
 from unittest import TestCase, main
 from string import ascii_letters, digits, punctuation
-from my_babel_py.utils import transliterate
+from my_babel_py.core.utils import transliterate
 # TODO: more exhaustive edge cases
 # the categories here aren’t exactly as Unicode categories
 

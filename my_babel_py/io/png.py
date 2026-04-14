@@ -9,9 +9,9 @@ so we need to convert to base-256 then group every 4 colors into a pixel
 from pathlib import Path # for typing only
 from warnings import warn
 from PIL import Image, ImageOps, ExifTags
-from .book import Book, save_multiple_books # decorator to transform "save 1 book" function into "save many books"
-from .config import BOOK_IMAGE_SIZE, BYTE_HEX, MAX_PIXEL_COUNT, COLOR_MODE, ZERO_COLOR, COLOR_LENGTH, PIXEL_LENGTH
-from .utils import int2str, str2int
+from ..api.book import Book, save_multiple_books # decorator to transform "save 1 book" function into "save many books"
+from ..core.config import BOOK_IMAGE_SIZE, BYTE_HEX, MAX_PIXEL_COUNT, COLOR_MODE, ZERO_COLOR, COLOR_LENGTH, PIXEL_LENGTH
+from ..core.utils import int2str, str2int
 
 # shortcut
 _SIZE = (BOOK_IMAGE_SIZE,) * 2
@@ -88,5 +88,5 @@ def img_load(filepath: Path) -> Book:
 	img.close()
 
 	raw_int = str2int(img_array, BYTE_HEX) # convert from base 256 to base 10
-	book = Book(raw_int=raw_int)
+	book = Book(raw_int)
 	return book

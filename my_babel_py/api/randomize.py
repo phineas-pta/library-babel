@@ -13,8 +13,8 @@ so the probabilities are far from ideal
 
 from random import random, choice
 from icu import UnicodeSet, Char
-from .book import Book
-from .config import CHARS_PER_BOOK, ZERO_CHAR
+from ..api.book import Book
+from ..core.config import CHARS_PER_BOOK, ZERO_CHAR
 
 
 _W_SPACE = 0.15 # in english it’s around 18% but i want longer words
@@ -107,5 +107,4 @@ def generate_random_text(length: int, *, start_char: str) -> str:
 
 def pick_random_book() -> Book:
 	"""pick a completely random book"""
-	start_char = choice(_ALL)
-	return Book(content=generate_random_text(CHARS_PER_BOOK, start_char=start_char))
+	return Book.from_content(generate_random_text(CHARS_PER_BOOK, start_char=choice(_ALL)))

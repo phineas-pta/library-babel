@@ -4,12 +4,12 @@
 pdf output
 """
 
-from pathlib import Path # for typing only
+from pathlib import Path
 from fpdf import FPDF
-from .book import Book, save_multiple_books # decorator to transform "save 1 book" function into "save many books"
-from .config import CHARS_PER_LINE, CHARS_PER_PAGE
+from ..api.book import Book, save_multiple_books # decorator to transform "save 1 book" function into "save many books"
+from ..core.config import CHARS_PER_LINE, CHARS_PER_PAGE
 
-_default_font_path = Path(__file__).parents[1] / "assets" / "JuliaMono-Regular.ttf" # included with this program
+_default_font_path = Path(__file__).parents[2] / "assets" / "JuliaMono-Regular.ttf" # included with this program
 
 
 class MyPdf(FPDF):

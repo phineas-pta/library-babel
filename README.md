@@ -75,10 +75,10 @@ RECOMMENDATION: use a modern monospace file to properly render all characters, l
 COMPATIBILITY: see https://github.com/unicode-org/last-resort-font
 
 **extra 1**: to generate books in your own language without latin characters: edit:
-- `BOOK_CONTENT_CHARACTERS` in file [`cste.py`](my_babel_py/config.py)
-- `_TRANSLITERATOR` in file [`utils.py`](my_babel_py/utils.py)
+- `BOOK_CONTENT_CHARACTERS` in file [`cste.py`](core/config.py)
+- `_TRANSLITERATOR` in file [`utils.py`](core/utils.py)
 
-**extra 2**: to change font in PDF output: edit path to font file in [`pdf.py`](my_babel_py/pdf.py)
+**extra 2**: to change font in PDF output: edit path to font file in [`pdf.py`](io/pdf.py)
 
 ## TODO
 

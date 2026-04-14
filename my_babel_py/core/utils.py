@@ -40,11 +40,11 @@ transliterate = _TRANSLITERATOR.transliterate
 # base conversion functions
 # based on https://zwyx.dev/blog/base-conversions-with-big-numbers-in-javascript
 
-type _Str = str | tuple[str] | list[str] # should be `collections.abc.Sequence` but i’m not sure about `bytes` type
-type _Int = int | mpz
+type TYPE_STR = str | tuple[str] | list[str] # should be `collections.abc.Sequence` but i’m not sure about `bytes` type
+type TYPE_INT = int | mpz
 # these lines above require Python 3.12
 
-def str2int(text: _Str, alphabet: _Str) -> mpz:
+def str2int(text: TYPE_STR, alphabet: TYPE_STR) -> mpz:
 	"""converts a sequence of base-b digits to an integer in base-10, where b is the length of the alphabet"""
 
 	base = len(alphabet)
@@ -80,7 +80,7 @@ def str2int(text: _Str, alphabet: _Str) -> mpz:
 	return parts[0]["digit"] * parts[1]["base"] + parts[1]["digit"]
 
 
-def int2str(value: _Int, alphabet: _Str) -> str:
+def int2str(value: TYPE_INT, alphabet: TYPE_STR) -> str:
 	"""converts an integer in base-10 to a sequence of base-b digits, where b is the length of the alphabet"""
 
 	if not isinstance(value, (mpz, int)):
@@ -100,7 +100,7 @@ def int2str(value: _Int, alphabet: _Str) -> str:
 	# str.join() is most efficient, see: https://docs.python.org/3/faq/programming.html#what-is-the-most-efficient-way-to-concatenate-many-strings-together
 	result_parts = []
 
-	def divide(dividend: _Int, divisor_index: _Int) -> None:
+	def divide(dividend: TYPE_INT, divisor_index: TYPE_INT) -> None:
 		divisor = divisors[divisor_index]
 		new_dividend, remainder = divmod(dividend, divisor)
 

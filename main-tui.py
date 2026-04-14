@@ -10,9 +10,8 @@ from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.screen import Screen
 from textual.widget import Widget
-from textual import containers as c
-from textual import widgets as w
-from my_babel_py.config import SYS_INFO, MODIFIED_BOURGES_QUOTE, PAGES_PER_BOOK, SRC_URL
+from textual import containers as c, widgets as w
+from my_babel_py.core.config import SYS_INFO, MODIFIED_BOURGES_QUOTE, PAGES_PER_BOOK, SRC_URL
 
 
 class BookSaving(Widget):

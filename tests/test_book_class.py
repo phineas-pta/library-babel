@@ -3,8 +3,8 @@
 
 from unittest import TestCase, main
 from pathlib import Path
-from my_babel_py.utils import transliterate
-from my_babel_py.book import Book
+from my_babel_py.core.utils import transliterate
+from my_babel_py.api.book import Book
 
 
 class Test_Book(TestCase):
@@ -15,7 +15,7 @@ class Test_Book(TestCase):
 			f.read_text(encoding="utf-8")
 			for f in Path("docs").glob("*.md")
 		)) # also work with text padded with whitespace
-		cls.output = Book(content=cls.input).content
+		cls.output = Book.from_content(cls.input).content
 
 	def test_book_content(self):
 		self.assertEqual(self.output, self.input, "book content should be kept as-is")

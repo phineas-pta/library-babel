@@ -2,7 +2,8 @@ name: Build executable
 
 on:
   release:
-    types: [published]
+    types:
+    - published
 
 permissions:
   contents: read
@@ -13,9 +14,12 @@ jobs:
     strategy:
       matrix:
         include:
-          - { os: windows-latest, shell: 'msys2 {0}' }
-          - { os: ubuntu-latest,  shell: bash  }
-          - { os: macos-latest,   shell: bash  }
+          - os: windows-latest
+            shell: "msys2 {0}"
+          - os: ubuntu-latest
+            shell: bash
+          - os: macos-latest
+            shell: bash
 
     defaults:
       run:

@@ -4,7 +4,7 @@
 from unittest import TestCase, main
 from string import digits, ascii_uppercase, ascii_lowercase, punctuation
 from gmpy2 import mpz
-from my_babel_py.utils import str2int, int2str
+from my_babel_py.core.utils import str2int, int2str
 
 
 class Test_Base_Conversion(TestCase):

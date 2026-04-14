@@ -4,10 +4,10 @@
 find book given a string
 """
 
-from .config import CHARS_PER_BOOK, ZERO_CHAR
-from .book import Book
-from .utils import transliterate
-from .randomize import generate_random_text
+from ..core.config import CHARS_PER_BOOK, ZERO_CHAR
+from ..api.book import Book
+from ..core.utils import transliterate
+from ..api.randomize import generate_random_text
 
 
 def _preprocess(query: str) -> list[str]:
@@ -31,7 +31,7 @@ def search_semi_empty_book(query: str) -> list[Book]:
 	"""
 	tmp = _preprocess(query)
 	tmp[-1] = tmp[-1].ljust(CHARS_PER_BOOK, ZERO_CHAR) # pad with ZERO_CHAR to reach the required length for a book
-	return [Book(content=part) for part in tmp]
+	return [Book.from_content(part) for part in tmp]
 
 
 def search_semi_random_book(query: str) -> list[Book]:
@@ -52,4 +52,4 @@ def search_semi_random_book(query: str) -> list[Book]:
 		else:
 			start_char = ZERO_CHAR
 		tmp[-1] += generate_random_text(k, start_char=start_char)
-	return [Book(content=part) for part in tmp]
+	return [Book.from_content(part) for part in tmp]

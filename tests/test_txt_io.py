@@ -4,9 +4,9 @@
 from unittest import TestCase, main
 from pathlib import Path
 from tempfile import TemporaryDirectory # use temp dir to avoid race condition problem with temp file
-from my_babel_py.utils import transliterate
-from my_babel_py.book import Book
-from my_babel_py.txt import txt_save_books_position, txt_load_book_position
+from my_babel_py.core.utils import transliterate
+from my_babel_py.api.book import Book
+from my_babel_py.io.txt import txt_save_books_position, txt_load_book_position
 
 
 class Test_Text_IO(TestCase):
@@ -18,7 +18,7 @@ class Test_Text_IO(TestCase):
 			f.read_text(encoding="utf-8")
 			for f in Path("docs").glob("*.md")
 		)) # also work with text padded with whitespace
-		cls.input = Book(content=tmp_str)
+		cls.input = Book.from_content(tmp_str)
 		cls.tempdir = TemporaryDirectory()
 		tmp_file = Path(cls.tempdir.name) / "tmp.txt"
 		txt_save_books_position(cls.input, tmp_file)
