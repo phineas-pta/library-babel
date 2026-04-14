@@ -13,7 +13,7 @@ so the probabilities are far from ideal
 
 from random import random, choice
 from icu import UnicodeSet, Char
-from ..api.book import Book
+from .book import Book
 from ..core.config import CHARS_PER_BOOK, ZERO_CHAR
 
 

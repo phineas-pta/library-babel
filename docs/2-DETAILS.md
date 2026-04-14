@@ -36,7 +36,7 @@ another consideration is Rust, it has a truly native alternative to GMP (instead
 
 i also lack designer skill to make a beautiful web interface, so i won’t use JavaScript
 
-as the time of writing, i use Python v3.13 (penultimate stable version) and ICU v78 (latest) which supports Unicode v17 (latest)
+as the time of writing, i use latest ICU (v78) which supports latest Unicode (v17)
 
 keep external dependencies to a minimum
 
@@ -99,19 +99,23 @@ room id will be also encoded to base-159613 like book id
 
 ## 2.3. coding
 
+for better typing support (PEP 749), i opt to use Python 3.14 (latest version at the time of writing)
+
 GMP (GNU Multiple Precision Arithmetic Library) via `gmpy2`: to process numbers with millions of digits<br />
 GMP has been developed since 1991 by arithmetic specialists, `gmpy2` is also regularly maintained since 2007
 
 convention: space character is the zero of base-8959, i don’t care about base-159613
 
 ICU (International Components for Unicode) via `pyicu`: is a bit tricky to install for end users<br />
-ICU has been developed since 1999 by internationalization specialists, `pyicu` is impressively maintained since 2007 but very poorly documented
+ICU has been developed since 1999 by internationalization specialists, `pyicu` is impressively maintained since 2007 but very poorly documented<br />
+newer implementations exist: `icupy` (no pre-built wheels for windows yet) and `icu4py` (all features not yet available)
 
 i don’t reverse book index order (unlike @zwyx’s implementation)
 
 book content can be converted to image on-the-fly, do not pre-computing all possible pixel color values to avoid out-of-memory
 
-both `gmpy2` & `pyicu` rely heavily on C extensions so only CPython implementation is supported, no PyPy for foreseeable future
+both `gmpy2` & `pyicu` rely heavily on C extensions so only CPython implementation is supported, no PyPy for foreseeable future<br />
+they also have not yet support free-threading in Python 3.14
 
 ### 2.3.1. base conversion routine
 

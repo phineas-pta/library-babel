@@ -1,5 +1,7 @@
 {
 	"recommendations": [
+		"astral-sh.ty",
+		"charliermarsh.ruff",
 		"esbenp.prettier-vscode",
 		"streetsidesoftware.code-spell-checker",
 		"ms-python.debugpy",

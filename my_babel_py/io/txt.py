@@ -4,10 +4,11 @@
 text output as .txt file
 """
 
-from pathlib import Path # for typing only
-from ..api.book import Book, BookPosition, save_multiple_books # decorator to transform "save 1 book" function into "save many books"
+from pathlib import Path
+from ..api.book import Book, save_multiple_books # decorator to transform "save 1 book" function into "save many books"
 from ..core.config import CHARS_PER_LINE, CHARS_PER_PAGE, BOOK_INDEX_CHARACTERS
 from ..core.utils import str2int, int2str
+from ..core.stubs import BookPosition
 
 
 @save_multiple_books

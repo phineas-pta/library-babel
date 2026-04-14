@@ -6,7 +6,7 @@ directly generate a list 256⁴ colors (in RGBA format) will crash python,
 so we need to convert to base-256 then group every 4 colors into a pixel
 """
 
-from pathlib import Path # for typing only
+from pathlib import Path
 from warnings import warn
 from PIL import Image, ImageOps, ExifTags
 from ..api.book import Book, save_multiple_books # decorator to transform "save 1 book" function into "save many books"

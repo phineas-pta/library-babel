@@ -5,9 +5,9 @@ find book given a string
 """
 
 from ..core.config import CHARS_PER_BOOK, ZERO_CHAR
-from ..api.book import Book
+from .book import Book
 from ..core.utils import transliterate
-from ..api.randomize import generate_random_text
+from .randomize import generate_random_text
 
 
 def _preprocess(query: str) -> list[str]:

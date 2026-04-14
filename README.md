@@ -3,7 +3,7 @@
 # Library of Babel
 
 ![](https://img.shields.io/github/license/phineas-pta/library-babel?style=for-the-badge)
-![](https://img.shields.io/badge/python-≥3.12-FF7139?style=for-the-badge)
+![](https://img.shields.io/badge/python-≥3.14-FF7139?style=for-the-badge)
 ![](https://img.shields.io/github/languages/code-size/phineas-pta/library-babel?style=for-the-badge&logo=github)
 ![](https://img.shields.io/github/repo-size/phineas-pta/library-babel?style=for-the-badge&logo=github)
 ![](https://img.shields.io/badge/hosted_by-localhost-FF4500?style=for-the-badge&logo=serverless)
@@ -39,7 +39,7 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
 
 ## dependencies
 
-- penultimate stable version of Python recommended (3.13 at the time of writing)
+- Python version ≥ 3.14
 - General Multi-Precision (GMP) arithmetic: `gmpy2`: to crunch very big number
 - International Components for Unicode (ICU): `pyicu`: to deal with unicode inputs
   - windows wheels can be downloaded from: https://github.com/cgohlke/pyicu-build/releases

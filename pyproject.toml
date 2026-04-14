@@ -16,7 +16,7 @@ classifiers = [
 	"Intended Audience :: Science/Research",
 	"Topic :: Scientific/Engineering :: Mathematics",
 ]
-requires-python = ">= 3.12"
+requires-python = ">= 3.14"
 dependencies = [
 	"gmpy2",
 	"pyicu",
@@ -25,6 +25,8 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
 	"coverage",
+	"ruff",
+	"ty",
 	"nuitka[all]",
 	"textual-dev",
 ]
@@ -37,7 +39,4 @@ webui = ["nicegui"]
 Repository = "https://github.com/phineas-pta/library-babel"
 
 [tool.coverage.run]
-omit = [
-	"tests/*",
-	"main-*.py",
-]
+omit = ["main-*.py"]
