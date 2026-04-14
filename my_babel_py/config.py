@@ -72,24 +72,6 @@ _tmp3 = len(BOOK_CONTENT_CHARACTERS)
 _tmp4 = len(BOOK_INDEX_CHARACTERS)
 
 
-# characters to be used to generate random text (excluding symbols)
-# for more: https://en.wikipedia.org/wiki/Latin_script_in_Unicode
-_tmp5 = UnicodeSet("""[
-	[
-		[:General_Category=Letter:]
-		[:General_Category=Number:]
-	] & [
-		[:Block=Basic_Latin:]
-		[:Block=Latin_1_Supplement:]
-		[:Block=Latin_Extended_A:]
-		[:Block=Latin_Extended_Additional:]
-		[:Block=Latin_Extended_B:]
-		[:Block=Latin_Extended_C:]
-	]
-]""")
-BOOK_RANDOM_CHARACTERS = tuple(_tmp5)
-# no whitespace here because it will be dealt differently
-
 ###############################################################################
 # only for debugging characters sets
 
@@ -166,4 +148,4 @@ MODIFIED_BOURGES_QUOTE = f"By this art you may contemplate the variation of the 
 
 SRC_URL = "Source code: https://github.com/phineas-pta/library-babel"
 
-del _tmp0, _tmp1, _tmp2, _tmp3, _tmp4, _tmp5 # clean up temporary variables
+del _tmp0, _tmp1, _tmp2, _tmp3, _tmp4 # clean up temporary variables

@@ -3,7 +3,7 @@
 
 from unittest import TestCase, main, skipUnless
 from icu import UNICODE_VERSION
-from my_babel_py.config import BOOK_CONTENT_CHARACTERS, BOOK_INDEX_CHARACTERS, BOOK_RANDOM_CHARACTERS
+from my_babel_py.config import BOOK_CONTENT_CHARACTERS, BOOK_INDEX_CHARACTERS
 
 _EXPECTED_VALUES = { # these values come from a specific github actions to count characters
 	"17.0": {"content": 8959, "index": 159613}, # ICU v78.x
@@ -21,16 +21,10 @@ _CHECK_ICU_VERSION = min(_EXPECTED_VALUES.keys()) <= UNICODE_VERSION <= max(_EXP
 
 class Test_Subset(TestCase):
 
-	def test_subset_index(self):
+	def test_subset(self):
 		self.assertEqual(
 			set(BOOK_CONTENT_CHARACTERS) - set(BOOK_INDEX_CHARACTERS), set(),
 			"BOOK_CONTENT_CHARACTERS should be a subset of BOOK_INDEX_CHARACTERS"
-		)
-
-	def test_subset_content(self):
-		self.assertEqual(
-			set(BOOK_RANDOM_CHARACTERS) - set(BOOK_CONTENT_CHARACTERS), set(),
-			"BOOK_RANDOM_CHARACTERS should be a subset of BOOK_CONTENT_CHARACTERS"
 		)
 
 

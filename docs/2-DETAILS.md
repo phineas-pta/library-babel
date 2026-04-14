@@ -32,7 +32,7 @@ initially, i intended to develop this in Julia, a language i’m currently explo
 it already has GMP (see section `2.3` below) built-in, but at the time of writing it lacks a robust binding to ICU (see section `2.3` below);<br />
 Python was ultimately chosen for its stability and ecosystem
 
-another consideration is Rust, it has a truly native alternative to GMP (instead of binding), also ICU for Rust is actually in development, but the latter still lacks some required features (for this program) at the time of writing
+another consideration is Rust, it has a truly native alternative to GMP (instead of binding), also ICU is actively being rewritten to Rust, but the latter still lacks some required features (for this program) at the time of writing
 
 i also lack designer skill to make a beautiful web interface, so i won’t use JavaScript
 
@@ -84,7 +84,7 @@ book content can also be converted to image, each digit is now a pixel, using RG
 
 example: 1 pixel can have value `00 00 00 ff` meaning red=0, green=0, blue=0, alpha=255
 
-so the book content would require $1\ 312\ 000 \times \log_{4\ 294\ 967\ 296}(8959) \approx 538\ 295$ pixels (*i.e.* digits in base-256⁴)
+so the book content would require $1\ 312\ 000 \times \log_{4\ 294\ 967\ 296}(8959) = 1\ 312\ 000 \times \frac{\log_2(8959)}{32} \approx 538\ 295$ pixels (*i.e.* digits in base-256⁴)
 
 given $\left\lceil{\sqrt{538\ 295}}\right\rceil = 734$ an image with resolution 734×734 px would be enough to hold a book content<br />
 there would be at much $734^2 - 538\ 295 = 461$ excess pixels (less than 0.001%)

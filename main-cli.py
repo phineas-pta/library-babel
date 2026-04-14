@@ -52,6 +52,7 @@ _grp0 = browser.add_mutually_exclusive_group(required=True)
 _grp0.add_argument("-r", "--random", action="store_true", help="a completely random book")
 _grp0.add_argument("-i", "--input", type=Path, help="path to book position .TXT file or book image .PNG file")
 browser.add_argument("-o", "--output", type=Path, required=True, metavar="PATH", help="save book content as .TXT file")
+browser.add_argument("-save-pos", action="store_true", help="whether to save book position (room, wall, shelf, book) as another .TXT file")
 browser.add_argument("-save-img", action="store_true", help="whether to save book as .PNG image")
 browser.add_argument("-save-pdf", action="store_true", help="whether to save book as .PDF document")
 
@@ -68,7 +69,7 @@ def _save(mybook):
 	print(mybook)
 	txt_save_books_content(mybook, ARGS.output)
 	print(f"book content saved to {ARGS.output}")
-	if getattr(ARGS, "save_pos", False): # ugly hack (default in add_argument doesn’t work in this case)
+	if ARGS.save_pos:
 		txt_save_books_position(mybook, ARGS.output.with_stem(ARGS.output.stem + "_POSITION"))
 		print("book position saved to text file in the same folder")
 	if ARGS.save_img:
@@ -93,7 +94,7 @@ match ARGS.command:
 			case "empty":
 				search_func = search_semi_empty_book
 			case "random":
-				warn("take a bit longer than fill with whitespace")
+				warn("take longer time than fill with whitespace")
 				search_func = search_semi_random_book
 			case _:
 				raise ValueError("unknown fill option")
@@ -108,6 +109,7 @@ match ARGS.command:
 	case "browse":
 
 		if ARGS.random:
+			warn("take pretty long time")
 			book = pick_random_book()
 		else:
 			match ARGS.input.suffix.lower():

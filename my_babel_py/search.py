@@ -46,5 +46,10 @@ def search_semi_random_book(query: str) -> list[Book]:
 	"""
 	tmp = _preprocess(query)
 	if (k := CHARS_PER_BOOK - len(tmp[-1])) > 0: # padded with random characters if needed
-		tmp[-1] += generate_random_text(k)
+		last_char = tmp[-1][-1]
+		if last_char != ZERO_CHAR:
+			start_char = last_char
+		else:
+			start_char = ZERO_CHAR
+		tmp[-1] += generate_random_text(k, start_char=start_char)
 	return [Book(content=part) for part in tmp]
