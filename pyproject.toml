@@ -26,9 +26,8 @@ dependencies = [
 dev = [
 	"coverage",
 	"ruff",
-	"ty",
+	"zuban",
 	"nuitka[all]",
-	"textual-dev",
 ]
 png = ["pillow"]
 pdf = ["fpdf2"]
@@ -40,3 +39,9 @@ Repository = "https://github.com/phineas-pta/library-babel"
 
 [tool.coverage.run]
 omit = ["main-*.py"]
+
+[tool.ruff.format]
+indent-style = "tab"
+
+[tool.ruff.lint]
+allowed-confusables = ["×", "’"]

@@ -18,10 +18,11 @@ class Test_Image_IO(TestCase):
 
 	@classmethod
 	def setUpClass(cls):
-		cls.input = transliterate("\n".join(
+		text = transliterate("\n".join(
 			f.read_text(encoding="utf-8")
 			for f in Path("docs").glob("*.md")
 		)) # also work with text padded with whitespace
+		cls.input = Book.zero_pad(text)
 		book = Book.from_content(cls.input)
 		cls.tempdir = TemporaryDirectory()
 		tmp_file = Path(cls.tempdir.name) / "tmp.png"

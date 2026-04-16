@@ -1,8 +1,7 @@
 {
 	"recommendations": [
-		"astral-sh.ty",
+		"zuban.zubanls",
 		"charliermarsh.ruff",
-		"esbenp.prettier-vscode",
 		"streetsidesoftware.code-spell-checker",
 		"ms-python.debugpy",
 		"hoovercj.vscode-power-mode",

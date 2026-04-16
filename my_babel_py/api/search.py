@@ -4,19 +4,18 @@
 find book given a string
 """
 
-from ..core.config import CHARS_PER_BOOK, ZERO_CHAR
+from ..core import config, utils
 from .book import Book
-from ..core.utils import transliterate
 from .randomize import generate_random_text
 
 
 def _preprocess(query: str) -> list[str]:
 	"""break search text into list of books"""
-	txt = transliterate(query)
-	if len(txt) < CHARS_PER_BOOK:
+	txt = utils.transliterate(query)
+	if len(txt) < config.CHARS_PER_BOOK:
 		return [txt]
 	else:
-		return [txt[i:i+CHARS_PER_BOOK] for i in range(0, len(txt), CHARS_PER_BOOK)]
+		return [txt[i : i+config.CHARS_PER_BOOK] for i in range(0, len(txt), config.CHARS_PER_BOOK)]
 
 
 def search_semi_empty_book(query: str) -> list[Book]:
@@ -30,7 +29,8 @@ def search_semi_empty_book(query: str) -> list[Book]:
 	RETURN: a tuple of book(s)
 	"""
 	tmp = _preprocess(query)
-	tmp[-1] = tmp[-1].ljust(CHARS_PER_BOOK, ZERO_CHAR) # pad with ZERO_CHAR to reach the required length for a book
+	tmp[-1] = tmp[-1].ljust(config.CHARS_PER_BOOK, config.ZERO_CHAR) # pad with ZERO_CHAR to reach the required length for a book
+	# ATTENTION: here left-justify, not the same as Book.zero_pad() which right-justify
 	return [Book.from_content(part) for part in tmp]
 
 
@@ -45,11 +45,11 @@ def search_semi_random_book(query: str) -> list[Book]:
 	RETURN: a tuple of book(s)
 	"""
 	tmp = _preprocess(query)
-	if (k := CHARS_PER_BOOK - len(tmp[-1])) > 0: # padded with random characters if needed
+	if (k := config.CHARS_PER_BOOK - len(tmp[-1])) > 0: # padded with random characters if needed
 		last_char = tmp[-1][-1]
-		if last_char != ZERO_CHAR:
+		if last_char != config.ZERO_CHAR:
 			start_char = last_char
 		else:
-			start_char = ZERO_CHAR
+			start_char = config.ZERO_CHAR
 		tmp[-1] += generate_random_text(k, start_char=start_char)
 	return [Book.from_content(part) for part in tmp]

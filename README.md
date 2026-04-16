@@ -39,7 +39,7 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
 
 ## dependencies
 
-- Python version ≥ 3.14
+- Python version ≥ 3.14 (free-threading not required)
 - General Multi-Precision (GMP) arithmetic: `gmpy2`: to crunch very big number
 - International Components for Unicode (ICU): `pyicu`: to deal with unicode inputs
   - windows wheels can be downloaded from: https://github.com/cgohlke/pyicu-build/releases
@@ -50,7 +50,7 @@ all illustrations in this repo are just links to the website of Jonathan Basile 
 
 command example **on my machine** (windows):
 ```bash
-pip install pillow gmpy2 fpdf2 https://github.com/cgohlke/pyicu-build/releases/download/v2.16.2/pyicu-2.16.2-cp313-cp313-win_amd64.whl
+pip install pillow gmpy2 fpdf2 https://github.com/cgohlke/pyicu-build/releases/download/v2.16.2/pyicu-2.16.2-cp314-cp314-win_amd64.whl
 ```
 
 command example on Linux or Mac (`conda` may be easier):
@@ -75,7 +75,7 @@ RECOMMENDATION: use a modern monospace file to properly render all characters, l
 COMPATIBILITY: see https://github.com/unicode-org/last-resort-font
 
 **extra 1**: to generate books in your own language without latin characters: edit:
-- `BOOK_CONTENT_CHARACTERS` in file [`cste.py`](core/config.py)
+- `BOOK_CONTENT_CHARACTERS` in file [`config.py`](core/config.py)
 - `_TRANSLITERATOR` in file [`utils.py`](core/utils.py)
 
 **extra 2**: to change font in PDF output: edit path to font file in [`pdf.py`](io/pdf.py)
@@ -87,7 +87,7 @@ COMPATIBILITY: see https://github.com/unicode-org/last-resort-font
 - [x] TXT / PNG / PDF input / output
 - [x] setup github / gitlab ci/cd to automate testing
 - [ ] better user interface: text / graphical / web
-- [ ] verify the number of characters filtered: ~~8175~~ 8145 in book content, 149625 in book id
+- [ ] verify the number of characters filtered: ~~8175~~ 8145 in book content, ~~149625~~ 159613 in book id
 - [ ] ~~GPU acceleration for base conversion~~ *maybe not really necessary*
 - [ ] ~~Julia version ?~~ *not worth the effort at the moment*
 

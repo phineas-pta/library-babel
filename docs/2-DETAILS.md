@@ -117,6 +117,8 @@ book content can be converted to image on-the-fly, do not pre-computing all poss
 both `gmpy2` & `pyicu` rely heavily on C extensions so only CPython implementation is supported, no PyPy for foreseeable future<br />
 they also have not yet support free-threading in Python 3.14
 
+i use `zuban` as type checker because of its conformance, see https://htmlpreview.github.io/?https://github.com/python/typing/blob/main/conformance/results/results.html
+
 ### 2.3.1. base conversion routine
 
 the most performance critical part is base conversion routine, the rest is pretty basic operations covered by many ready-to-use packages
@@ -124,7 +126,7 @@ the most performance critical part is base conversion routine, the rest is prett
 `gmpy2` (and also `numpy` or Julia) can only do base conversion up to base-62, i need something else for an arbitrary value
 
 a naive implementation would have quadratic complexity $\mathcal{O}(n^2)$ itself (n = digits count) without accounting for the complexity of big integer multiplication / division algorithm<br />
-faster routine use a divide-and-conquer strategy to bring down to sub-quadratic $\mathcal{O}(\textit{MD}(n) \log n)$ with `MD(n)` the complexity of big integer multiplication / division algorithm<br />
+faster routine use a divide-and-conquer strategy to bring down to sub-quadratic $\mathcal{O}(\text{MD}(n) \log n)$ with `MD(n)` the complexity of big integer multiplication / division algorithm<br />
 reference: Richard Brent & Paul Zimmermann (2010). *Modern Computer Arithmetic*, chapter 1 *Integer arithmetic*, section 1.7 *Base conversion*
 
 luckily @zwyx also publish the implementation code of base conversion, see: https://zwyx.dev/blog/base-conversions-with-big-numbers-in-javascript

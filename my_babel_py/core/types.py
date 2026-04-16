@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
+from collections.abc import Sequence
 from dataclasses import dataclass
 from gmpy2 import mpz
 
-type Str = str | tuple[str, ...] | list[str]
+type Str = Sequence[str]
 type Int = int | mpz
 
 @dataclass(frozen=True, slots=True, kw_only=True, repr=False)

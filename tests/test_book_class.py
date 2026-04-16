@@ -11,10 +11,11 @@ class Test_Book(TestCase):
 
 	@classmethod
 	def setUpClass(cls):
-		cls.input = transliterate("\n".join(
+		text = transliterate("\n".join(
 			f.read_text(encoding="utf-8")
 			for f in Path("docs").glob("*.md")
 		)) # also work with text padded with whitespace
+		cls.input  = Book.zero_pad(text)
 		cls.output = Book.from_content(cls.input).content
 
 	def test_book_content(self):

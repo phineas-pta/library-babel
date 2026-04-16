@@ -13,8 +13,9 @@ so the probabilities are far from ideal
 
 from random import random, choice
 from icu import UnicodeSet, Char
+
+from ..core import config
 from .book import Book
-from ..core.config import CHARS_PER_BOOK, ZERO_CHAR
 
 
 _W_SPACE = 0.15 # in english it’s around 18% but i want longer words
@@ -71,30 +72,27 @@ def _get_next_char(current_char: str) -> str:
 	inspired from https://www.voynich.nu/misc/misc_07.html
 	"""
 	prob = random()
-	u = choice(_UPPER)
-	l = choice(_LOWER)
-	d = choice(_DIGIT)
-	if current_char == ZERO_CHAR:
+	if current_char == config.ZERO_CHAR:
 		return choice(_ALL)
 	elif current_char in _UPPER:
 		if prob < _W_SPACE:
-			return ZERO_CHAR
+			return config.ZERO_CHAR
 		elif prob < (1 + _W_SPACE) / 2:
-			return u
+			return choice(_UPPER)
 		else:
-			return l
+			return choice(_LOWER)
 	elif current_char in _LOWER:
 		if prob < _W_SPACE:
-			return ZERO_CHAR
+			return config.ZERO_CHAR
 		else:
-			return l
+			return choice(_LOWER)
 	elif current_char in _DIGIT:
 		if prob < _W_SPACE:
-			return ZERO_CHAR
+			return config.ZERO_CHAR
 		else:
-			return d
+			return choice(_DIGIT)
 	else:
-		return ZERO_CHAR
+		return config.ZERO_CHAR
 
 
 def generate_random_text(length: int, *, start_char: str) -> str:
@@ -107,4 +105,4 @@ def generate_random_text(length: int, *, start_char: str) -> str:
 
 def pick_random_book() -> Book:
 	"""pick a completely random book"""
-	return Book.from_content(generate_random_text(CHARS_PER_BOOK, start_char=choice(_ALL)))
+	return Book.from_content(generate_random_text(config.CHARS_PER_BOOK, start_char=choice(_ALL)))

@@ -5,16 +5,16 @@ from unittest import TestCase, main, skipUnless
 from icu import UNICODE_VERSION
 from my_babel_py.core.config import BOOK_CONTENT_CHARACTERS, BOOK_INDEX_CHARACTERS
 
-_EXPECTED_VALUES = { # these values come from a specific github actions to count characters
+_EXPECTED_VALUES = { # these values come from a specific github actions to count characters for each Unicode version
 	"17.0": {"content": 8959, "index": 159613}, # ICU v78.x
-	"16.0": {"content": 8891, "index": 154810}, # ICU v76.x → v77.x
-	"15.1": {"content": 8145, "index": 149625}, # ICU v74.x → v75.x
-	"15.0": {"content": 8140, "index": 148998}, # ICU v72.x → v73.x
-	"14.0": {"content": 8105, "index": 144516}, # ICU v70.x → v71.x
+	"16.0": {"content": 8891, "index": 154810}, # ICU v76.x, 77.x
+	"15.1": {"content": 8145, "index": 149625}, # ICU v74.x, v75.x
+	"15.0": {"content": 8140, "index": 148998}, # ICU v72.x, v73.x
+	"14.0": {"content": 8105, "index": 144516}, # ICU v70.x, v71.x
 	"13.0": {"content": 7876, "index": 143680}, # ICU v66.x → v69.x
-	"12.1": {"content": 7642, "index": 137750}, # ICU v64.x → v65.x
-	"11.0": {"content": 7474, "index": 137204}, # ICU v62.x → v63.x
-	"10.0": {"content": 7311, "index": 136521}, # ICU v60.x → v61.x
+	"12.1": {"content": 7642, "index": 137750}, # ICU v64.x, v65.x
+	"11.0": {"content": 7474, "index": 137204}, # ICU v62.x, v63.x
+	"10.0": {"content": 7311, "index": 136521}, # ICU v60.x, v61.x
 }
 _CHECK_ICU_VERSION = min(_EXPECTED_VALUES.keys()) <= UNICODE_VERSION <= max(_EXPECTED_VALUES.keys())
 
