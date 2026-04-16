@@ -11,7 +11,6 @@ from warnings import warn
 from PIL import Image, ImageOps, ExifTags
 
 from ..core import config, utils
-from .utils import save_multiple_books # decorator to transform "save 1 book" function into "save many books"
 from ..api import book
 
 # shortcut
@@ -19,8 +18,7 @@ _SIZE = (config.BOOK_IMAGE_SIZE,) * 2
 _TAG = ExifTags.Base.UserComment.value # 37510 = 0x9286
 
 
-@save_multiple_books
-def img_save_books_content(self: book.Book, filepath: Path) -> None:
+def png_save_books_content(self: book.Book, filepath: Path) -> None:
 	"""save the content of the book to an image file"""
 	tmp = self.pixels # save to a temporary variable to avoid repeatedly re-computing it
 	img = Image.new(mode=config.COLOR_MODE, size=_SIZE, color=config.ZERO_COLOR)
@@ -58,13 +56,13 @@ def _get_stop_pixel(img: Image.Image) -> int:
 	exif = img.getexif()
 	try:
 		stop_pixel = int(exif[_TAG].split("stop pixel = ")[-1])
-	except KeyError, IndexError:
+	except LookupError:
 		warn(f"image exif doesn’t contain info about stop pixel, setting it to {config.MAX_PIXEL_COUNT} (see math details in docs for why this number)")
 		stop_pixel = config.MAX_PIXEL_COUNT
 	return stop_pixel
 
 
-def img_load(filepath: Path) -> book.Book:
+def png_load(filepath: Path) -> book.Book:
 	"""load the content of the book from an image file"""
 
 	img = Image.open(filepath)

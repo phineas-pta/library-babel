@@ -7,11 +7,9 @@ TXT output
 from pathlib import Path
 
 from ..core import config, utils
-from .utils import save_multiple_books # decorator to transform "save 1 book" function into "save many books"
 from ..api import book
 
 
-@save_multiple_books
 def txt_save_books_content(self: book.Book, filepath: Path) -> None:
 	"""save the content of the book to a txt file"""
 	with filepath.open(mode="w", encoding="utf-8") as f:
@@ -23,7 +21,6 @@ def txt_save_books_content(self: book.Book, filepath: Path) -> None:
 				f.write(i + "\n")
 
 
-@save_multiple_books
 def txt_save_books_position(self: book.Book, filepath: Path) -> None:
 	"""save the positions of the book to a txt file"""
 	tmp = self.position # save to a temporary variable to avoid repeatedly re-computing it

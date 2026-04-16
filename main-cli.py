@@ -8,16 +8,10 @@ command-line interface
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from pathlib import Path
 from warnings import warn
-from my_babel_py.core.config import SYS_INFO, CAPABILITIES, MODIFIED_BOURGES_QUOTE, SRC_URL
+from my_babel_py.core.config import SYS_INFO, MODIFIED_BOURGES_QUOTE, SRC_URL
 from my_babel_py.api.search import search_semi_empty_book, search_semi_random_book
 from my_babel_py.api.randomize import pick_random_book
-from my_babel_py.io.txt import txt_save_books_content, txt_save_books_position, txt_load_book_position
-
-if CAPABILITIES["png"]:
-	from my_babel_py.io.png import img_load, img_save_books_content
-
-if CAPABILITIES["pdf"]:
-	from my_babel_py.io.pdf import pdf_save_books_content
+from my_babel_py.io import read_png, read_txt_position
 
 ###############################################################################
 #%% parser
@@ -67,23 +61,13 @@ ARGS = PARSER.parse_args()
 
 def _save(mybook):
 	print(mybook)
-	txt_save_books_content(mybook, ARGS.output)
-	print(f"book content saved to {ARGS.output}")
+	mybook.save_txt_content(ARGS.output)
 	if ARGS.save_pos:
-		txt_save_books_position(mybook, ARGS.output.with_stem(ARGS.output.stem + "_POSITION"))
-		print("book position saved to text file in the same folder")
+		mybook.save_txt_position(ARGS.output.with_stem(ARGS.output.stem + "_POSITION"))
 	if ARGS.save_img:
-		if CAPABILITIES["png"]:
-			img_save_books_content(mybook, ARGS.output.with_suffix(".png"))
-			print("image saved in the same folder")
-		else:
-			warn("no image export capability, output aborted")
+		mybook.save_png(ARGS.output.with_suffix(".png"))
 	if ARGS.save_pdf:
-		if CAPABILITIES["pdf"]:
-			pdf_save_books_content(mybook, ARGS.output.with_suffix(".pdf"))
-			print("pdf saved in the same folder")
-		else:
-			warn("no pdf export capability, output aborted")
+		mybook.save_pdf(ARGS.output.with_suffix(".pdf"))
 
 
 match ARGS.command:
@@ -100,11 +84,12 @@ match ARGS.command:
 				raise ValueError("unknown fill option")
 
 		if (tmp_path := Path(ARGS.input)).is_file():
-			book = search_func(tmp_path.read_text(encoding="utf-8"))
+			books = search_func(tmp_path.read_text(encoding="utf-8"))
 		else:
-			book = search_func(ARGS.input)
+			books = search_func(ARGS.input)
 
-		_save(book)
+		for book in books:
+			_save(book)
 
 	case "browse":
 
@@ -114,9 +99,9 @@ match ARGS.command:
 		else:
 			match ARGS.input.suffix.lower():
 				case ".png":
-					book = img_load(ARGS.input)
+					book = read_png(ARGS.input)
 				case ".txt":
-					book = txt_load_book_position(ARGS.input)
+					book = read_txt_position(ARGS.input)
 				case _:
 					raise ValueError("only .TXT or .PNG file supported")
 

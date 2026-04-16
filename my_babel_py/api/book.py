@@ -5,25 +5,41 @@ book and properties
 """
 
 from functools import cached_property
+from dataclasses import dataclass
 from typing import Self, TYPE_CHECKING
 from warnings import warn
 
-from ..core import config, utils, types
+from ..core import config, utils
+from ..io import txt
 
 if TYPE_CHECKING:
 	from collections.abc import Generator
+	from pathlib import Path
+if config.CAPABILITIES["png"]:
+	from ..io import png
+if config.CAPABILITIES["pdf"]:
+	from ..io import pdf
+
+
+@dataclass(frozen=True, slots=True, kw_only=True, repr=False)
+class BookPosition:
+	book_in_shelf: utils.Int
+	shelf_id: utils.Int
+	wall_id: utils.Int
+	room_id: utils.Int
+# dataclass should be better than dict, see https://medium.com/prodigy-engineering/python-from-dictionaries-to-data-classes-b1698a366e6d
 
 
 class Book:
 
-	def __init__(self, raw_int: types.Int) -> None:
+	def __init__(self, raw_int: utils.Int) -> None:
 		# use multiple constructors pattern to create book from content/position/index, see https://stackoverflow.com/q/682504/10805680
 		self._raw_int = raw_int
 		# content/position/index will be lazily generated when requested, because they are strings so take more memory than the raw integer
 		# also i could use raw integer to compute various things later if needed
 
 	@property
-	def raw_int(self) -> types.Int:
+	def raw_int(self) -> utils.Int:
 		return self._raw_int
 
 	@staticmethod
@@ -55,7 +71,7 @@ class Book:
 			yield tmp[i : i+config.CHARS_PER_LINE]
 
 	@classmethod
-	def from_position(cls, *, book_in_shelf: types.Int, shelf_id: types.Int, wall_id: types.Int, room_id: types.Int) -> Self:
+	def from_position(cls, *, book_in_shelf: utils.Int, shelf_id: utils.Int, wall_id: utils.Int, room_id: utils.Int) -> Self:
 		return cls(
 			room_id * config.BOOKS_PER_ROOM
 			+ config.BOOKS_PER_SHELF * (config.SHELVES_PER_WALL * wall_id + shelf_id)
@@ -63,8 +79,8 @@ class Book:
 		)
 
 	@property
-	def position(self) -> types.BookPosition:
-		"""find the room and position of the book in the room"""
+	def position(self) -> BookPosition:
+		"""find the room and position of the book in the room (zero-based index)"""
 		# example book content / book index in base-10 is 5342526, then:
 		# divmod(5342526, 640) => room_id=8347, remainder=446
 		# divmod(446, 32)      => remainder=13, book_in_shelf=30
@@ -73,7 +89,7 @@ class Book:
 		room_id, remainder = divmod(self._raw_int, config.BOOKS_PER_ROOM)  # remainder is always less than BOOKS_PER_ROOM
 		remainder, book_in_shelf = divmod(remainder, config.BOOKS_PER_SHELF)
 		wall_id, shelf_id = divmod(remainder, config.SHELVES_PER_WALL)
-		return types.BookPosition(book_in_shelf=book_in_shelf, shelf_id=shelf_id, wall_id=wall_id, room_id=room_id)
+		return BookPosition(book_in_shelf=book_in_shelf, shelf_id=shelf_id, wall_id=wall_id, room_id=room_id)
 
 	@classmethod
 	def from_index(cls, index: str) -> Self:
@@ -102,8 +118,29 @@ class Book:
 				color = int(tmp[ij : ij+config.COLOR_LENGTH], base=16) # convert hex to int
 				pixel_color.append(color)
 			img_array.append(pixel_color)
-		assert len(img_array) <= config.MAX_PIXEL_COUNT * len(config.COLOR_MODE), "too many more pixels than expected, need to re-do the math"
 		return img_array
+
+	def save_txt_content(self, filepath: Path) -> None:
+		txt.txt_save_books_content(self, filepath)
+		print(f"book content saved to {filepath}")
+
+	def save_txt_position(self, filepath: Path) -> None:
+		txt.txt_save_books_position(self, filepath)
+		print(f"book position saved to {filepath}")
+
+	def save_png(self, filepath: Path) -> None:
+		if not config.CAPABILITIES["png"]:
+			warn("no PNG image export capability, output aborted")
+		else:
+			png.png_save_books_content(self, filepath)
+			print(f"book content saved to {filepath}")
+
+	def save_pdf(self, filepath: Path, *, fontpath: Path | None = None) -> None:
+		if not config.CAPABILITIES["pdf"]:
+			warn("no PDF document export capability, output aborted")
+		else:
+			pdf.pdf_save_books_content(self, filepath, fontpath=fontpath)
+			print(f"book content saved to {filepath}")
 
 	# TODO: better debugging info
 	def __repr__(self, digit=5) -> str:

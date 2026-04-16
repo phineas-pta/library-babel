@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from typing import TYPE_CHECKING
+from collections.abc import Sequence
 from icu import Transliterator
 from gmpy2 import mpz
-
-if TYPE_CHECKING:
-	from .types import Str, Int
 
 ###############################################################################
 # romanization = transliteration to latin alphabet
@@ -41,8 +38,11 @@ _TRANSLITERATOR = Transliterator.createFromRules("random-label", """
 transliterate = _TRANSLITERATOR.transliterate
 
 ###############################################################################
-# base conversion functions
+# base conversion routine
 # based on https://zwyx.dev/blog/base-conversions-with-big-numbers-in-javascript
+
+type Str = Sequence[str]
+type Int = int | mpz
 
 
 def str2int(text: Str, alphabet: Str) -> mpz:
@@ -53,7 +53,7 @@ def str2int(text: Str, alphabet: Str) -> mpz:
 	try:
 		parts = [{"digit": mpz(powers.get(part)), "base": mpz(base)} for part in text]
 		# `powers.get(part)` is much more faster than `alphabet.index(part)` when text is very long
-	except TypeError, KeyError, ValueError:
+	except LookupError, TypeError, ValueError:
 		_tmp = set(part for part in text if part not in alphabet)
 		raise ValueError(f"text contains characters not found in alphabet: {_tmp}")
 
@@ -85,7 +85,7 @@ def int2str(value: Int, alphabet: Str) -> str:
 	"""converts an integer in base-10 to a sequence of base-b digits, where b is the length of the alphabet"""
 
 	if not isinstance(value, int | mpz):  # not sure why `Int` is incorrect here
-		raise ValueError("not integer value")  # there’re some subtleties but i don’t want to deal with them
+		raise TypeError("not integer value")  # there’re some subtleties but i don’t want to deal with them
 
 	if value == 0:
 		return alphabet[0]

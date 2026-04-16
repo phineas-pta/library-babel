@@ -9,12 +9,14 @@ from my_babel_py.core.utils import str2int, int2str
 
 class Test_Base_Conversion(TestCase):
 	"""Test the base conversion functions `str2int` and `int2str` against `gmpy2`’s built-in base conversion methods."""
+	_ALPHABET_base62: str
+	_RADIX: int
 
 	@classmethod
 	def setUpClass(cls):
 		# `gmpy2` (and `numpy`) can only convert up to base-62
-		cls.ALPHABET_base62 = digits + ascii_uppercase + ascii_lowercase # `string.ascii_letters` doesn’t have the same order as `gmpy2`
-		cls.RADIX = len(cls.ALPHABET_base62)
+		cls._ALPHABET_base62 = digits + ascii_uppercase + ascii_lowercase # `string.ascii_letters` doesn’t have the same order as `gmpy2`
+		cls._RADIX = len(cls._ALPHABET_base62)
 
 	def test_integer_to_string(self):
 		TEST_INTs = [
@@ -26,7 +28,7 @@ class Test_Base_Conversion(TestCase):
 		]
 		for i in TEST_INTs:
 			with self.subTest(num=i):
-				self.assertEqual(int2str(i, self.ALPHABET_base62), i.digits(self.RADIX))
+				self.assertEqual(int2str(i, self._ALPHABET_base62), i.digits(self._RADIX))
 
 	def test_string_to_integer(self):
 		TEST_STRs = [
@@ -38,7 +40,7 @@ class Test_Base_Conversion(TestCase):
 		]
 		for s in TEST_STRs:
 			with self.subTest(str=s):
-				self.assertEqual(str2int(s, self.ALPHABET_base62), mpz(s, self.RADIX))
+				self.assertEqual(str2int(s, self._ALPHABET_base62), mpz(s, self._RADIX))
 
 
 class Test_Inconvertible(TestCase):
@@ -47,7 +49,7 @@ class Test_Inconvertible(TestCase):
 		self.assertRaises(ValueError, str2int, text=punctuation, alphabet=digits)
 
 	def test_not_integer(self):
-		self.assertRaises(ValueError, int2str, value=0.5, alphabet=digits)
+		self.assertRaises(TypeError, int2str, value=0.5, alphabet=digits)
 
 
 if __name__ == "__main__":

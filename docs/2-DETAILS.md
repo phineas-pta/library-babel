@@ -135,40 +135,50 @@ luckily @zwyx also publish the implementation code of base conversion, see: http
 
 *N.B.*: to have the best performance, the base should be a power of 2
 
-the base conversion routine in my program cannot be compiled with `numba` because it doesn’t support arbitrary-precision integers see numba/numba#5005,<br />
+the base conversion routine in my program cannot be compiled with `numba` because it doesn’t support arbitrary-precision integers see numba/numba#5005 (),<br />
 but it can be compiled with `cython` (need benchmarking to see if it’s worth the effort)
 
 although all integers are non-negative, no need to specify as unsigned integer
 
-GPU-acceleration possibilities: as the time of writing, there’re very few libraries in active development (no Python binding though):
+GPU-acceleration possibilities: as the time of writing, there’re very few libraries in active development (also no Python binding):
 - https://github.com/NVlabs/CGBN
 - https://homepages.laas.fr/mmjoldes/campary/
 
 Julia has built-in support for arbitrary-precision integers which can be directly used in GPU (need more research to verify)
 
-### 2.3.2. tree view
+### 2.3.2. code structure
+
+due to a lack of proper knowledge of design patterns, the code is a mess of object-oriented, functional, and procedural programming styles<br />
+but i still try to refactor it while still looking for and learning best practices
 
 ```
-┌
-├───my_babel_py/
-│   ├───config.py    constants
-│   ├───book.py      internal representation
-│   ├───utils.py     romanization & base conversion
-│   ├───search.py    search functionalities
-│   ├───txt.py       import / export TXT file
-│   ├───png.py       import / export PNG image
-│   └───pdf.py       export PDF document
-│
-├───main-cli.py      command-line interface
-├───main-tui.py      terminal user-interface
-├───main-gui.py      placeholder
-├───main-webui.py    placeholder
-│
-├───tests/           unit tests
-├───assets/          other files: font, style, etc.
-├───docs/            some writings
-├───tmp/             temporary files
-├───.idea/
-├───.vscode/
-└
+library-babel/
+  │
+  ├── my_babel_py/
+  │    │
+  │    ├── core/
+  │    │    ├── config.py       constants
+  │    │    └── utils.py        romanization & base conversion
+  │    │
+  │    ├── io/
+  │    │    ├── txt.py          import / export TXT file
+  │    │    ├── png.py          import / export PNG image
+  │    │    └── pdf.py          export PDF document
+  │    │
+  │    └── api/
+  │         ├── book.py         internal representation
+  │         ├── randomize.py    generate random book
+  │         └── search.py       search functionalities
+  │
+  ├── main-cli.py               command-line interface
+  ├── main-tui.py               terminal user-interface
+  ├── main-gui.py               placeholder
+  ├── main-webui.py             placeholder
+  │
+  ├── tests/                    unit tests
+  ├── assets/                   other files: font, style, etc.
+  ├── docs/                     some writings
+  ├── tmp/                      temporary files
+  ├── .idea/                    PyCharm settings
+  └── .vscode/                  VSCode settings
 ```

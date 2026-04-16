@@ -9,6 +9,7 @@ import math
 import platform
 from unicodedata import unidata_version
 from importlib.util import find_spec
+from types import MappingProxyType
 import gmpy2
 import icu
 
@@ -100,14 +101,14 @@ PIXEL_LENGTH: Final = len(COLOR_MODE) * COLOR_LENGTH # 4 colors × 2 hex charact
 ###############################################################################
 # sys info
 
-CAPABILITIES: Final = {
+CAPABILITIES: Final = MappingProxyType({
 	"png": find_spec("PIL") is not None,
 	"pdf": find_spec("fpdf") is not None,
 	"cli": True,
 	"tui": False,
 	"gui": False,
 	"webui": False,
-}
+})
 def _printTF(x: bool) -> str:
 	return "YES" if x else "NO"
 

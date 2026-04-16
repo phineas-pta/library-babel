@@ -6,11 +6,14 @@ from pathlib import Path
 from tempfile import TemporaryDirectory # use temp dir to avoid race condition problem with temp file
 from my_babel_py.core.utils import transliterate
 from my_babel_py.api.book import Book
-from my_babel_py.io.txt import txt_save_books_position, txt_load_book_position
+from my_babel_py.io import read_txt_position
 
 
 class Test_Text_IO(TestCase):
 	"""Test the text input / output functions"""
+	_input: Book
+	_output: Book
+	_tempdir: TemporaryDirectory
 
 	@classmethod
 	def setUpClass(cls):
@@ -18,21 +21,21 @@ class Test_Text_IO(TestCase):
 			f.read_text(encoding="utf-8")
 			for f in Path("docs").glob("*.md")
 		)) # also work with text padded with whitespace
-		cls.input = Book.from_content(tmp_str)
-		cls.tempdir = TemporaryDirectory()
-		tmp_file = Path(cls.tempdir.name) / "tmp.txt"
-		txt_save_books_position(cls.input, tmp_file)
-		cls.output = txt_load_book_position(tmp_file)
+		cls._input = Book.from_content(tmp_str)
+		cls._tempdir = TemporaryDirectory()
+		tmp_file = Path(cls._tempdir.name) / "tmp.txt"
+		cls._input.save_txt_position(tmp_file)
+		cls._output = read_txt_position(tmp_file)
 
 	@classmethod
 	def tearDownClass(cls):
-		cls.tempdir.cleanup()
+		cls._tempdir.cleanup()
 
 	def test_book_position(self):
-		self.assertEqual(self.output.position, self.input.position, "book position should be kept as-is")
+		self.assertEqual(self._output.position, self._input.position, "book position should be kept as-is")
 
 	def test_book_content(self):
-		self.assertEqual(self.output.content, self.input.content, "book content should be kept as-is")
+		self.assertEqual(self._output.content, self._input.content, "book content should be kept as-is")
 
 
 if __name__ == "__main__":
