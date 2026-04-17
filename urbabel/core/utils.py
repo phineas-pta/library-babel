@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from collections.abc import Sequence
+from typing import Final
+from collections.abc import Sequence, Callable
 from icu import Transliterator
 from gmpy2 import mpz
 
@@ -35,7 +36,7 @@ _TRANSLITERATOR = Transliterator.createFromRules("random-label", """
 	# :: Null; ' ' {' '} > ; # un-comment to collapse multiple spaces into one space
 	# Null splits the rules into 2 “passes”: 1st pass applies above rules, 2nd pass applies below rules
 """)
-transliterate = _TRANSLITERATOR.transliterate
+transliterate: Final[Callable[[str], str]] = _TRANSLITERATOR.transliterate
 
 ###############################################################################
 # base conversion routine
@@ -48,10 +49,10 @@ type Int = int | mpz
 def str2int(text: Str, alphabet: Str) -> mpz:
 	"""converts a sequence of base-b digits to an integer in base-10, where b is the length of the alphabet"""
 
-	base = len(alphabet)
-	powers = {v: i for i, v in enumerate(alphabet)}
+	base: Final = len(alphabet)
+	powers: Final = {v: i for i, v in enumerate(alphabet)}
 	try:
-		parts = [{"digit": mpz(powers.get(part)), "base": mpz(base)} for part in text]
+		parts: list[dict[str, mpz]] = [{"digit": mpz(powers.get(part)), "base": mpz(base)} for part in text]
 		# `powers.get(part)` is much more faster than `alphabet.index(part)` when text is very long
 	except LookupError, TypeError, ValueError:
 		_tmp = set(part for part in text if part not in alphabet)
@@ -61,8 +62,8 @@ def str2int(text: Str, alphabet: Str) -> mpz:
 		return parts[0]["digit"]
 
 	while len(parts) > 2:
-		pair_full = False
-		new_parts = []
+		pair_full: bool = False
+		new_parts: list[dict[str, mpz]] = []
 		for i, curr_part in enumerate(parts):
 			if not pair_full:
 				if i == len(parts) - 1:
@@ -90,16 +91,16 @@ def int2str(value: Int, alphabet: Str) -> str:
 	if value == 0:
 		return alphabet[0]
 
-	number_of_bits_in_value = value.bit_length()
-	base = len(alphabet)
-	divisors = [mpz(base)]
+	number_of_bits_in_value: Final[Int] = value.bit_length()
+	base: Final = len(alphabet)
+	divisors: list[mpz] = [mpz(base)]
 
 	# Precompute divisors (base^(2^i))
 	while (divisors[-1].bit_length() * 2 - 1) <= number_of_bits_in_value:
 		divisors.append(divisors[-1] ** 2)
 
 	# str.join() is most efficient, see: https://docs.python.org/3/faq/programming.html#what-is-the-most-efficient-way-to-concatenate-many-strings-together
-	result_parts = []
+	result_parts: list[str] = []
 
 	def divide(dividend: Int, divisor_index: Int) -> None:
 		divisor = divisors[divisor_index]

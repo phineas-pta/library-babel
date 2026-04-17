@@ -59,4 +59,4 @@ jobs:
           pip-install: pyicu gmpy2
 
       - name: Print info
-        run: python main-cli.py info
+        run: python -m urbabel.cli info

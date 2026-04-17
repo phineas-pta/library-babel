@@ -11,7 +11,8 @@
 			},
 			"command": "${command:python.interpreterPath}",
 			"args": [
-				"main-cli.py",
+				"-m",
+				"urbabel.cli",
 				"search",
 				"-i",
 				"docs/3-EXTRA.md",
@@ -32,7 +33,8 @@
 			},
 			"command": "${command:python.interpreterPath}",
 			"args": [
-				"main-cli.py",
+				"-m",
+				"urbabel.cli",
 				"browse",
 				"-i",
 				"tmp/book-1_POSITION.txt",
@@ -50,7 +52,8 @@
 			},
 			"command": "${command:python.interpreterPath}",
 			"args": [
-				"main-cli.py",
+				"-m",
+				"urbabel.cli",
 				"info"
 			]
 		}

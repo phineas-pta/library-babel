@@ -4,12 +4,12 @@
 from unittest import TestCase, main, skipUnless
 from pathlib import Path
 from tempfile import TemporaryDirectory # use temp dir to avoid race condition problem with temp file
-from my_babel_py.core.config import CAPABILITIES
-from my_babel_py.core.utils import transliterate
-from my_babel_py.api.book import Book
+from urbabel.core.config import CAPABILITIES
+from urbabel.core.utils import transliterate
+from urbabel.api.book import Book
 
 if CAPABILITIES["png"]:
-	from my_babel_py.io import read_png
+	from urbabel.io import read_png
 
 
 @skipUnless(CAPABILITIES["png"], "no image capability")

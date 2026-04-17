@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "my_babel_py/**/*.py"
+      - "urbabel/**/*.py"
       - "tests/*.py"
       - ".github/workflows/unittest.yml"
 
@@ -30,7 +30,7 @@ jobs:
           pip-install: coverage pyicu gmpy2 pillow
 
       - name: Print info
-        run: python main-cli.py info
+        run: python -m urbabel.cli info
 
       - name: Unit test
         run: python -m coverage run -m unittest discover

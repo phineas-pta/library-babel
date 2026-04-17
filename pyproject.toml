@@ -1,7 +1,7 @@
 [project]
-name = "library-babel"
+name = "urbabel"
 authors = [{name = "PTA"}]
-version = "0.0.1"
+version = "0.0.2"
 description = "a Python version of Library of Babel with limited multi-language input support"
 readme = "README.md"
 license = "AGPL-3.0-or-later"
@@ -38,7 +38,7 @@ webui = ["nicegui"]
 Repository = "https://github.com/phineas-pta/library-babel"
 
 [tool.coverage.run]
-omit = ["main-*.py"]
+omit = ["urbabel/*i.py"]
 
 [tool.ruff.format]
 indent-style = "tab"

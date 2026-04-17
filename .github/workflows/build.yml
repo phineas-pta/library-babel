@@ -63,4 +63,4 @@ jobs:
           echo $PATH
 
       - name: Print info
-        run: python main-cli.py info
+        run: python -m urbabel.cli info

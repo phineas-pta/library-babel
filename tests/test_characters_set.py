@@ -3,7 +3,8 @@
 
 from unittest import TestCase, main, skipUnless
 from icu import UNICODE_VERSION
-from my_babel_py.core.config import BOOK_CONTENT_CHARACTERS, BOOK_INDEX_CHARACTERS
+
+from urbabel.core.config import BOOK_CONTENT_CHARACTERS, BOOK_INDEX_CHARACTERS
 
 _EXPECTED_VALUES = { # these values come from a specific github actions to count characters for each Unicode version
 	"17.0": {"content": 8959, "index": 159613}, # ICU v78.x

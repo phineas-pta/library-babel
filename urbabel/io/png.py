@@ -62,13 +62,8 @@ def _get_stop_pixel(img: Image.Image) -> int:
 	return stop_pixel
 
 
-def png_load(filepath: Path) -> book.Book:
-	"""load the content of the book from an image file"""
-
-	img = Image.open(filepath)
-	img = _retouch_img(img)
+def _get_img_array(img: Image.Image) -> list[str]:
 	stop_pixel = _get_stop_pixel(img)
-
 	img_array = []
 	for i in range(config.BOOK_IMAGE_SIZE):
 		for j in range(config.BOOK_IMAGE_SIZE):
@@ -82,7 +77,14 @@ def png_load(filepath: Path) -> book.Book:
 			continue # only executed if the inner loop did NOT break
 		break # only executed if the inner loop DID break
 	# no need to break loop early since the rest of pixels are very few (< 0.001%), but for programming practice
-	img.close()
+	return img_array
 
+
+def png_load(filepath: Path) -> book.Book:
+	"""load the content of the book from an image file"""
+	img = Image.open(filepath)
+	img = _retouch_img(img)
+	img_array = _get_img_array(img)
+	img.close()
 	raw_int = utils.str2int(img_array, config.BYTE_HEX) # convert from base 256 to base 10
 	return book.Book(raw_int)

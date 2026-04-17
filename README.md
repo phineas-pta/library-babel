@@ -1,6 +1,6 @@
 ![](https://github.com/tdjsnelling/babel/blob/master/src/public/image/study.png)
 
-# Library of Babel
+# `URBabel`: Unicode romanized Library of Babel
 
 ![](https://img.shields.io/github/license/phineas-pta/library-babel?style=for-the-badge)
 ![](https://img.shields.io/badge/python-≥3.14-FF7139?style=for-the-badge)
@@ -65,7 +65,7 @@ pip install pillow gmpy2 fpdf2 pyicu
 i include a [text file](docs/3-EXTRA.md) that u can use to test the program
 
 ```bash
-python main-cli.py search -i docs/3-EXTRA.md -o tmp/book-1.txt -save-pos -save-img -save-pdf
+python -m urbabel.cli search -i docs/3-EXTRA.md -o tmp/book-1.txt -save-pos -save-img -save-pdf
 ```
 
 on my computer, process a book take ~3s, then save to `.png` take ~2s, RAM usage < 200 MiB

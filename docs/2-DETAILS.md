@@ -135,7 +135,7 @@ luckily @zwyx also publish the implementation code of base conversion, see: http
 
 *N.B.*: to have the best performance, the base should be a power of 2
 
-the base conversion routine in my program cannot be compiled with `numba` because it doesn’t support arbitrary-precision integers see numba/numba#5005 (),<br />
+the base conversion routine in my program cannot be compiled with `numba` because it doesn’t support arbitrary-precision integers see numba/numba#5005 (max integer width is currently limited to 64-bit, *i.e.* number with $\log_{10}(2^{64}) = 64\log_{10}(2) \approx 20$ digits),<br />
 but it can be compiled with `cython` (need benchmarking to see if it’s worth the effort)
 
 although all integers are non-negative, no need to specify as unsigned integer
@@ -165,15 +165,15 @@ library-babel/
   │    │    ├── png.py          import / export PNG image
   │    │    └── pdf.py          export PDF document
   │    │
-  │    └── api/
-  │         ├── book.py         internal representation
-  │         ├── randomize.py    generate random book
-  │         └── search.py       search functionalities
-  │
-  ├── main-cli.py               command-line interface
-  ├── main-tui.py               terminal user-interface
-  ├── main-gui.py               placeholder
-  ├── main-webui.py             placeholder
+  │    ├── api/
+  │    │    ├── book.py         internal representation
+  │    │    ├── randomize.py    generate random book
+  │    │    └── search.py       search functionalities
+  │    │
+  │    ├── cli.py              command-line interface
+  │    ├── tui.py              terminal user-interface
+  │    ├── gui.py              placeholder
+  │    └── webui.py            placeholder
   │
   ├── tests/                    unit tests
   ├── assets/                   other files: font, style, etc.

@@ -4,9 +4,10 @@
 from unittest import TestCase, main
 from pathlib import Path
 from tempfile import TemporaryDirectory # use temp dir to avoid race condition problem with temp file
-from my_babel_py.core.utils import transliterate
-from my_babel_py.api.book import Book
-from my_babel_py.io import read_txt_position
+
+from urbabel.core.utils import transliterate
+from urbabel.api.book import Book
+from urbabel.io import read_txt_position
 
 
 class Test_Text_IO(TestCase):

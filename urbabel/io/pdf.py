@@ -27,7 +27,7 @@ class _MyPdf(FPDF):
 
 def pdf_save_books_content(self: Book, filepath: Path, *, fontpath: Path | None = None) -> None:
 	if fontpath is None:
-		fontpath = Path(__file__).parents[2] / "assets" / "JuliaMono-Regular.ttf" # included with this program
+		fontpath = Path(Path(__file__).parents[2], "assets", "JuliaMono-Regular.ttf") # included with this program
 	pdf = _MyPdf(fontpath=fontpath)
 	for i in self.get_lines():
 		if isinstance(i, int):

@@ -3,11 +3,12 @@
 
 from unittest import TestCase, main
 from string import ascii_letters, digits, punctuation
-from my_babel_py.core.utils import transliterate
+
+from urbabel.core.utils import transliterate
+
+
 # TODO: more exhaustive edge cases
 # the categories here aren’t exactly as Unicode categories
-
-
 class Test_Letters_categories(TestCase):
 	"""Test the transliteration of letters (Latin and non-Latin) and also digits"""
 

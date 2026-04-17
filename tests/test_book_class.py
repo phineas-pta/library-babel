@@ -3,9 +3,10 @@
 
 from unittest import TestCase, main
 from pathlib import Path
-from my_babel_py.core.config import ZERO_CHAR, MAX_PIXEL_COUNT, COLOR_MODE
-from my_babel_py.core.utils import transliterate
-from my_babel_py.api.book import Book
+
+from urbabel.core.config import ZERO_CHAR, MAX_PIXEL_COUNT, COLOR_MODE
+from urbabel.core.utils import transliterate
+from urbabel.api.book import Book
 
 
 class Test_Book(TestCase):

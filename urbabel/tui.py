@@ -5,15 +5,25 @@
 terminal user-interface
 """
 
+from typing import final, Final
 from pathlib import Path
+
+from .core import config
+
+if not config.CAPABILITIES["tui"]:
+	raise RuntimeError("TUI is not supported on this system.")
+
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.screen import Screen
 from textual.widget import Widget
 from textual import containers as c, widgets as w
-from my_babel_py.core.config import SYS_INFO, MODIFIED_BOURGES_QUOTE, PAGES_PER_BOOK, SRC_URL
 
+_project_dir: Final = Path(__file__).parents[1]
 
+###############################################################################
+
+@final
 class BookSaving(Widget):
 	def compose(self) -> ComposeResult:
 		yield w.Checkbox("save book content")
@@ -23,6 +33,7 @@ class BookSaving(Widget):
 		yield w.DirectoryTree("~/")
 
 
+@final
 class ScreenHome(Screen):
 	SUB_TITLE = "Home"
 
@@ -30,7 +41,7 @@ class ScreenHome(Screen):
 		yield w.Header(show_clock=True)
 		yield w.Footer()
 		yield w.Static("The extended “Library of Babel” in terminal", markup=False)
-		yield w.Static(MODIFIED_BOURGES_QUOTE, markup=False)
+		yield w.Static(config.MODIFIED_BOURGES_QUOTE, markup=False)
 		yield w.Rule(line_style="dashed") # shameless copy from @zwyx
 		yield w.Static("[b]Welcome, visitor[/b]")
 		yield w.Static("The “Library of Babel” contains [i]all the books[/i].")
@@ -40,9 +51,28 @@ class ScreenHome(Screen):
 		yield w.Button("Search for text", variant="success", action="app.switch_mode('search')")
 		yield w.Button("Browse a book", variant="primary", action="app.switch_mode('browse')")
 		yield w.Rule(line_style="dashed")
-		yield w.Static(SRC_URL, markup=False)
+		yield w.Static(config.SRC_URL, markup=False)
 
 
+@final
+class ScreenHelp(Screen):
+	SUB_TITLE = "Help"
+
+	def compose(self) -> ComposeResult:
+		yield w.Header(show_clock=True)
+		yield w.Footer()
+		with w.TabbedContent():
+			with w.TabPane("System info"):
+				yield w.Static(config.SYS_INFO, markup=False)
+			with w.TabPane("About"):
+				yield w.MarkdownViewer(Path(_project_dir, "docs", "1-ABOUT.md").read_text(encoding="utf-8"))
+			with w.TabPane("Details"):
+				yield w.MarkdownViewer(Path(_project_dir, "docs", "2-DETAILS.md").read_text(encoding="utf-8"))
+
+
+###############################################################################
+
+@final
 class ScreenSearch(Screen):
 	SUB_TITLE = "Search"
 
@@ -55,7 +85,7 @@ class ScreenSearch(Screen):
 				yield w.TextArea(show_line_numbers=True)
 				yield w.Button("Search", variant="primary")
 			with c.VerticalScroll():
-				for i in range(PAGES_PER_BOOK):
+				for i in range(config.PAGES_PER_BOOK):
 					yield w.Static(f"Page {i}", markup=False)
 			with c.Vertical(classes="sidebar"):
 				with w.RadioSet():
@@ -66,6 +96,9 @@ class ScreenSearch(Screen):
 				yield BookSaving()
 
 
+###############################################################################
+
+@final
 class ScreenBrowse(Screen):
 	SUB_TITLE = "Browse"
 
@@ -78,30 +111,18 @@ class ScreenBrowse(Screen):
 				yield w.DirectoryTree("./")
 				yield w.Button("Browse", variant="primary")
 			with c.VerticalScroll():
-				for i in range(PAGES_PER_BOOK):
+				for i in range(config.PAGES_PER_BOOK):
 					yield w.Static(f"Page {i}", markup=False)
 			with c.Vertical(classes="sidebar"):
 				yield BookSaving()
 
 
-class ScreenHelp(Screen):
-	SUB_TITLE = "Help"
+###############################################################################
 
-	def compose(self) -> ComposeResult:
-		yield w.Header(show_clock=True)
-		yield w.Footer()
-		with w.TabbedContent():
-			with w.TabPane("System info"):
-				yield w.Static(SYS_INFO, markup=False)
-			with w.TabPane("About"):
-				yield w.MarkdownViewer(Path("docs", "1-ABOUT.md").read_text(encoding="utf-8"))
-			with w.TabPane("Details"):
-				yield w.MarkdownViewer(Path("docs", "2-DETAILS.md").read_text(encoding="utf-8"))
-
-
+@final
 class MyApp(App):
 	TITLE = "LIBRARY of BABEL"
-	CSS_PATH = "assets/style.tcss"
+	CSS_PATH = Path(_project_dir, "assets", "style.tcss")
 	MODES = {"home": ScreenHome, "search": ScreenSearch, "browse": ScreenBrowse, "help": ScreenHelp}
 	DEFAULT_MODE = "home"
 	BINDINGS = [
@@ -119,4 +140,5 @@ class MyApp(App):
 		self.theme = "tokyo-night"
 
 
-MyApp().run()
+if __name__ == "__main__":
+	MyApp().run()

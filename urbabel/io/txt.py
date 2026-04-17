@@ -12,11 +12,12 @@ from ..api import book
 
 def txt_save_books_content(self: book.Book, filepath: Path) -> None:
 	"""save the content of the book to a txt file"""
+	tmp = self.get_lines()
+	next(tmp) # skip the first page number
 	with filepath.open(mode="w", encoding="utf-8") as f:
-		for i in self.get_lines():
+		for i in tmp:
 			if isinstance(i, int): # add an extra newline after each page
-				if i > 0: # not the first page
-					f.write("\n")
+				f.write("\n")
 			else:
 				f.write(i + "\n")
 
@@ -33,7 +34,7 @@ def txt_save_books_position(self: book.Book, filepath: Path) -> None:
 
 def txt_load_book_position(filepath: Path) -> book.Book:
 	txt = filepath.read_text(encoding="utf-8").splitlines() # .readlines() keep line break which isn’t in BOOK_INDEX_CHARACTERS
-	tmp0 = txt[0].split(" ")
+	tmp0 = txt[0].split(" ") # TODO: find a better way to parse this
 	return book.Book.from_position(
 		book_in_shelf=int(tmp0[3]) - 1,
 		shelf_id=int(tmp0[6]) - 1,

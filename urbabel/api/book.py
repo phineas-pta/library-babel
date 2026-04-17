@@ -6,7 +6,7 @@ book and properties
 
 from functools import cached_property
 from dataclasses import dataclass
-from typing import Self, TYPE_CHECKING
+from typing import final, Self, TYPE_CHECKING
 from warnings import warn
 
 from ..core import config, utils
@@ -21,6 +21,7 @@ if config.CAPABILITIES["pdf"]:
 	from ..io import pdf
 
 
+@final
 @dataclass(frozen=True, slots=True, kw_only=True, repr=False)
 class BookPosition:
 	book_in_shelf: utils.Int
@@ -30,6 +31,7 @@ class BookPosition:
 # dataclass should be better than dict, see https://medium.com/prodigy-engineering/python-from-dictionaries-to-data-classes-b1698a366e6d
 
 
+@final
 class Book:
 
 	def __init__(self, raw_int: utils.Int) -> None:

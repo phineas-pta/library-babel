@@ -59,14 +59,14 @@ _tmp1 = [ZERO_CHAR] # space character as 1st character because it is removed in 
 for char in _tmp0:
 	if icu.Char.isprint(char):
 		_tmp1.append(char)
-BOOK_CONTENT_CHARACTERS: Final = tuple(_tmp1)
+BOOK_CONTENT_CHARACTERS: Final[tuple[str, ...]] = tuple(_tmp1)
 
 
 # list of all characters to be used in book index, basically any printable characters
 # python str.isprintable() is more restrictive, so when writing to file some characters can be missed
 _tmp2 = icu.UnicodeSet("""[^[:General_Category=Separator:][:General_Category=Other:]]""") # should remove a lot of unprintable with python
 _tmp2.add(ZERO_CHAR) # doesn’t matter whether append or prepend
-BOOK_INDEX_CHARACTERS: Final = tuple(char for char in _tmp2 if icu.Char.isprint(char))
+BOOK_INDEX_CHARACTERS: Final[tuple[str, ...]] = tuple(char for char in _tmp2 if icu.Char.isprint(char))
 
 
 _tmp3 = len(BOOK_CONTENT_CHARACTERS)
@@ -90,8 +90,9 @@ _tmp4 = len(BOOK_INDEX_CHARACTERS)
 BYTE: Final = 2**8 # color = 1 byte = 256 values in each channel R, G, B, A
 BYTE_HEX: Final = tuple(f"{i:02x}" for i in range(BYTE)) # hex code
 
-MAX_PIXEL_COUNT: Final = math.ceil(CHARS_PER_BOOK * math.log(_tmp3, BYTE**4))
-BOOK_IMAGE_SIZE: Final = math.ceil(math.sqrt(MAX_PIXEL_COUNT))
+_pixel_count = CHARS_PER_BOOK * math.log(_tmp3, BYTE**4)
+MAX_PIXEL_COUNT: Final = math.ceil(_pixel_count)
+BOOK_IMAGE_SIZE: Final = math.ceil(math.sqrt(_pixel_count))
 
 COLOR_MODE: Final = "RGBA"
 ZERO_COLOR: Final = (0,) * len(COLOR_MODE) # black but transparent
@@ -104,13 +105,12 @@ PIXEL_LENGTH: Final = len(COLOR_MODE) * COLOR_LENGTH # 4 colors × 2 hex charact
 CAPABILITIES: Final = MappingProxyType({
 	"png": find_spec("PIL") is not None,
 	"pdf": find_spec("fpdf") is not None,
-	"cli": True,
-	"tui": False,
+	"tui": find_spec("textual") is not None,
 	"gui": False,
 	"webui": False,
 })
-def _printTF(x: bool) -> str:
-	return "YES" if x else "NO"
+def _print_cap(cap: str) -> str:
+	return "YES" if CAPABILITIES[cap] else "NO"
 
 SYS_INFO: Final = f"""SYSTEM info:
   - Operating system: {platform.system()} {platform.release()}
@@ -122,12 +122,12 @@ SYS_INFO: Final = f"""SYSTEM info:
   - Unicode version:
     - in Python: {unidata_version} (NOT being used)
     - in ICU: {icu.UNICODE_VERSION}
-  - Export capabilities: text = YES, image = {_printTF(CAPABILITIES["png"])}, pdf = {_printTF(CAPABILITIES["pdf"])}
+  - Export capabilities: text = YES, image = {_print_cap("png")}, pdf = {_print_cap("pdf")}
   - Interface availabilities:
-    - command-line interface = {_printTF(CAPABILITIES["cli"])}
-    - terminal user-interface = {_printTF(CAPABILITIES["tui"])}
-    - graphical user-interface = {_printTF(CAPABILITIES["gui"])}
-    - web-based user-interface = {_printTF(CAPABILITIES["webui"])}
+    - command-line interface = YES
+    - terminal user-interface = {_print_cap("tui")}
+    - graphical user-interface = {_print_cap("gui")}
+    - web-based user-interface = {_print_cap("webui")}
 
 LIBRARY OF BABEL info:
   - {_tmp3:,d} unique characters in book content
